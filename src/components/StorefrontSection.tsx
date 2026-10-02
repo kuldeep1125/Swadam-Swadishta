@@ -8,6 +8,27 @@ import { BrushUnderline, DecorativeLeaf, PureVegBadge } from "@/components/Brand
 import { MapPin, Navigation, Clock, ShieldCheck, ArrowUpRight } from "lucide-react";
 
 export function StorefrontSection() {
+  const [activePhoto, setActivePhoto] = React.useState<"street" | "counter">("street");
+
+  const photos = {
+    street: {
+      src: "/images/real_storefront_street.png",
+      alt: "Authentic Swadam Swadishta street storefront at Shop No. 5, Baner Pune",
+      badge: "STREET VIEW & SEATING",
+      title: "Real Shopfront on Pan Card Club Road",
+      desc: "Outdoor street seating, marigold toran, and clean welcoming facade in Baner, Pune.",
+    },
+    counter: {
+      src: "/images/storefront.jpg",
+      alt: "Swadam Swadishta counter and welcoming entrance",
+      badge: "SERVICE COUNTER",
+      title: "Welcoming Counter & Kitchen",
+      desc: "Spotless hygienic kitchen counter with fresh Maharashtrian dishes prepared before you.",
+    },
+  };
+
+  const current = photos[activePhoto];
+
   return (
     <section id="storefront" className="relative py-24 sm:py-32 px-4 sm:px-8 md:px-12 bg-cream-50 overflow-hidden" aria-label="Our Real Storefront in Baner Pune">
       
@@ -17,7 +38,7 @@ export function StorefrontSection() {
       <div className="mx-auto max-w-7xl relative">
         
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-3 mb-16">
+        <div className="text-center max-w-3xl mx-auto space-y-3 mb-12">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cream-200 border border-turmeric-400/50 text-xs font-bold text-brown-800">
             <ShieldCheck className="w-4 h-4 text-brandGreen-700" />
             <span>REAL PHYSICAL DESTINATION IN PUNE</span>
@@ -34,6 +55,30 @@ export function StorefrontSection() {
           <p className="text-base sm:text-lg text-brown-700 font-sans leading-relaxed">
             Step into our welcoming shop on Pan Card Club Road, Baner. Pull up a chair under the marigold toran, smell the sizzling tempering, and enjoy genuine Maharashtrian hospitality.
           </p>
+
+          {/* Photo Switcher Pills */}
+          <div className="pt-2 flex items-center justify-center gap-2">
+            <button
+              onClick={() => setActivePhoto("street")}
+              className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all duration-300 ${
+                activePhoto === "street"
+                  ? "bg-brown-900 text-cream-100 shadow-md scale-105"
+                  : "bg-white text-brown-800 border border-turmeric-400/60 hover:bg-cream-100"
+              }`}
+            >
+              🏢 Street Front & Outdoor View
+            </button>
+            <button
+              onClick={() => setActivePhoto("counter")}
+              className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all duration-300 ${
+                activePhoto === "counter"
+                  ? "bg-brown-900 text-cream-100 shadow-md scale-105"
+                  : "bg-white text-brown-800 border border-turmeric-400/60 hover:bg-cream-100"
+              }`}
+            >
+              🛎️ Entrance & Counter View
+            </button>
+          </div>
         </div>
 
         {/* Real Storefront Visual Composition */}
@@ -41,12 +86,12 @@ export function StorefrontSection() {
           
           {/* Real Photo Frame (Col 1-8) */}
           <div className="lg:col-span-8 rounded-3xl overflow-hidden bg-white p-3 sm:p-4 border-2 border-turmeric-400 shadow-2xl group">
-            <div className="relative w-full h-[360px] sm:h-[480px] md:h-[540px] rounded-2xl overflow-hidden bg-brown-900">
+            <div className="relative w-full h-[380px] sm:h-[480px] md:h-[540px] rounded-2xl overflow-hidden bg-brown-900">
               <Image
-                src="/images/storefront.jpg"
-                alt="Swadam Swadishta Physical Storefront at Shop No. 5, 34 Western Pavilion, Baner, Pune"
+                src={current.src}
+                alt={current.alt}
                 fill
-                className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
+                className="object-contain sm:object-cover object-center group-hover:scale-105 transition-transform duration-700"
                 priority
               />
               
@@ -58,7 +103,7 @@ export function StorefrontSection() {
                     SS KITCHEN&apos;S SWADAM SWADISHTA
                   </span>
                   <span className="text-[10px] text-turmeric-300 font-mono">
-                    {restaurant.fssaiNumber}
+                    {restaurant.fssaiNumber} • {current.badge}
                   </span>
                 </div>
               </div>
@@ -66,10 +111,10 @@ export function StorefrontSection() {
               {/* Bottom Caption Overlay */}
               <div className="absolute bottom-4 left-4 right-4 bg-gradient-to-t from-black/85 via-black/50 to-transparent p-4 rounded-xl text-white">
                 <p className="font-display text-lg sm:text-xl font-bold">
-                  Shop No. 5, 34 Western Pavilion, Baner
+                  {current.title}
                 </p>
                 <p className="text-xs sm:text-sm text-cream-200 mt-0.5">
-                  Outdoor and indoor seating available • Warm and hygienic atmosphere
+                  {current.desc}
                 </p>
               </div>
             </div>

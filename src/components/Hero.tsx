@@ -217,7 +217,7 @@ export function Hero() {
             {/* Centerpiece Food Photography: The Authentic Pune Lunch Thali & Misal */}
             <div className="relative w-full h-full rounded-2xl overflow-hidden bg-brown-900/5 flex items-center justify-center group">
               <Image
-                src="/images/lunch_thali.jpg"
+                src="/images/hd_lunch_thali.jpg"
                 alt="Maharashtrian Lunch Thali with 3 Chapatis, 2 Sabjis, Rice, Dal, Papad, and Pickle"
                 fill
                 sizes="(max-width: 768px) 100vw, 440px"
@@ -256,7 +256,7 @@ export function Hero() {
             >
               <div className="relative w-12 h-12 rounded-xl overflow-hidden flex-shrink-0 bg-cream-100">
                 <Image
-                  src="/images/banner_misal.png"
+                  src="/images/hd_misal_pav.jpg"
                   alt="Pune Misal Pav"
                   fill
                   className="object-cover"
@@ -279,7 +279,7 @@ export function Hero() {
             >
               <div className="relative w-11 h-11 rounded-xl overflow-hidden flex-shrink-0 bg-cream-100">
                 <Image
-                  src="/images/wada_pav.jpg"
+                  src="/images/hd_wada_pav.jpg"
                   alt="Maharashtra Wada Pav"
                   fill
                   className="object-cover"
