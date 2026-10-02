@@ -33,6 +33,18 @@ export function Navigation() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
+  // [ADDED] Body scroll lock when mobile menu is active for optimal touch UX
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileMenuOpen]);
+
   const navLinks = [
     { label: "Menu", href: "#menu", marathi: "मेनू" },
     { label: "The Thali", href: "#thali", marathi: "लंच थाळी" },
@@ -46,26 +58,29 @@ export function Navigation() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        className={`fixed top-0 left-0 right-0 z-[70] transition-all duration-500 ${
           isScrolled
-            ? "py-3 px-4 sm:px-6 md:px-8"
-            : "py-5 px-4 sm:px-8 md:px-12"
+            ? "py-2.5 sm:py-3 px-3 sm:px-6 md:px-8"
+            : "py-3 sm:py-5 px-3 sm:px-8 md:px-12"
         }`}
       >
         <div
           className={`mx-auto max-w-7xl transition-all duration-500 rounded-full ${
             isScrolled
-              ? "bg-[#FFF9EE]/95 backdrop-blur-md border border-turmeric-400/40 shadow-xl shadow-brown-900/5 px-4 sm:px-6 py-2.5"
+              ? "bg-[#FFF9EE]/95 backdrop-blur-md border border-turmeric-400/40 shadow-xl shadow-brown-900/5 px-3.5 sm:px-6 py-2 sm:py-2.5"
+              : mobileMenuOpen
+              ? "bg-transparent px-2 py-1"
               : "bg-transparent px-2 py-1"
-          } flex items-center justify-between`}
+          } flex items-center justify-between gap-2`}
         >
           {/* Brand Identity / Logo */}
           <Link
             href="/"
-            className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-saffron-500 rounded-full"
+            onClick={() => setMobileMenuOpen(false)}
+            className="flex items-center gap-2 sm:gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-saffron-500 rounded-full flex-shrink-0"
             aria-label="Swadam Swadishta Homepage"
           >
-            <div className="relative w-10 h-10 sm:w-11 sm:h-11 rounded-full overflow-hidden border border-brandGreen-700/20 bg-white shadow-sm flex items-center justify-center p-0.5 group-hover:scale-105 transition-transform duration-300">
+            <div className="relative w-9 h-9 sm:w-11 sm:h-11 rounded-full overflow-hidden border border-brandGreen-700/20 bg-white shadow-sm flex items-center justify-center p-0.5 group-hover:scale-105 transition-transform duration-300 flex-shrink-0">
               <Image
                 src="/images/logo.png"
                 alt="Swadam Swadishta Logo"
@@ -76,16 +91,16 @@ export function Navigation() {
               />
             </div>
             <div className="flex flex-col">
-              <div className="flex items-center gap-1.5">
-                <span className="font-display font-bold text-lg sm:text-xl tracking-tight text-brown-900 group-hover:text-saffron-600 transition-colors">
+              <div className="flex items-center gap-1 sm:gap-1.5">
+                <span className="font-display font-bold text-base sm:text-xl tracking-tight text-brown-900 group-hover:text-saffron-600 transition-colors">
                   SWADAM
                 </span>
-                <span className="font-devanagari font-bold text-sm text-brandGreen-700">
+                <span className="font-devanagari font-bold text-xs sm:text-sm text-brandGreen-700">
                   स्वादिष्ट
                 </span>
-                <PureVegBadge className="w-3.5 h-3.5 ml-0.5" />
+                <PureVegBadge className="w-3 h-3 sm:w-3.5 sm:h-3.5 ml-0.5 flex-shrink-0" />
               </div>
-              <span className="text-[10px] font-medium tracking-widest text-brown-600 uppercase font-sans -mt-1 hidden sm:block">
+              <span className="text-[10px] font-medium tracking-widest text-brown-600 uppercase font-sans -mt-0.5 sm:-mt-1 hidden sm:block">
                 चव महाराष्ट्राची • Pune
               </span>
             </div>
@@ -93,14 +108,14 @@ export function Navigation() {
 
           {/* Desktop Navigation Links */}
           <nav
-            className="hidden lg:flex items-center gap-1 xl:gap-2 text-sm font-medium"
+            className="hidden lg:flex items-center gap-0.5 xl:gap-2 text-xs xl:text-sm font-medium"
             aria-label="Main Navigation"
           >
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="px-3.5 py-1.5 rounded-full text-brown-800 hover:text-saffron-600 hover:bg-cream-200/50 transition-all duration-200 relative group"
+                className="px-2 xl:px-3.5 py-1.5 rounded-full text-brown-800 hover:text-saffron-600 hover:bg-cream-200/50 transition-all duration-200 relative group whitespace-nowrap"
               >
                 <span>{link.label}</span>
                 <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-saffron-500 rounded-full group-hover:w-1/2 transition-all duration-300" />
@@ -109,41 +124,47 @@ export function Navigation() {
           </nav>
 
           {/* Right Action Buttons */}
-          <div className="flex items-center gap-2 sm:gap-3">
-            {/* Quick Call Button */}
+          <div className="flex items-center gap-1.5 sm:gap-2 xl:gap-3 flex-shrink-0">
+            {/* Quick Call Button (hidden when mobile menu is open to keep header distraction-free) */}
             <a
               href={`tel:${restaurant.phoneRaw}`}
-              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold text-brown-800 bg-cream-200/70 hover:bg-turmeric-400/40 border border-turmeric-400/50 transition-colors"
+              className={`${
+                mobileMenuOpen ? "hidden" : "hidden sm:inline-flex"
+              } items-center gap-1.5 px-2.5 xl:px-3 py-1.5 rounded-full text-xs font-semibold text-brown-800 bg-cream-200/70 hover:bg-turmeric-400/40 border border-turmeric-400/50 transition-colors whitespace-nowrap`}
               title="Call restaurant"
             >
-              <Phone className="w-3.5 h-3.5 text-brandGreen-700" />
-              <span>{restaurant.phone}</span>
+              <Phone className="w-3.5 h-3.5 text-brandGreen-700 flex-shrink-0" />
+              <span className="hidden xl:inline">{restaurant.phone}</span>
+              <span className="inline xl:hidden">Call</span>
             </a>
 
-            {/* Main CTA: Directions */}
+            {/* Main CTA: Directions (condensed on small screens / hidden when mobile menu open to give full focus to close button) */}
             <a
               href={restaurant.googleMapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs sm:text-sm font-bold text-white bg-gradient-to-r from-saffron-600 to-saffron-500 hover:from-saffron-500 hover:to-turmeric-gold shadow-md hover:shadow-lg hover:shadow-saffron-500/20 active:scale-95 transition-all duration-200"
+              className={`${
+                mobileMenuOpen ? "hidden" : "inline-flex"
+              } items-center gap-1 sm:gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-bold text-white bg-gradient-to-r from-saffron-600 to-saffron-500 hover:from-saffron-500 hover:to-turmeric-gold shadow-md hover:shadow-lg hover:shadow-saffron-500/20 active:scale-95 transition-all duration-200 whitespace-nowrap`}
             >
-              <MapPin className="w-3.5 h-3.5 text-cream-100" />
-              <span>Get Directions</span>
-              <ArrowUpRight className="w-3.5 h-3.5 opacity-80" />
+              <MapPin className="w-3.5 h-3.5 text-cream-100 flex-shrink-0" />
+              <span className="hidden xs:inline sm:inline">Directions</span>
+              <span className="inline xs:hidden sm:hidden">Map</span>
+              <ArrowUpRight className="w-3.5 h-3.5 opacity-80 flex-shrink-0" />
             </a>
 
             {/* Mobile Hamburger Button */}
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 rounded-full text-brown-800 hover:bg-cream-200/60 focus:outline-none focus:ring-2 focus:ring-saffron-500"
+              className="lg:hidden p-2 rounded-full text-brown-800 bg-cream-200/60 hover:bg-cream-200/90 active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-saffron-500"
               aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
               aria-expanded={mobileMenuOpen}
             >
               {mobileMenuOpen ? (
-                <X className="w-6 h-6 text-brown-900" />
+                <X className="w-5 h-5 sm:w-6 sm:h-6 text-brown-900" />
               ) : (
-                <Menu className="w-6 h-6 text-brown-900" />
+                <Menu className="w-5 h-5 sm:w-6 sm:h-6 text-brown-900" />
               )}
             </button>
           </div>
@@ -153,7 +174,7 @@ export function Navigation() {
       {/* Fullscreen Mobile Navigation Menu (Maharashtrian Poster Aesthetic) */}
       {mobileMenuOpen && (
         <div
-          className="fixed inset-0 z-40 bg-[#FFF7E3] flex flex-col justify-between p-6 pt-24 lg:hidden overflow-y-auto animate-in fade-in duration-300"
+          className="fixed inset-0 z-[60] bg-[#FFF7E3] flex flex-col justify-between p-5 sm:p-6 pt-24 pb-8 lg:hidden overflow-y-auto animate-in fade-in duration-300"
           role="dialog"
           aria-modal="true"
           aria-label="Mobile Navigation"
@@ -163,8 +184,8 @@ export function Navigation() {
             <DecorativeLeaf className="w-20 h-20 text-brandGreen-700" />
           </div>
 
-          <div className="flex flex-col space-y-4">
-            <div className="border-b border-turmeric-400/40 pb-4 mb-2">
+          <div className="flex flex-col space-y-3 sm:space-y-4 max-w-lg mx-auto w-full">
+            <div className="border-b border-turmeric-400/40 pb-3 mb-1">
               <span className="font-devanagari text-2xl font-bold text-brandGreen-800">
                 चव महाराष्ट्राची
               </span>
@@ -178,14 +199,14 @@ export function Navigation() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex items-baseline justify-between py-2 border-b border-cream-200 text-brown-900 hover:text-saffron-600 active:scale-[0.98] transition-all"
+                className="flex items-baseline justify-between py-2 sm:py-2.5 border-b border-cream-200 text-brown-900 hover:text-saffron-600 active:scale-[0.98] transition-all min-h-[44px]"
                 style={{ animationDelay: `${idx * 50}ms` }}
               >
                 <div className="flex items-baseline gap-3">
                   <span className="text-xs text-saffron-600 font-mono">0{idx + 1}</span>
-                  <span className="font-display text-2xl font-bold">{link.label}</span>
+                  <span className="font-display text-xl sm:text-2xl font-bold">{link.label}</span>
                 </div>
-                <span className="font-devanagari text-base text-brandGreen-700 font-medium">
+                <span className="font-devanagari text-sm sm:text-base text-brandGreen-700 font-medium">
                   {link.marathi}
                 </span>
               </a>
@@ -193,13 +214,13 @@ export function Navigation() {
           </div>
 
           {/* Quick Contact Actions in Mobile Menu */}
-          <div className="mt-8 pt-6 border-t border-turmeric-400/40 flex flex-col gap-3">
+          <div className="mt-6 pt-4 border-t border-turmeric-400/40 flex flex-col gap-3 max-w-lg mx-auto w-full">
             <div className="flex items-center justify-between text-xs text-brown-700 font-medium">
               <span>{restaurant.address.building}, {restaurant.address.area}</span>
               <span className="text-brandGreen-700 font-bold">100% Pure Veg</span>
             </div>
 
-            <div className="grid grid-cols-2 gap-3 pt-2">
+            <div className="grid grid-cols-2 gap-3 pt-1">
               <a
                 href={`tel:${restaurant.phoneRaw}`}
                 className="flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-brown-900 text-cream-100 font-semibold text-sm active:scale-95 transition-transform"
@@ -222,7 +243,7 @@ export function Navigation() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-gradient-to-r from-saffron-600 to-turmeric-gold text-white font-bold text-sm shadow-md"
+              className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-gradient-to-r from-saffron-600 to-turmeric-gold text-white font-bold text-sm shadow-md active:scale-95 transition-transform"
             >
               <MapPin className="w-4 h-4" />
               <span>Get Directions to Restaurant</span>
