@@ -250,9 +250,9 @@ export function Hero() {
               </div>
             </div>
 
-            {/* Floating Satellite Dish: Misal Pav / Garma-Garam Poha */}
+            {/* Floating Satellite Dish: Misal Pav (sm+ only to prevent mobile overlap) */}
             <div
-              className="absolute -bottom-6 -left-6 z-20 bg-white rounded-2xl p-2 border-2 border-saffron-500 shadow-xl flex items-center gap-2.5 max-w-[210px] hover:scale-105 transition-transform duration-300"
+              className="hidden sm:flex absolute -bottom-6 -left-6 z-20 bg-white rounded-2xl p-2 border-2 border-saffron-500 shadow-xl items-center gap-2.5 max-w-[210px] hover:scale-105 transition-transform duration-300"
             >
               <div className="relative w-12 h-12 rounded-xl overflow-hidden flex-shrink-0 bg-cream-100">
                 <Image
@@ -273,9 +273,9 @@ export function Hero() {
               </div>
             </div>
 
-            {/* Floating Satellite Dish: Wada Pav (Bottom-Right) */}
+            {/* Floating Satellite Dish: Wada Pav (sm+ only to prevent mobile overlap) */}
             <div
-              className="absolute -bottom-6 -right-4 z-20 bg-white rounded-2xl p-2 border-2 border-turmeric-400 shadow-xl flex items-center gap-2 max-w-[170px] hover:scale-105 transition-transform duration-300"
+              className="hidden sm:flex absolute -bottom-6 -right-4 z-20 bg-white rounded-2xl p-2 border-2 border-turmeric-400 shadow-xl items-center gap-2 max-w-[170px] hover:scale-105 transition-transform duration-300"
             >
               <div className="relative w-11 h-11 rounded-xl overflow-hidden flex-shrink-0 bg-cream-100">
                 <Image

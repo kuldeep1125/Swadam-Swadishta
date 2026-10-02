@@ -17,9 +17,9 @@ export function EditorialIntro() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Subtle horizontal scroll shift for the oversized typographic statement
-  const shiftLeft = (scrollY * 0.05) % 60;
-  const shiftRight = -(scrollY * 0.05) % 60;
+  // Smooth scroll shift for the oversized typographic statement based on scroll position
+  const shiftLeft = Math.max(-50, Math.min(50, (scrollY - 600) * 0.08));
+  const shiftRight = -shiftLeft;
 
   const iconMap: Record<string, React.ReactNode> = {
     UtensilsCrossed: <UtensilsCrossed className="w-6 h-6 text-saffron-600" />,

@@ -377,16 +377,25 @@ export function SignatureMenu() {
                         isHovered ? "pl-4 sm:pl-6 bg-white/5 rounded-2xl" : ""
                       }`}
                     >
-                      <div className="flex items-center gap-4 sm:gap-6">
+                      <div className="flex items-center gap-3 sm:gap-6">
                         <span className="text-xs font-mono text-turmeric-400 font-bold opacity-60">
                           0{idx + 1}
                         </span>
+                        {/* Mobile Thumbnail */}
+                        <div className="sm:hidden relative w-12 h-12 rounded-xl overflow-hidden flex-shrink-0 bg-brown-900 border border-turmeric-400/40">
+                          <Image
+                            src={snack.image}
+                            alt={snack.name}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
                         <div>
-                          <div className="flex items-baseline gap-3">
-                            <span className="font-display text-2xl sm:text-4xl md:text-5xl font-black tracking-tight text-cream-100 group-hover:text-turmeric-gold transition-colors">
+                          <div className="flex items-baseline gap-2 sm:gap-3">
+                            <span className="font-display text-xl sm:text-4xl md:text-5xl font-black tracking-tight text-cream-100 group-hover:text-turmeric-gold transition-colors">
                               {snack.name}
                             </span>
-                            <span className="font-devanagari text-lg sm:text-xl text-saffron-400 font-bold">
+                            <span className="font-devanagari text-base sm:text-xl text-saffron-400 font-bold">
                               {snack.nameMarathi}
                             </span>
                           </div>

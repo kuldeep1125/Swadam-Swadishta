@@ -21,7 +21,7 @@ import { FloatingCTA } from "@/components/FloatingCTA";
 
 export default function Home() {
   return (
-    <main className="min-h-screen flex flex-col bg-cream-bg selection:bg-saffron-500 selection:text-white">
+    <main className="min-h-screen flex flex-col bg-cream-bg selection:bg-saffron-500 selection:text-white pb-16 sm:pb-20 lg:pb-0">
       {/* Morphing Sticky Glass Navigation */}
       <Navigation />
 
