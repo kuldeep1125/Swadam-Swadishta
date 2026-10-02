@@ -21,8 +21,8 @@ export function StickyStory() {
       accentColor: "text-saffron-600",
       subtitleColor: "text-brown-900 font-bold",
       descColor: "text-brown-800",
-      tagClasses: "bg-saffron-100 border-saffron-300 text-saffron-800",
-      tagIconColor: "text-saffron-600",
+      tagClasses: "bg-saffron-600 text-white shadow-md border border-saffron-700",
+      tagIconColor: "text-turmeric-300",
       cardBorder: "border-turmeric-400",
       image: "/images/banner_misal.png",
       tag: "Authentic Flavor",
@@ -39,8 +39,8 @@ export function StickyStory() {
       accentColor: "text-turmeric-300",
       subtitleColor: "text-cream-50 font-bold",
       descColor: "text-cream-100",
-      tagClasses: "bg-white/20 border-white/40 text-white",
-      tagIconColor: "text-turmeric-300",
+      tagClasses: "bg-brown-900 text-turmeric-gold shadow-md border border-turmeric-400/60",
+      tagIconColor: "text-turmeric-gold",
       cardBorder: "border-turmeric-300/40",
       image: "/images/kanda_bhaji.jpg",
       tag: "Tempering & Spices",
@@ -57,8 +57,8 @@ export function StickyStory() {
       accentColor: "text-turmeric-gold",
       subtitleColor: "text-turmeric-200 font-bold",
       descColor: "text-cream-200",
-      tagClasses: "bg-white/10 border-turmeric-400/40 text-turmeric-300",
-      tagIconColor: "text-turmeric-gold",
+      tagClasses: "bg-turmeric-gold text-brown-900 shadow-md border border-white/20",
+      tagIconColor: "text-brown-900",
       cardBorder: "border-turmeric-400/50",
       image: "/images/wada_pav.jpg",
       tag: "Cooked Fresh",
@@ -75,8 +75,8 @@ export function StickyStory() {
       accentColor: "text-turmeric-300",
       subtitleColor: "text-cream-50 font-bold",
       descColor: "text-cream-100",
-      tagClasses: "bg-white/20 border-white/40 text-white",
-      tagIconColor: "text-turmeric-300",
+      tagClasses: "bg-white text-brandGreen-900 shadow-md border border-brandGreen-700",
+      tagIconColor: "text-brandGreen-700",
       cardBorder: "border-turmeric-400/40",
       image: "/images/lunch_thali.jpg",
       tag: "Culture on a Plate",
@@ -93,7 +93,7 @@ export function StickyStory() {
       accentColor: "text-saffron-400",
       subtitleColor: "text-turmeric-300 font-bold",
       descColor: "text-cream-200",
-      tagClasses: "bg-saffron-500/30 border-saffron-400 text-turmeric-200",
+      tagClasses: "bg-saffron-600 text-white shadow-md border border-saffron-500",
       tagIconColor: "text-turmeric-gold",
       cardBorder: "border-turmeric-400/60",
       image: "/images/storefront.jpg",
@@ -167,10 +167,10 @@ export function StickyStory() {
               {/* Stage Pill Badge with explicit high-contrast colors */}
               <div className="inline-block">
                 <span
-                  className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold border shadow-sm ${current.tagClasses}`}
+                  className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs sm:text-sm font-extrabold uppercase tracking-wider shadow-md ${current.tagClasses}`}
                 >
-                  <SpiceSparkle className={`w-3.5 h-3.5 ${current.tagIconColor}`} />
-                  <span>{current.tag}</span>
+                  <SpiceSparkle className={`w-4 h-4 ${current.tagIconColor}`} />
+                  <span className="font-sans font-extrabold tracking-wide">{current.tag}</span>
                 </span>
               </div>
 
