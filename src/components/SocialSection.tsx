@@ -10,22 +10,22 @@ import { Instagram, ArrowUpRight } from "lucide-react";
 export function SocialSection() {
   const posts = [
     {
-      image: "/images/storefront_entrance.jpg",
+      image: "/images/real_storefront_street.png",
       caption: "Shop No. 5, 34 Western Pavilion, Baner. Welcoming Pune food lovers every morning! ✨",
       tag: "#SwadamSwadishta",
     },
     {
-      image: "/images/lunch_thali.jpg",
+      image: "/images/hd_lunch_thali.jpg",
       caption: "Proper Maharashtrian Lunch Thali at ₹110. Simple food, big swad! 🍛",
       tag: "#PuneThali",
     },
     {
-      image: "/images/banner_misal.png",
+      image: "/images/hd_misal_pav.jpg",
       caption: "Garma-garam Misal Pav with spicy rassa and fresh farsan. 🌶️",
       tag: "#MisalPav",
     },
     {
-      image: "/images/banner_tea.png",
+      image: "/images/hd_tea.jpg",
       caption: "Cutting chai & evening cravings on Pan Card Club Road. ☕",
       tag: "#ChaiLovers",
     },

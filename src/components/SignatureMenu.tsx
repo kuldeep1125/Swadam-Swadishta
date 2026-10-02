@@ -300,7 +300,7 @@ export function SignatureMenu() {
                     </span>
                     <div className="relative w-10 h-10 rounded-full overflow-hidden border border-white/40">
                       <Image
-                        src="/images/hd_sweet_bowl.jpg"
+                        src="/images/hd_lunch_thali_sweet.jpg"
                         alt="Sweet of the day"
                         fill
                         className="object-cover"

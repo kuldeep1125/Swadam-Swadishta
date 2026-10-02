@@ -43,7 +43,7 @@ export function FoodShowcase() {
       title: "Kadak Cutting Tea",
       marathi: "गरमा-गरम चहा",
       desc: "Steaming aromatic tea brewed with ginger and cardamom, the ultimate partner to evening snacks.",
-      image: "/images/hd_tea.png",
+      image: "/images/hd_tea.jpg",
       tag: "Chai Time",
       price: "Authentic",
     },
