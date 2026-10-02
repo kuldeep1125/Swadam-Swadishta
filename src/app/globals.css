@@ -1,0 +1,112 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-cream-bg: #FFF9EE;
+    --color-brown-deep: #24130C;
+    --color-green-brand: #1E5631;
+    --color-saffron: #E85D04;
+    --color-turmeric: #FFB703;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--color-cream-bg);
+    color: var(--color-brown-deep);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  body {
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  ::selection {
+    background-color: #E85D04;
+    color: #FFF7E3;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FFF7E3;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C64600;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #8D543B;
+}
+
+/* Texture overlay for subtle authentic paper/grain feel */
+.bg-grain {
+  background-image: radial-gradient(rgba(45, 24, 16, 0.04) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+.bg-grain-dark {
+  background-image: radial-gradient(rgba(255, 247, 227, 0.05) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* Custom marquee keyframes */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee-continuous {
+  display: flex;
+  width: max-content;
+  animation: marquee 35s linear infinite;
+}
+
+.animate-marquee-continuous:hover {
+  animation-play-state: paused;
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .animate-marquee-continuous {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+/* Maharashtrian brush stroke SVG styling */
+.brush-border {
+  border-image: linear-gradient(to right, #E85D04, #FFB703, #1E5631) 1;
+}
+
+/* Text stroke helper */
+.text-stroke-cream {
+  -webkit-text-stroke: 1.5px #FFF7E3;
+  color: transparent;
+}
+
+.text-stroke-brown {
+  -webkit-text-stroke: 1.5px #2D1810;
+  color: transparent;
+}

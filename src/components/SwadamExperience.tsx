@@ -1,0 +1,119 @@
+"use client";
+
+// [ADDED] The Swadam Experience: Giant typographic rhythm (FRESH, WARM, QUICK, VEG, LOCAL, MAHARASHTRIAN)
+import React, { useState } from "react";
+import { DecorativeLeaf, SpiceSparkle } from "@/components/BrandMotifs";
+
+export function SwadamExperience() {
+  const [activeWordIndex, setActiveWordIndex] = useState(0);
+
+  const pillars = [
+    {
+      word: "FRESH",
+      marathi: "ताजे",
+      microcopy: "Prepared hot and served right for the day's cravings.",
+      color: "text-brandGreen-700",
+      bg: "bg-brandGreen-50",
+    },
+    {
+      word: "WARM",
+      marathi: "आपुलकी",
+      microcopy: "Heartfelt hospitality where every guest is welcomed like family.",
+      color: "text-saffron-600",
+      bg: "bg-saffron-50",
+    },
+    {
+      word: "QUICK",
+      marathi: "त्वरित",
+      microcopy: "Prompt service so your busy morning and lunch hours move effortlessly.",
+      color: "text-turmeric-gold",
+      bg: "bg-cream-200",
+    },
+    {
+      word: "VEG",
+      marathi: "शुद्ध शाकाहारी",
+      microcopy: "100% pure vegetarian culinary purity and hygiene you can trust.",
+      color: "text-brandGreen-800",
+      bg: "bg-brandGreen-100",
+    },
+    {
+      word: "LOCAL",
+      marathi: "स्थानिक",
+      microcopy: "Deeply rooted in Baner, Pune, feeding neighbours and food lovers daily.",
+      color: "text-terracotta-500",
+      bg: "bg-terracotta-50",
+    },
+    {
+      word: "MAHARASHTRIAN",
+      marathi: "महाराष्ट्रीयन",
+      microcopy: "Authentic regional taste and time-honoured culinary identity.",
+      color: "text-brown-900",
+      bg: "bg-cream-300",
+    },
+  ];
+
+  return (
+    <section className="py-24 sm:py-32 px-4 sm:px-8 md:px-12 bg-cream-100 border-b border-turmeric-400/40 relative overflow-hidden" aria-label="The Swadam Experience">
+      
+      <div className="mx-auto max-w-7xl">
+        
+        {/* Header */}
+        <div className="mb-14 pb-4 border-b border-turmeric-400/40 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+          <div>
+            <span className="text-xs font-mono font-bold tracking-widest text-saffron-600 uppercase">
+              THE SWADAM ESSENCE
+            </span>
+            <h2 className="font-display text-4xl sm:text-5xl font-black text-brown-900 mt-1">
+              What defines us.
+            </h2>
+          </div>
+          <span className="font-devanagari text-xl font-bold text-brandGreen-700">
+            चव, स्वच्छता आणि आपुलकी
+          </span>
+        </div>
+
+        {/* Interactive Oversized Typography Rhythm */}
+        <div className="divide-y divide-turmeric-400/40">
+          {pillars.map((item, idx) => {
+            const isActive = activeWordIndex === idx;
+            return (
+              <div
+                key={idx}
+                onMouseEnter={() => setActiveWordIndex(idx)}
+                onClick={() => setActiveWordIndex(idx)}
+                className={`py-8 sm:py-10 transition-all duration-300 cursor-pointer flex flex-col md:flex-row md:items-center justify-between gap-4 ${
+                  isActive ? "pl-4 sm:pl-8 bg-white/70 rounded-2xl shadow-sm" : "opacity-80 hover:opacity-100"
+                }`}
+              >
+                <div className="flex items-baseline gap-4 sm:gap-8">
+                  <span className="font-mono text-xs sm:text-sm text-brown-400 font-bold">
+                    0{idx + 1}
+                  </span>
+                  <div className="flex items-baseline gap-3 sm:gap-6">
+                    <span
+                      className={`font-display text-4xl sm:text-6xl md:text-7xl font-black tracking-tight transition-colors ${
+                        isActive ? item.color : "text-brown-800"
+                      }`}
+                    >
+                      {item.word}
+                    </span>
+                    <span className="font-devanagari text-xl sm:text-3xl font-bold text-brown-500">
+                      ({item.marathi})
+                    </span>
+                  </div>
+                </div>
+
+                <div className="md:max-w-md md:text-right pl-10 md:pl-0">
+                  <p className="text-sm sm:text-base text-brown-700 font-sans font-medium leading-relaxed">
+                    {item.microcopy}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+      </div>
+    </section>
+  );
+}
