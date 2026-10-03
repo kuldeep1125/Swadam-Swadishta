@@ -20,7 +20,8 @@ export function LocationSection() {
             <span>FIND SWADAM IN BANER</span>
           </div>
 
-          <h2 className="font-display text-4xl sm:text-6xl md:text-7xl font-black text-brown-900 tracking-tight leading-tight">
+          {/* [FIXED] Fluid typography for Location heading */}
+          <h2 className="font-display text-3xl xs:text-4xl sm:text-6xl md:text-7xl font-black text-brown-900 tracking-tight leading-tight">
             Come taste Maharashtra.
           </h2>
 
@@ -28,7 +29,7 @@ export function LocationSection() {
             <BrushUnderline className="w-full h-3 text-turmeric-gold" />
           </div>
 
-          <span className="font-devanagari text-2xl font-bold text-brandGreen-800 block">
+          <span className="font-devanagari text-xl sm:text-2xl font-bold text-brandGreen-800 block">
             भेट द्या — बाणेर, पुणे
           </span>
         </div>
@@ -37,7 +38,7 @@ export function LocationSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           
           {/* Left Details Card (Col 1-5) */}
-          <div className="lg:col-span-5 rounded-3xl p-8 bg-white border-2 border-turmeric-400/60 shadow-xl flex flex-col justify-between space-y-6">
+          <div className="lg:col-span-5 rounded-3xl p-5 xs:p-6 sm:p-8 bg-white border-2 border-turmeric-400/60 shadow-xl flex flex-col justify-between space-y-6">
             <div>
               <div className="flex items-center gap-2 mb-4">
                 <div className="relative w-10 h-10 rounded-full overflow-hidden border border-brandGreen-600">
@@ -124,7 +125,8 @@ export function LocationSection() {
           </div>
 
           {/* Right Stylized SVG Map Representation (Col 6-12) */}
-          <div className="lg:col-span-7 rounded-3xl overflow-hidden bg-gradient-to-br from-[#2D1810] to-[#1A0E08] border-2 border-turmeric-400/60 p-6 sm:p-8 flex flex-col justify-between text-cream-100 relative min-h-[420px] shadow-2xl">
+          {/* [FIXED] Responsive padding and min-height for small mobile screens */}
+          <div className="lg:col-span-7 rounded-3xl overflow-hidden bg-gradient-to-br from-[#2D1810] to-[#1A0E08] border-2 border-turmeric-400/60 p-4 xs:p-6 sm:p-8 flex flex-col justify-between text-cream-100 relative min-h-[340px] sm:min-h-[420px] shadow-2xl">
             
             {/* Background Stylized Road Grid Network */}
             <svg

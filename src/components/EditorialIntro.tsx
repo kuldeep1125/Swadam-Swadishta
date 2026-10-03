@@ -8,18 +8,29 @@ import { UtensilsCrossed, Clock, HeartHandshake, Leaf } from "lucide-react";
 
 export function EditorialIntro() {
   const [scrollY, setScrollY] = useState(0);
+  const [isTabletOrDesktop, setIsTabletOrDesktop] = useState(false);
 
   useEffect(() => {
+    const handleResize = () => {
+      setIsTabletOrDesktop(window.innerWidth >= 768);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
     const handleScroll = () => {
       setScrollY(window.scrollY);
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
-  // Smooth scroll shift for the oversized typographic statement based on scroll position
-  const shiftLeft = Math.max(-50, Math.min(50, (scrollY - 600) * 0.08));
-  const shiftRight = -shiftLeft;
+  // [FIXED] Smooth scroll shift active on tablet & desktop only; disabled on mobile (<768px) to prevent horizontal overflow
+  const rawShift = Math.max(-50, Math.min(50, (scrollY - 600) * 0.08));
+  const shiftLeft = isTabletOrDesktop ? rawShift : 0;
+  const shiftRight = isTabletOrDesktop ? -rawShift : 0;
 
   const iconMap: Record<string, React.ReactNode> = {
     UtensilsCrossed: <UtensilsCrossed className="w-6 h-6 text-saffron-600" />,
@@ -57,34 +68,36 @@ export function EditorialIntro() {
 
         {/* Primary Editorial Heading */}
         <div className="space-y-3 sm:space-y-4 max-w-4xl">
-          <h2 className="font-display text-3xl sm:text-5xl md:text-6xl font-black text-brown-900 leading-[1.15] tracking-tight">
+          {/* [FIXED] Responsive typography down to 320px viewports */}
+          <h2 className="font-display text-2xl xs:text-3xl sm:text-5xl md:text-6xl font-black text-brown-900 leading-[1.18] tracking-tight">
             Some food fills you up. <br />
             <span className="text-saffron-600 font-devanagari font-bold">
               Some food reminds you of home.
             </span>
           </h2>
 
-          <p className="text-lg sm:text-xl text-brown-700 leading-relaxed font-sans max-w-2xl pt-2">
+          <p className="text-base sm:text-lg text-brown-700 leading-relaxed font-sans max-w-2xl pt-2">
             Swadam Swadishta brings the familiar flavours of Maharashtra to Baner, serving vegetarian breakfast, lunch and evening favourites fresh and warm.
           </p>
         </div>
 
         {/* Oversized Scroll-Reactive Typographic Statement */}
-        <div className="my-16 sm:my-24 py-8 border-y border-turmeric-400/40 select-none overflow-hidden">
+        <div className="my-14 sm:my-24 py-6 sm:py-8 border-y border-turmeric-400/40 select-none overflow-hidden">
+          {/* [FIXED] Fluid typography with break-words and mobile-safe alignment */}
           <div
-            className="flex flex-col sm:flex-row items-center justify-between gap-4 font-display font-black text-5xl sm:text-7xl md:text-8xl tracking-tight transition-transform duration-300"
+            className="flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-4 font-display font-black text-3xl xs:text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight transition-transform duration-300 text-center sm:text-left"
             style={{ transform: `translateX(${shiftLeft}px)` }}
           >
             <span className="text-brown-900">Simple food.</span>
             <div className="relative inline-block" style={{ transform: `translateX(${shiftRight}px)` }}>
               <span className="text-saffron-600">Big swad.</span>
               <div className="w-full">
-                <BrushUnderline className="w-full h-3 text-turmeric-gold" />
+                <BrushUnderline className="w-full h-2.5 sm:h-3 text-turmeric-gold" />
               </div>
             </div>
           </div>
           <div className="text-center mt-3">
-            <span className="font-devanagari text-xl sm:text-2xl text-brandGreen-800 font-bold">
+            <span className="font-devanagari text-lg sm:text-2xl text-brandGreen-800 font-bold">
               स्वाद जो आठवणीत राहतो.
             </span>
           </div>

@@ -24,7 +24,8 @@ export function ReviewsSection() {
             <span>VERIFIED FEEDBACK</span>
           </div>
 
-          <h2 className="font-display text-4xl sm:text-6xl font-black text-brown-900 tracking-tight leading-tight">
+          {/* [FIXED] Fluid typography for reviews heading */}
+          <h2 className="font-display text-3xl xs:text-4xl sm:text-6xl font-black text-brown-900 tracking-tight leading-tight">
             What people are saying
           </h2>
 
@@ -39,25 +40,26 @@ export function ReviewsSection() {
 
         {/* Editorial Quote Box with Huge Quotation Marks */}
         {reviews.length > 0 && current ? (
-          <div className="relative rounded-3xl p-8 sm:p-14 bg-white border-2 border-turmeric-400/60 shadow-xl text-center">
+          /* [FIXED] Padding adjusted to p-5 xs:p-8 sm:p-14 */
+          <div className="relative rounded-3xl p-5 xs:p-8 sm:p-14 bg-white border-2 border-turmeric-400/60 shadow-xl text-center">
             
             {/* Huge Decorative Quotation Mark */}
-            <div className="absolute top-4 left-8 text-8xl sm:text-9xl font-display font-black text-turmeric-400/20 select-none pointer-events-none -scale-x-100">
+            <div className="absolute top-2 left-4 sm:top-4 sm:left-8 text-6xl sm:text-9xl font-display font-black text-turmeric-400/15 select-none pointer-events-none -scale-x-100">
               “
             </div>
-            <div className="absolute bottom-4 right-8 text-8xl sm:text-9xl font-display font-black text-turmeric-400/20 select-none pointer-events-none">
+            <div className="absolute bottom-2 right-4 sm:bottom-4 sm:right-8 text-6xl sm:text-9xl font-display font-black text-turmeric-400/15 select-none pointer-events-none">
               ”
             </div>
 
             {/* Star Rating Display */}
-            <div className="flex items-center justify-center gap-1 mb-6">
+            <div className="flex items-center justify-center gap-1 mb-4 sm:mb-6">
               {Array.from({ length: current.rating || 5 }).map((_, i) => (
-                <Star key={i} className="w-5 h-5 fill-turmeric-gold text-turmeric-gold" />
+                <Star key={i} className="w-4 h-4 sm:w-5 sm:h-5 fill-turmeric-gold text-turmeric-gold" />
               ))}
             </div>
 
             {/* Review Statement */}
-            <p className="relative z-10 font-display text-xl sm:text-3xl md:text-4xl font-bold text-brown-900 leading-snug tracking-normal max-w-3xl mx-auto">
+            <p className="relative z-10 font-display text-base xs:text-lg sm:text-3xl md:text-4xl font-bold text-brown-900 leading-snug tracking-normal max-w-3xl mx-auto">
               &ldquo;{current.text}&rdquo;
             </p>
 

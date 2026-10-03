@@ -17,10 +17,11 @@ export function BulkOrders() {
       </div>
 
       <div className="mx-auto max-w-6xl">
-        <div className="rounded-3xl p-8 sm:p-12 md:p-16 bg-gradient-to-br from-white via-cream-100 to-cream-200 border-2 border-turmeric-400 shadow-xl relative overflow-hidden">
+        {/* [FIXED] Padding adjusted to p-5 on small screens */}
+        <div className="rounded-3xl p-5 xs:p-8 sm:p-12 md:p-16 bg-gradient-to-br from-white via-cream-100 to-cream-200 border-2 border-turmeric-400 shadow-xl relative overflow-hidden">
           
           {/* Subtle Banner Tag */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-turmeric-400/30 border border-turmeric-gold text-xs font-bold text-brown-900 mb-6">
+          <div className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-1.5 rounded-full bg-turmeric-400/30 border border-turmeric-gold text-xs font-bold text-brown-900 mb-6">
             <Users className="w-4 h-4 text-saffron-600" />
             <span>SPECIAL OCCASIONS & OFFICE GATHERINGS</span>
           </div>
@@ -29,15 +30,16 @@ export function BulkOrders() {
             
             {/* Left Content (Col 1-7) */}
             <div className="lg:col-span-7 space-y-4">
-              <h2 className="font-display text-4xl sm:text-6xl font-black text-brown-900 tracking-tight leading-tight">
+              {/* [FIXED] Fluid typography for heading */}
+              <h2 className="font-display text-3xl xs:text-4xl sm:text-6xl font-black text-brown-900 tracking-tight leading-tight">
                 Feeding a crowd?
               </h2>
 
-              <div className="w-40">
+              <div className="w-36 sm:w-40">
                 <BrushUnderline className="w-full h-3 text-saffron-500" />
               </div>
 
-              <span className="font-devanagari text-2xl font-bold text-brandGreen-800 block">
+              <span className="font-devanagari text-xl sm:text-2xl font-bold text-brandGreen-800 block">
                 मोठ्या ऑर्डर्ससाठी संपर्क साधा
               </span>
 
@@ -60,13 +62,13 @@ export function BulkOrders() {
                 ))}
               </div>
 
-              {/* CTAs */}
-              <div className="flex flex-wrap items-center gap-3 pt-6">
+              {/* [FIXED] CTAs stack cleanly on mobile */}
+              <div className="flex flex-col xs:flex-row flex-wrap items-stretch xs:items-center gap-3 pt-6">
                 <a
                   href={`https://wa.me/${restaurant.bulkOrders.whatsappNumber}?text=Namaskar%20Swadam%20Swadishta!%20I%20would%20like%20to%20enquire%20about%20a%20bulk%20order%20for%20an%20upcoming%20event.`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-sm font-bold text-white bg-brandGreen-700 hover:bg-brandGreen-800 shadow-md active:scale-95 transition-all"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full text-sm font-bold text-white bg-brandGreen-700 hover:bg-brandGreen-800 shadow-md active:scale-95 transition-all w-full xs:w-auto"
                 >
                   <MessageCircle className="w-4 h-4" />
                   <span>Enquire on WhatsApp</span>
@@ -74,7 +76,7 @@ export function BulkOrders() {
 
                 <a
                   href={`tel:${restaurant.phoneRaw}`}
-                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-sm font-bold text-brown-900 bg-white hover:bg-cream-200 border-2 border-turmeric-400 shadow-sm active:scale-95 transition-all"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full text-sm font-bold text-brown-900 bg-white hover:bg-cream-200 border-2 border-turmeric-400 shadow-sm active:scale-95 transition-all w-full xs:w-auto"
                 >
                   <Phone className="w-4 h-4 text-saffron-600" />
                   <span>Call {restaurant.phone}</span>

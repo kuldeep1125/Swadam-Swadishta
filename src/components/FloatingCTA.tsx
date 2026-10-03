@@ -59,8 +59,8 @@ export function FloatingCTA() {
         </a>
       </div>
 
-      {/* Mobile Sticky Bottom Action Bar */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 p-2.5 bg-brown-900/95 backdrop-blur-lg border-t border-turmeric-400/40 shadow-2xl flex items-center justify-around gap-2 animate-in slide-in-from-bottom duration-300">
+      {/* [FIXED] Mobile Sticky Bottom Action Bar with iOS safe-area-inset-bottom support */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 px-3 pt-2.5 pb-[max(0.625rem,env(safe-area-inset-bottom))] bg-brown-900/95 backdrop-blur-lg border-t border-turmeric-400/40 shadow-2xl flex items-center justify-around gap-2 animate-in slide-in-from-bottom duration-300">
         {/* Call Button */}
         <a
           href={`tel:${restaurant.phoneRaw}`}

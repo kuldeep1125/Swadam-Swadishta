@@ -20,8 +20,8 @@ export function FeaturedDish() {
 
       <div className="mx-auto max-w-6xl">
         
-        {/* Main Card */}
-        <div className="rounded-3xl p-8 sm:p-12 md:p-16 bg-gradient-to-br from-white via-cream-100 to-cream-200 border-2 border-turmeric-400 shadow-xl relative overflow-hidden">
+        {/* [FIXED] Main Card padding adjusted to p-5 on small screens */}
+        <div className="rounded-3xl p-5 xs:p-8 sm:p-12 md:p-16 bg-gradient-to-br from-white via-cream-100 to-cream-200 border-2 border-turmeric-400 shadow-xl relative overflow-hidden">
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             
@@ -34,10 +34,11 @@ export function FeaturedDish() {
               </div>
 
               <div className="space-y-1">
-                <h2 className="font-display text-4xl sm:text-6xl font-black text-brown-900 tracking-tight leading-tight">
+                {/* [FIXED] Fluid typography for dish heading */}
+                <h2 className="font-display text-3xl xs:text-4xl sm:text-6xl font-black text-brown-900 tracking-tight leading-tight">
                   {dish.name}
                 </h2>
-                <span className="font-devanagari text-2xl sm:text-3xl font-bold text-brandGreen-800 block">
+                <span className="font-devanagari text-xl sm:text-2xl font-bold text-brandGreen-800 block">
                   {dish.nameMarathi}
                 </span>
                 <div className="w-36">
@@ -45,7 +46,7 @@ export function FeaturedDish() {
                 </div>
               </div>
 
-              <p className="font-display text-xl sm:text-2xl font-bold text-saffron-600">
+              <p className="font-display text-lg sm:text-2xl font-bold text-saffron-600">
                 {dish.tagline}
               </p>
 
@@ -55,7 +56,7 @@ export function FeaturedDish() {
 
               <div className="flex items-baseline gap-4 pt-2">
                 <span className="text-xs font-mono text-brown-500 font-bold uppercase">Price</span>
-                <span className="font-display text-5xl font-black text-brown-900">
+                <span className="font-display text-4xl xs:text-5xl font-black text-brown-900">
                   {dish.price}
                 </span>
                 <span className="text-xs text-brandGreen-700 font-semibold bg-brandGreen-50 px-2.5 py-1 rounded-md border border-brandGreen-200">

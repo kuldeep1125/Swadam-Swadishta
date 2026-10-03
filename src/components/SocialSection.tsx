@@ -43,10 +43,11 @@ export function SocialSection() {
               <Instagram className="w-3.5 h-3.5 text-saffron-600" />
               <span>FOLLOW ALONG ON INSTAGRAM</span>
             </div>
-            <h2 className="font-display text-4xl sm:text-5xl font-black text-brown-900 tracking-tight">
+            {/* [FIXED] Fluid typography for Social heading */}
+            <h2 className="font-display text-3xl xs:text-4xl sm:text-5xl font-black text-brown-900 tracking-tight">
               See what&apos;s cooking.
             </h2>
-            <span className="font-devanagari text-xl font-bold text-brandGreen-700 block mt-1">
+            <span className="font-devanagari text-lg sm:text-xl font-bold text-brandGreen-700 block mt-1">
               आमच्यासोबत कनेक्ट व्हा • {restaurant.instagramHandle}
             </span>
           </div>
@@ -55,7 +56,7 @@ export function SocialSection() {
             href={restaurant.instagramUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-4 md:mt-0 inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-saffron-600 to-turmeric-gold text-white font-bold text-sm shadow-md hover:shadow-lg active:scale-95 transition-all"
+            className="mt-4 md:mt-0 inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-saffron-600 to-turmeric-gold text-white font-bold text-sm shadow-md hover:shadow-lg active:scale-95 transition-all w-full sm:w-auto"
           >
             <Instagram className="w-4 h-4" />
             <span>Follow {restaurant.instagramHandle}</span>

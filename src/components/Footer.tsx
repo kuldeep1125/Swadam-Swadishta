@@ -33,28 +33,29 @@ export function Footer() {
           </div>
 
           <div className="space-y-2">
-            <span className="font-brush text-3xl sm:text-5xl text-saffron-400 font-bold block">
+            <span className="font-brush text-2xl xs:text-3xl sm:text-5xl text-saffron-400 font-bold block">
               Hungry yet?
             </span>
-            <h2 className="font-display text-5xl sm:text-7xl md:text-8xl font-black text-cream-50 tracking-tight leading-none">
+            {/* [FIXED] Fluid typography for closing statement */}
+            <h2 className="font-display text-3xl xs:text-4xl sm:text-7xl md:text-8xl font-black text-cream-50 tracking-tight leading-none">
               Come taste Maharashtra.
             </h2>
             <div className="w-48 sm:w-64 mx-auto pt-2">
-              <BrushUnderline className="w-full h-4 text-turmeric-gold" />
+              <BrushUnderline className="w-full h-3.5 sm:h-4 text-turmeric-gold" />
             </div>
           </div>
 
-          <p className="max-w-xl mx-auto text-base sm:text-lg text-cream-200 font-sans leading-relaxed">
+          <p className="max-w-xl mx-auto text-sm sm:text-lg text-cream-200 font-sans leading-relaxed">
             Fresh hot Poha at sunrise, a fulfilling ₹110 Thali for lunch, and crispy Wada Pav & Bhaji in the evening. We are ready to serve you!
           </p>
 
-          {/* Action CTAs */}
-          <div className="flex flex-wrap items-center justify-center gap-4 pt-6">
+          {/* [FIXED] CTAs stack full-width on mobile */}
+          <div className="flex flex-col xs:flex-row flex-wrap items-stretch xs:items-center justify-center gap-3 sm:gap-4 pt-6">
             <a
               href={restaurant.googleMapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gradient-to-r from-saffron-600 to-turmeric-gold hover:from-saffron-500 hover:to-turmeric-400 text-white font-bold text-sm sm:text-base shadow-xl hover:shadow-saffron-500/25 active:scale-95 transition-all"
+              className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 rounded-full bg-gradient-to-r from-saffron-600 to-turmeric-gold hover:from-saffron-500 hover:to-turmeric-400 text-white font-bold text-sm sm:text-base shadow-xl hover:shadow-saffron-500/25 active:scale-95 transition-all w-full xs:w-auto"
             >
               <MapPin className="w-4 h-4" />
               <span>Get Directions</span>
@@ -63,7 +64,7 @@ export function Footer() {
 
             <a
               href={`tel:${restaurant.phoneRaw}`}
-              className="inline-flex items-center gap-2 px-7 py-4 rounded-full bg-white/10 hover:bg-white/20 text-cream-100 font-bold text-sm sm:text-base border border-white/20 active:scale-95 transition-all"
+              className="inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-3.5 sm:py-4 rounded-full bg-white/10 hover:bg-white/20 text-cream-100 font-bold text-sm sm:text-base border border-white/20 active:scale-95 transition-all w-full xs:w-auto"
             >
               <Phone className="w-4 h-4 text-turmeric-400" />
               <span>Call {restaurant.phone}</span>
@@ -73,7 +74,7 @@ export function Footer() {
               href={`https://wa.me/${restaurant.whatsappNumber}?text=Namaskar%20Swadam%20Swadishta!%20I%20am%20planning%20to%20visit.`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-4 rounded-full bg-brandGreen-700 hover:bg-brandGreen-800 text-white font-bold text-sm sm:text-base shadow-lg active:scale-95 transition-all"
+              className="inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-3.5 sm:py-4 rounded-full bg-brandGreen-700 hover:bg-brandGreen-800 text-white font-bold text-sm sm:text-base shadow-lg active:scale-95 transition-all w-full xs:w-auto"
             >
               <MessageCircle className="w-4 h-4" />
               <span>WhatsApp Us</span>

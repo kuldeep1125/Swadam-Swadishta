@@ -174,17 +174,19 @@ export function Navigation() {
       {/* Fullscreen Mobile Navigation Menu (Maharashtrian Poster Aesthetic) */}
       {mobileMenuOpen && (
         <div
-          className="fixed inset-0 z-[60] bg-[#FFF7E3] flex flex-col justify-between p-5 sm:p-6 pt-24 pb-8 lg:hidden overflow-y-auto animate-in fade-in duration-300"
+          className="fixed inset-0 z-[60] bg-[#FFF7E3] overflow-y-auto lg:hidden animate-in fade-in duration-300"
           role="dialog"
           aria-modal="true"
           aria-label="Mobile Navigation"
         >
-          {/* Subtle Decorative Elements */}
-          <div className="absolute top-16 right-6 opacity-30 pointer-events-none">
-            <DecorativeLeaf className="w-20 h-20 text-brandGreen-700" />
-          </div>
+          {/* [FIXED] Wrapped in min-h-full flex container so small-height screens can scroll smoothly */}
+          <div className="min-h-full flex flex-col justify-between p-4 xs:p-5 sm:p-6 pt-24 pb-8 max-w-lg mx-auto w-full relative">
+            {/* Subtle Decorative Elements */}
+            <div className="absolute top-16 right-6 opacity-30 pointer-events-none">
+              <DecorativeLeaf className="w-20 h-20 text-brandGreen-700" />
+            </div>
 
-          <div className="flex flex-col space-y-3 sm:space-y-4 max-w-lg mx-auto w-full">
+            <div className="flex flex-col space-y-3 sm:space-y-4 w-full">
             <div className="border-b border-turmeric-400/40 pb-3 mb-1">
               <span className="font-devanagari text-2xl font-bold text-brandGreen-800">
                 चव महाराष्ट्राची
@@ -251,6 +253,7 @@ export function Navigation() {
             </a>
           </div>
         </div>
+      </div>
       )}
     </>
   );

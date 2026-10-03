@@ -63,13 +63,14 @@ export function FoodShowcase() {
       <div className="mx-auto max-w-7xl">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cream-200 border border-turmeric-400/50 text-xs font-bold text-brown-800">
+        <div className="text-center max-w-3xl mx-auto space-y-3 sm:space-y-4 mb-12 sm:mb-16">
+          <div className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-1.5 rounded-full bg-cream-200 border border-turmeric-400/50 text-xs font-bold text-brown-800">
             <SpiceSparkle className="w-3.5 h-3.5 text-saffron-600" />
             <span>AUTHENTIC VISUAL GALLERY</span>
           </div>
 
-          <h2 className="font-display text-4xl sm:text-6xl md:text-7xl font-black text-brown-900 tracking-tight leading-tight">
+          {/* [FIXED] Fluid typography for showcase heading */}
+          <h2 className="font-display text-3xl xs:text-4xl sm:text-6xl md:text-7xl font-black text-brown-900 tracking-tight leading-tight">
             Made to make you hungry.
           </h2>
 
@@ -83,7 +84,7 @@ export function FoodShowcase() {
         </div>
 
         {/* Cinematic Grid of Real Food Photography */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {showcaseItems.map((item, index) => (
             <div
               key={index}
@@ -91,24 +92,24 @@ export function FoodShowcase() {
                 index === 2 ? "md:col-span-2 lg:col-span-1" : ""
               }`}
             >
-              {/* Image Frame with Zoom Effect */}
-              <div className="relative w-full h-64 sm:h-72 overflow-hidden bg-cream-200/50">
+              {/* [FIXED] Image Frame with responsive height */}
+              <div className="relative w-full h-56 xs:h-64 sm:h-72 overflow-hidden bg-cream-200/50">
                 <Image
                   src={item.image}
                   alt={item.title}
                   fill
                   className="object-cover group-hover:scale-110 transition-transform duration-700"
                 />
-                <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-brown-900 shadow-sm border border-turmeric-400/40">
+                <div className="absolute top-3 left-3 sm:top-4 sm:left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-brown-900 shadow-sm border border-turmeric-400/40">
                   {item.tag}
                 </div>
-                <div className="absolute bottom-3 right-3 bg-brown-900/90 text-turmeric-gold px-3.5 py-1 rounded-xl text-lg font-black font-display shadow-md backdrop-blur-sm">
+                <div className="absolute bottom-3 right-3 bg-brown-900/90 text-turmeric-gold px-3 sm:px-3.5 py-1 rounded-xl text-base sm:text-lg font-black font-display shadow-md backdrop-blur-sm">
                   {item.price}
                 </div>
               </div>
 
               {/* Dish Meta */}
-              <div className="p-6">
+              <div className="p-4 xs:p-6">
                 <div className="flex items-baseline justify-between mb-1">
                   <h3 className="font-display text-2xl font-bold text-brown-900 group-hover:text-saffron-600 transition-colors">
                     {item.title}

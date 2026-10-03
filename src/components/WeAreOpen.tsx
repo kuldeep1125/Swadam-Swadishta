@@ -19,7 +19,7 @@ export function WeAreOpen() {
       <div className="mx-auto max-w-6xl">
         
         {/* Main Artwork Badge Box inspired by the physical storefront poster */}
-        <div className="relative rounded-3xl p-8 sm:p-12 md:p-16 bg-gradient-to-br from-[#FFF9EE] via-[#FFF7E3] to-[#FDF2CE] border-4 border-turmeric-400/60 shadow-2xl overflow-hidden text-center">
+        <div className="relative rounded-3xl p-5 xs:p-8 sm:p-12 md:p-16 bg-gradient-to-br from-[#FFF9EE] via-[#FFF7E3] to-[#FDF2CE] border-4 border-turmeric-400/60 shadow-2xl overflow-hidden text-center">
           
           {/* Subtle Corner Leaves */}
           <div className="absolute -top-6 -left-6 opacity-30 pointer-events-none">
@@ -31,7 +31,7 @@ export function WeAreOpen() {
 
           {/* Top Brand Logo & Pure Veg */}
           <div className="flex flex-col items-center justify-center space-y-2 mb-6">
-            <div className="relative w-16 h-16 sm:w-20 sm:h-20">
+            <div className="relative w-14 h-14 sm:w-20 sm:h-20">
               <Image
                 src="/images/logo.png"
                 alt="Swadam Swadishta Logo"
@@ -45,24 +45,24 @@ export function WeAreOpen() {
             </div>
           </div>
 
-          {/* Dramatic "WE ARE OPEN" Typographic Stamp */}
+          {/* [FIXED] Dramatic "WE ARE OPEN" Typographic Stamp with fluid scaling */}
           <div className="relative inline-block my-2">
-            <span className="font-brush text-3xl sm:text-4xl text-saffron-600 font-bold block -mb-2">
+            <span className="font-brush text-2xl xs:text-3xl sm:text-4xl text-saffron-600 font-bold block -mb-2">
               We are
             </span>
-            <h2 className="font-display text-6xl sm:text-8xl md:text-9xl font-black text-brown-900 tracking-tight leading-none uppercase drop-shadow-sm">
+            <h2 className="font-display text-5xl xs:text-6xl sm:text-8xl md:text-9xl font-black text-brown-900 tracking-tight leading-none uppercase drop-shadow-sm">
               OPEN.
             </h2>
-            <div className="w-48 sm:w-64 mx-auto mt-2">
-              <BrushStroke className="w-full h-4 text-turmeric-gold" />
+            <div className="w-36 xs:w-48 sm:w-64 mx-auto mt-2">
+              <BrushStroke className="w-full h-3.5 sm:h-4 text-turmeric-gold" />
             </div>
           </div>
 
           {/* Subtitle */}
-          <p className="font-display text-xl sm:text-2xl font-bold text-brown-800 mt-4">
+          <p className="font-display text-lg xs:text-xl sm:text-2xl font-bold text-brown-800 mt-4">
             Come, enjoy delicious food, freshly served!
           </p>
-          <span className="font-devanagari text-lg sm:text-xl text-saffron-600 font-bold block mt-1">
+          <span className="font-devanagari text-base xs:text-lg sm:text-xl text-saffron-600 font-bold block mt-1">
             ताजेतवाने अन्न, आत्मीय स्वागत!
           </span>
 

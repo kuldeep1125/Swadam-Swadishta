@@ -25,17 +25,20 @@ export function SignatureMenu() {
     <section id="menu" className="relative w-full transition-colors duration-700" aria-label="Our Authentic Menu">
       
       {/* Category Filter Navigation Bar */}
-      <div className="sticky top-16 z-30 py-4 px-4 bg-cream-100/95 backdrop-blur-md border-y border-turmeric-400/40 shadow-sm">
-        <div className="mx-auto max-w-7xl flex flex-col md:flex-row items-center justify-between gap-4">
-          <div>
-            <span className="font-devanagari text-xl font-bold text-brown-900 mr-2">मेनू</span>
-            <span className="font-display text-lg font-bold text-saffron-600">What&apos;s Cooking?</span>
-            <span className="text-xs text-brown-600 ml-2 hidden lg:inline">
-              Breakfast • Lunch • Evening Snacks • Specialties
+      <div className="sticky top-16 z-30 py-2.5 sm:py-4 px-3 sm:px-4 bg-cream-100/95 backdrop-blur-md border-y border-turmeric-400/40 shadow-sm">
+        <div className="mx-auto max-w-7xl flex flex-col md:flex-row items-center justify-between gap-3 sm:gap-4">
+          <div className="flex items-center justify-between w-full md:w-auto">
+            <div>
+              <span className="font-devanagari text-lg sm:text-xl font-bold text-brown-900 mr-2">मेनू</span>
+              <span className="font-display text-base sm:text-lg font-bold text-saffron-600">What&apos;s Cooking?</span>
+            </div>
+            <span className="text-[11px] text-brown-600 md:hidden font-mono bg-cream-200 px-2 py-0.5 rounded-full">
+              Scroll tabs →
             </span>
           </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-1.5 p-1 rounded-full bg-cream-200/80 border border-turmeric-400/50">
+          {/* [FIXED] Horizontal swipeable rail for mobile screens with clean no-scrollbar styling */}
+          <div className="w-full md:w-auto flex items-center gap-1.5 p-1 rounded-2xl sm:rounded-full bg-cream-200/80 border border-turmeric-400/50 overflow-x-auto no-scrollbar flex-nowrap sm:flex-wrap justify-start sm:justify-center">
             {(
               [
                 { id: "all", label: "ALL DISHES", mr: "सर्व" },
@@ -48,7 +51,7 @@ export function SignatureMenu() {
               <button
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.id)}
-                className={`px-3 sm:px-4 py-1.5 rounded-full text-xs font-bold transition-all duration-300 ${
+                className={`whitespace-nowrap px-3 sm:px-4 py-1.5 rounded-full text-xs font-bold transition-all duration-300 flex-shrink-0 ${
                   activeCategory === cat.id
                     ? "bg-brown-900 text-cream-100 shadow-md scale-105"
                     : "text-brown-800 hover:text-saffron-600 hover:bg-cream-100"
@@ -71,15 +74,16 @@ export function SignatureMenu() {
           <div className="mx-auto max-w-7xl">
             
             {/* Chapter Header */}
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 pb-6 border-b border-turmeric-400/40">
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-14 pb-4 sm:pb-6 border-b border-turmeric-400/40">
               <div>
                 <span className="text-xs font-mono font-bold tracking-widest text-saffron-600 uppercase">
                   CHAPTER 01 • SAKALCHI NYAHARI
                 </span>
-                <h3 className="font-display text-4xl sm:text-6xl font-black text-brown-900 mt-1">
+                {/* [FIXED] Fluid typography for breakfast headline */}
+                <h3 className="font-display text-3xl xs:text-4xl sm:text-6xl font-black text-brown-900 mt-1">
                   Morning Breakfast.
                 </h3>
-                <span className="font-devanagari text-2xl font-bold text-brandGreen-700 block mt-1">
+                <span className="font-devanagari text-xl sm:text-2xl font-bold text-brandGreen-700 block mt-1">
                   गरमा-गरम नाश्ता (7:30 AM onwards)
                 </span>
               </div>
@@ -89,44 +93,44 @@ export function SignatureMenu() {
             </div>
 
             {/* Breakfast Showcase Grid: Asymmetric Editorial Layout */}
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 items-stretch">
               
               {/* Feature Dish: 4K Misal Pav (Col 1-7) */}
               {(() => {
                 const misal = restaurant.menu.breakfast.find((i) => i.id === "misal-pav");
                 if (!misal) return null;
                 return (
-                  <div className="md:col-span-7 rounded-3xl bg-white p-6 sm:p-8 border-2 border-saffron-500/40 shadow-xl flex flex-col justify-between group hover:border-saffron-500 transition-all duration-300">
+                  <div className="md:col-span-7 rounded-3xl bg-white p-4 xs:p-6 sm:p-8 border-2 border-saffron-500/40 shadow-xl flex flex-col justify-between group hover:border-saffron-500 transition-all duration-300">
                     <div className="flex items-start justify-between">
                       <div>
                         <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-saffron-50 text-saffron-700 border border-saffron-200">
                           <Flame className="w-3 h-3 text-saffron-600" />
                           {misal.badge}
                         </span>
-                        <h4 className="font-display text-3xl sm:text-4xl font-black text-brown-900 mt-3 group-hover:text-saffron-600 transition-colors">
+                        <h4 className="font-display text-2xl xs:text-3xl sm:text-4xl font-black text-brown-900 mt-3 group-hover:text-saffron-600 transition-colors">
                           {misal.name}
                         </h4>
-                        <span className="font-devanagari text-xl font-bold text-saffron-600">
+                        <span className="font-devanagari text-lg sm:text-xl font-bold text-saffron-600">
                           {misal.nameMarathi}
                         </span>
                       </div>
                       <div className="text-right">
                         <span className="text-xs font-mono text-brown-500 block">Price</span>
-                        <span className="font-display text-4xl font-black text-brown-900 group-hover:text-saffron-600 transition-colors">
+                        <span className="font-display text-3xl sm:text-4xl font-black text-brown-900 group-hover:text-saffron-600 transition-colors">
                           {misal.price}
                         </span>
                       </div>
                     </div>
 
                     {/* Misal Pav 4K Hero Image */}
-                    <div className="relative w-full h-72 sm:h-96 rounded-2xl overflow-hidden my-6 bg-cream-100 group-hover:scale-[1.02] transition-transform duration-500 shadow-md">
+                    <div className="relative w-full h-56 xs:h-72 sm:h-96 rounded-2xl overflow-hidden my-4 sm:my-6 bg-cream-100 group-hover:scale-[1.02] transition-transform duration-500 shadow-md">
                       <Image
                         src={misal.image}
                         alt="Authentic Pune Misal Pav"
                         fill
                         className="object-cover"
                       />
-                      <div className="absolute bottom-3 left-3 bg-brown-900/90 text-cream-100 px-3.5 py-1.5 rounded-xl text-xs font-semibold backdrop-blur-sm border border-white/20">
+                      <div className="absolute bottom-3 left-3 bg-brown-900/90 text-cream-100 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-xl text-[11px] sm:text-xs font-semibold backdrop-blur-sm border border-white/20">
                         झणझणीत कट + कुरकुरीत फरसाण + बटर लादी पाव
                       </div>
                     </div>
@@ -139,15 +143,15 @@ export function SignatureMenu() {
               })()}
 
               {/* Side Stack: Poha, Upma, Sheera, Sabudana Khichadi (Col 8-12) */}
-              <div className="md:col-span-5 flex flex-col gap-4 justify-between">
+              <div className="md:col-span-5 flex flex-col gap-3 sm:gap-4 justify-between">
                 {restaurant.menu.breakfast
                   .filter((item) => item.id !== "misal-pav")
                   .map((item) => (
                     <div
                       key={item.id}
-                      className="p-4 sm:p-5 rounded-2xl bg-white border border-turmeric-400/50 shadow-sm hover:shadow-md hover:border-turmeric-gold transition-all duration-300 flex items-center justify-between gap-4 group"
+                      className="p-3 xs:p-4 sm:p-5 rounded-2xl bg-white border border-turmeric-400/50 shadow-sm hover:shadow-md hover:border-turmeric-gold transition-all duration-300 flex items-center justify-between gap-2.5 xs:gap-4 group"
                     >
-                      <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-xl overflow-hidden bg-cream-100 flex-shrink-0 group-hover:scale-105 transition-transform duration-300 border border-cream-200">
+                      <div className="relative w-16 h-16 xs:w-20 xs:h-20 sm:w-24 sm:h-24 rounded-xl overflow-hidden bg-cream-100 flex-shrink-0 group-hover:scale-105 transition-transform duration-300 border border-cream-200">
                         <Image
                           src={item.image}
                           alt={item.name}
@@ -157,14 +161,14 @@ export function SignatureMenu() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-1.5">
-                          <span className="text-[10px] font-bold uppercase tracking-wider text-brandGreen-700">
+                          <span className="text-[9px] xs:text-[10px] font-bold uppercase tracking-wider text-brandGreen-700">
                             {item.badge}
                           </span>
                         </div>
-                        <h5 className="font-display text-lg sm:text-xl font-bold text-brown-900 truncate group-hover:text-saffron-600 transition-colors">
+                        <h5 className="font-display text-base xs:text-lg sm:text-xl font-bold text-brown-900 truncate group-hover:text-saffron-600 transition-colors">
                           {item.name}
                         </h5>
-                        <span className="font-devanagari text-sm font-semibold text-brown-600 block">
+                        <span className="font-devanagari text-xs xs:text-sm font-semibold text-brown-600 block">
                           {item.nameMarathi}
                         </span>
                         <p className="text-xs text-brown-500 line-clamp-1 mt-0.5 font-sans">
@@ -172,7 +176,7 @@ export function SignatureMenu() {
                         </p>
                       </div>
                       <div className="text-right flex-shrink-0">
-                        <span className="font-display text-2xl font-black text-brown-900">
+                        <span className="font-display text-xl xs:text-2xl font-black text-brown-900">
                           {item.price}
                         </span>
                       </div>
@@ -201,7 +205,8 @@ export function SignatureMenu() {
                 <span className="font-devanagari">• दुपारचे जेवण</span>
               </div>
 
-              <h3 className="font-display text-5xl sm:text-7xl md:text-8xl font-black text-cream-50 tracking-tight">
+              {/* [FIXED] Fluid typography for Thali title */}
+              <h3 className="font-display text-4xl xs:text-5xl sm:text-7xl md:text-8xl font-black text-cream-50 tracking-tight">
                 THE THALI.
               </h3>
 
@@ -215,12 +220,12 @@ export function SignatureMenu() {
             </div>
 
             {/* Giant Centerpiece Thali Layout */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
               
               {/* Left Components Breakdown (Col 1-4) */}
               <div className="lg:col-span-4 space-y-4">
-                <div className="p-6 rounded-3xl bg-white/5 backdrop-blur-md border border-turmeric-400/30">
-                  <h4 className="font-display text-2xl font-bold text-turmeric-300 mb-4 flex items-center gap-2">
+                <div className="p-4 xs:p-6 rounded-3xl bg-white/5 backdrop-blur-md border border-turmeric-400/30">
+                  <h4 className="font-display text-xl xs:text-2xl font-bold text-turmeric-300 mb-4 flex items-center gap-2">
                     <Utensils className="w-5 h-5 text-saffron-400" />
                     What&apos;s on the Plate?
                   </h4>
@@ -249,7 +254,8 @@ export function SignatureMenu() {
 
               {/* Center Plate Photography (Col 5-8) - 4K High Definition */}
               <div className="lg:col-span-5 relative flex items-center justify-center">
-                <div className="relative w-full max-w-[480px] aspect-square rounded-full p-4 border-4 border-dashed border-turmeric-400/30 group">
+                {/* [FIXED] Max-w scales gracefully down to 280px on 320px viewports */}
+                <div className="relative w-full max-w-[280px] xs:max-w-[360px] sm:max-w-[480px] aspect-square rounded-full p-2 xs:p-4 border-4 border-dashed border-turmeric-400/30 group">
                   <div className="absolute inset-0 rounded-full bg-turmeric-500/15 blur-2xl pointer-events-none" />
 
                   <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-turmeric-400/60 shadow-2xl shadow-black/60 group-hover:scale-105 transition-transform duration-700">
@@ -261,8 +267,8 @@ export function SignatureMenu() {
                     />
                   </div>
 
-                  <div className="absolute -top-3 right-6 bg-gradient-to-r from-saffron-600 to-turmeric-gold text-white px-4 py-2 rounded-full font-bold text-xs sm:text-sm shadow-xl flex items-center gap-1.5">
-                    <PureVegBadge className="w-4 h-4" />
+                  <div className="absolute -top-3 right-4 sm:right-6 bg-gradient-to-r from-saffron-600 to-turmeric-gold text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-full font-bold text-xs sm:text-sm shadow-xl flex items-center gap-1.5">
+                    <PureVegBadge className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                     <span>Pure Veg Feast</span>
                   </div>
                 </div>
@@ -338,15 +344,16 @@ export function SignatureMenu() {
           <div className="mx-auto max-w-7xl">
             
             {/* Evening Header */}
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 pb-6 border-b border-white/10">
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-16 pb-4 sm:pb-6 border-b border-white/10">
               <div>
                 <span className="text-xs font-mono font-bold tracking-widest text-turmeric-400 uppercase">
                   CHAPTER 03 • SANDHYAKALCHI CHAV
                 </span>
-                <h3 className="font-display text-4xl sm:text-6xl md:text-7xl font-black text-cream-50 mt-1">
+                {/* [FIXED] Fluid typography for snacks header */}
+                <h3 className="font-display text-3xl xs:text-4xl sm:text-6xl md:text-7xl font-black text-cream-50 mt-1">
                   Let&apos;s Get Snackin&apos;.
                 </h3>
-                <span className="font-devanagari text-2xl font-bold text-saffron-400 block mt-1">
+                <span className="font-devanagari text-xl sm:text-2xl font-bold text-saffron-400 block mt-1">
                   गरमा-गरम भजी, वडा पाव आणि चहा
                 </span>
               </div>
@@ -367,16 +374,16 @@ export function SignatureMenu() {
                       key={snack.id}
                       onMouseEnter={() => setHoveredSnack(snack)}
                       onClick={() => setHoveredSnack(snack)}
-                      className={`py-5 sm:py-6 flex items-center justify-between cursor-pointer transition-all duration-300 group ${
-                        isHovered ? "pl-4 sm:pl-6 bg-white/5 rounded-2xl" : ""
+                      className={`py-3.5 sm:py-6 flex items-center justify-between cursor-pointer transition-all duration-300 group ${
+                        isHovered ? "pl-3 sm:pl-6 bg-white/5 rounded-2xl" : ""
                       }`}
                     >
-                      <div className="flex items-center gap-3 sm:gap-6">
-                        <span className="text-xs font-mono text-turmeric-400 font-bold opacity-60">
+                      <div className="flex items-center gap-2.5 sm:gap-6 min-w-0">
+                        <span className="text-xs font-mono text-turmeric-400 font-bold opacity-60 flex-shrink-0">
                           0{idx + 1}
                         </span>
                         {/* Mobile Thumbnail */}
-                        <div className="sm:hidden relative w-12 h-12 rounded-xl overflow-hidden flex-shrink-0 bg-brown-900 border border-turmeric-400/40">
+                        <div className="sm:hidden relative w-11 h-11 xs:w-12 xs:h-12 rounded-xl overflow-hidden flex-shrink-0 bg-brown-900 border border-turmeric-400/40">
                           <Image
                             src={snack.image}
                             alt={snack.name}
@@ -384,27 +391,27 @@ export function SignatureMenu() {
                             className="object-cover"
                           />
                         </div>
-                        <div>
-                          <div className="flex items-baseline gap-2 sm:gap-3">
-                            <span className="font-display text-xl sm:text-4xl md:text-5xl font-black tracking-tight text-cream-100 group-hover:text-turmeric-gold transition-colors">
+                        <div className="min-w-0">
+                          <div className="flex flex-wrap items-baseline gap-1.5 sm:gap-3">
+                            <span className="font-display text-lg xs:text-xl sm:text-4xl md:text-5xl font-black tracking-tight text-cream-100 group-hover:text-turmeric-gold transition-colors">
                               {snack.name}
                             </span>
-                            <span className="font-devanagari text-base sm:text-xl text-saffron-400 font-bold">
+                            <span className="font-devanagari text-xs xs:text-sm sm:text-xl text-saffron-400 font-bold">
                               {snack.nameMarathi}
                             </span>
                           </div>
-                          <span className="text-xs text-cream-300 mt-1 block font-sans">
+                          <span className="text-xs text-cream-300 mt-0.5 sm:mt-1 block font-sans line-clamp-1 sm:line-clamp-none">
                             {snack.description}
                           </span>
                         </div>
                       </div>
 
-                      <div className="text-right flex items-center gap-4 flex-shrink-0">
-                        <span className="font-display text-3xl sm:text-4xl font-black text-turmeric-400 group-hover:scale-110 transition-transform">
+                      <div className="text-right flex items-center gap-2 sm:gap-4 flex-shrink-0 ml-2">
+                        <span className="font-display text-2xl xs:text-3xl sm:text-4xl font-black text-turmeric-400 group-hover:scale-110 transition-transform">
                           {snack.price}
                         </span>
                         <ArrowRight
-                          className={`w-5 h-5 text-saffron-400 transition-transform duration-300 ${
+                          className={`w-4 h-4 sm:w-5 sm:h-5 text-saffron-400 transition-transform duration-300 ${
                             isHovered ? "translate-x-1 opacity-100" : "opacity-0"
                           }`}
                         />
@@ -462,15 +469,16 @@ export function SignatureMenu() {
           <div className="mx-auto max-w-7xl">
             
             {/* Header */}
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 pb-6 border-b border-turmeric-400/40">
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-16 pb-4 sm:pb-6 border-b border-turmeric-400/40">
               <div>
                 <span className="text-xs font-mono font-bold tracking-widest text-saffron-600 uppercase">
                   CHAPTER 04 • MAHARASHTRIAN SPECIALTIES & DRINKS
                 </span>
-                <h3 className="font-display text-4xl sm:text-6xl font-black text-brown-900 mt-1">
+                {/* [FIXED] Fluid typography for specialties header */}
+                <h3 className="font-display text-3xl xs:text-4xl sm:text-6xl font-black text-brown-900 mt-1">
                   Taste of Tradition.
                 </h3>
-                <span className="font-devanagari text-2xl font-bold text-brandGreen-800 block mt-1">
+                <span className="font-devanagari text-lg xs:text-xl sm:text-2xl font-bold text-brandGreen-800 block mt-1">
                   कोथिंबीर वडी, थालीपीठ, उकडीचे मोदक, सोलकढी आणि चहा
                 </span>
               </div>
@@ -621,21 +629,21 @@ export function SignatureMenu() {
         </div>
       </div>
 
-      {/* Lightbox Modal for Full Size Artwork View */}
+      {/* [FIXED] Lightbox Modal with z-[80] to sit above z-[70] navigation header and responsive touch controls */}
       {selectedArtwork && (
         <div
-          className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 sm:p-8 animate-in fade-in duration-200"
+          className="fixed inset-0 z-[80] bg-black/90 backdrop-blur-md flex items-center justify-center p-3 sm:p-8 animate-in fade-in duration-200"
           onClick={() => setSelectedArtwork(null)}
         >
           <button
             onClick={() => setSelectedArtwork(null)}
-            className="absolute top-6 right-6 p-2 rounded-full bg-white/20 hover:bg-white/40 text-white transition-colors"
+            className="absolute top-4 right-4 sm:top-6 sm:right-6 z-[90] p-2.5 sm:p-3 rounded-full bg-white/20 hover:bg-white/40 text-white transition-colors active:scale-95"
             aria-label="Close modal"
           >
             <X className="w-6 h-6" />
           </button>
           <div
-            className="relative max-w-4xl w-full max-h-[85vh] h-[80vh] rounded-2xl overflow-hidden"
+            className="relative max-w-4xl w-full max-h-[85vh] h-[75vh] sm:h-[80vh] rounded-2xl overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
             <Image

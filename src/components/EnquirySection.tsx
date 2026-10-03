@@ -42,7 +42,8 @@ export function EnquirySection() {
           <span className="text-xs font-mono font-bold tracking-widest text-saffron-600 uppercase">
             CONNECT WITH US
           </span>
-          <h2 className="font-display text-4xl sm:text-5xl font-black text-brown-900 tracking-tight">
+          {/* [FIXED] Fluid typography for Enquiry heading */}
+          <h2 className="font-display text-3xl xs:text-4xl sm:text-5xl font-black text-brown-900 tracking-tight">
             Send an Enquiry.
           </h2>
           <div className="w-28 mx-auto">
@@ -53,8 +54,8 @@ export function EnquirySection() {
           </p>
         </div>
 
-        {/* Form Container */}
-        <div className="rounded-3xl p-6 sm:p-10 bg-white border-2 border-turmeric-400/60 shadow-xl">
+        {/* [FIXED] Form Container padding adjusted to p-4 on small phones */}
+        <div className="rounded-3xl p-4 xs:p-6 sm:p-10 bg-white border-2 border-turmeric-400/60 shadow-xl">
           <form className="space-y-6">
             
             {/* Grid 1: Name and Phone */}

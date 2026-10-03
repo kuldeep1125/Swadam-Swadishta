@@ -111,20 +111,20 @@ export function StickyStory() {
     >
       <div className="mx-auto max-w-7xl">
         {/* Navigation Indicator / Step Dots */}
-        <div className="flex flex-wrap items-center justify-between gap-4 pb-8 mb-8 border-b border-white/10">
+        <div className="flex flex-wrap items-center justify-between gap-3 sm:gap-4 pb-6 sm:pb-8 mb-6 sm:mb-8 border-b border-white/10">
           <div className="flex items-center gap-2">
             <span className="text-xs font-mono font-bold tracking-widest text-turmeric-400">
               STORY CHAPTER 0{activeStep + 1} OF 0{stages.length}
             </span>
           </div>
 
-          {/* Stepper Tabs with Labels */}
-          <div className="flex items-center gap-1.5 sm:gap-2">
+          {/* [FIXED] Stepper Tabs wrapped in mobile-safe horizontal scroll rail */}
+          <div className="w-full sm:w-auto order-last sm:order-none overflow-x-auto no-scrollbar flex items-center gap-1.5 sm:gap-2 py-1">
             {stages.map((stg, i) => (
               <button
                 key={i}
                 onClick={() => setActiveStep(i)}
-                className={`px-3 py-1 rounded-full text-xs font-bold transition-all duration-300 flex items-center gap-1 ${
+                className={`whitespace-nowrap px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-300 flex-shrink-0 flex items-center gap-1 ${
                   activeStep === i
                     ? "bg-turmeric-gold text-brown-900 shadow-md scale-105"
                     : "bg-white/10 text-cream-200 hover:bg-white/20"
@@ -159,43 +159,43 @@ export function StickyStory() {
 
         {/* Dynamic Stage Display Box */}
         <div
-          className={`rounded-3xl p-8 sm:p-12 md:p-16 border-2 shadow-2xl transition-all duration-500 ${current.bg} ${current.cardBorder}`}
+          className={`rounded-3xl p-5 xs:p-6 sm:p-10 md:p-14 border-2 shadow-2xl transition-all duration-500 ${current.bg} ${current.cardBorder}`}
         >
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             {/* Left Typography (Col 1-7) */}
-            <div className="lg:col-span-7 space-y-5">
+            <div className="lg:col-span-7 space-y-4 sm:space-y-5">
               {/* Stage Pill Badge with explicit high-contrast colors */}
               <div className="inline-block">
                 <span
-                  className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs sm:text-sm font-extrabold uppercase tracking-wider shadow-md ${current.tagClasses}`}
+                  className={`inline-flex items-center gap-2 px-3.5 sm:px-4 py-1.5 rounded-full text-xs sm:text-sm font-extrabold uppercase tracking-wider shadow-md ${current.tagClasses}`}
                 >
-                  <SpiceSparkle className={`w-4 h-4 ${current.tagIconColor}`} />
+                  <SpiceSparkle className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${current.tagIconColor}`} />
                   <span className="font-sans font-extrabold tracking-wide">{current.tag}</span>
                 </span>
               </div>
 
-              {/* Main Headline & Marathi script */}
+              {/* [FIXED] Main Headline & Marathi script with fluid sizing and break-words for long words like MAHARASHTRA */}
               <div className="space-y-1">
                 <h3
-                  className={`font-display text-5xl sm:text-7xl md:text-8xl font-black tracking-tight leading-none ${current.textColor}`}
+                  className={`font-display text-3xl xs:text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-none break-words ${current.textColor}`}
                 >
                   {current.word}
                 </h3>
                 <span
-                  className={`font-devanagari text-3xl sm:text-5xl font-black block pt-1 ${current.accentColor}`}
+                  className={`font-devanagari text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-black block pt-1 ${current.accentColor}`}
                 >
                   {current.marathi}
                 </span>
               </div>
 
               {/* Subtitle - explicitly styled */}
-              <h4 className={`font-display text-2xl sm:text-3xl leading-snug ${current.subtitleColor}`}>
+              <h4 className={`font-display text-xl sm:text-2xl md:text-3xl leading-snug ${current.subtitleColor}`}>
                 {current.subtitle}
               </h4>
 
               {/* Description - explicitly styled */}
               <p
-                className={`text-base sm:text-lg leading-relaxed font-sans max-w-xl ${current.descColor}`}
+                className={`text-sm sm:text-base md:text-lg leading-relaxed font-sans max-w-xl ${current.descColor}`}
               >
                 {current.description}
               </p>

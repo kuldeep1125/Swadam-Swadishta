@@ -17,19 +17,30 @@ import { ArrowDown, MapPin, MessageCircle, Sparkles, Utensils } from "lucide-rea
 export function Hero() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
+    // Check for desktop screen size for parallax
+    const checkIsDesktop = () => {
+      setIsDesktop(window.innerWidth >= 1024);
+    };
+    checkIsDesktop();
+    window.addEventListener("resize", checkIsDesktop);
+
     // Check for prefers-reduced-motion
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     setPrefersReducedMotion(mediaQuery.matches);
 
     const handleChange = () => setPrefersReducedMotion(mediaQuery.matches);
     mediaQuery.addEventListener("change", handleChange);
-    return () => mediaQuery.removeEventListener("change", handleChange);
+    return () => {
+      window.removeEventListener("resize", checkIsDesktop);
+      mediaQuery.removeEventListener("change", handleChange);
+    };
   }, []);
 
   useEffect(() => {
-    if (prefersReducedMotion) return;
+    if (prefersReducedMotion || !isDesktop) return;
 
     const handleMouseMove = (e: MouseEvent) => {
       // Calculate normalized mouse coordinates from -1 to 1
@@ -40,13 +51,13 @@ export function Hero() {
 
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
     return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [prefersReducedMotion]);
+  }, [prefersReducedMotion, isDesktop]);
 
-  // Parallax offsets based on depth layers
-  const fgX = prefersReducedMotion ? 0 : mousePos.x * 12;
-  const fgY = prefersReducedMotion ? 0 : mousePos.y * 12;
-  const bgX = prefersReducedMotion ? 0 : -mousePos.x * 8;
-  const bgY = prefersReducedMotion ? 0 : -mousePos.y * 8;
+  // [FIXED] Parallax offsets active only on desktop to eliminate mobile horizontal jank
+  const fgX = prefersReducedMotion || !isDesktop ? 0 : mousePos.x * 12;
+  const fgY = prefersReducedMotion || !isDesktop ? 0 : mousePos.y * 12;
+  const bgX = prefersReducedMotion || !isDesktop ? 0 : -mousePos.x * 8;
+  const bgY = prefersReducedMotion || !isDesktop ? 0 : -mousePos.y * 8;
 
   return (
     <section
@@ -100,19 +111,19 @@ export function Hero() {
 
           {/* Master Headings: Marathi first, followed by English interpretation */}
           <div className="space-y-2 sm:space-y-3">
-            <div className="relative inline-block">
-              {/* Primary Marathi Masterline */}
-              <h1 className="font-devanagari text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-brown-900 tracking-tight leading-[1.05]">
+            <div className="relative inline-block max-w-full">
+              {/* [FIXED] Fluid Marathi headline responsive down to 320px viewports without horizontal clipping */}
+              <h1 className="font-devanagari text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-brown-900 tracking-tight leading-[1.08] break-words">
                 चव महाराष्ट्राची.
               </h1>
               {/* Animated Brush Underline */}
               <div className="w-full mt-1">
-                <BrushUnderline className="w-full h-3.5 sm:h-4 text-turmeric-gold" />
+                <BrushUnderline className="w-full h-3 sm:h-4 text-turmeric-gold" />
               </div>
             </div>
 
-            {/* Secondary English Typography */}
-            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-saffron-600 tracking-normal">
+            {/* [FIXED] Secondary English Typography with fluid scaling */}
+            <h2 className="font-display text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-bold text-saffron-600 tracking-normal">
               {restaurant.taglineEnglish}
             </h2>
           </div>
@@ -138,12 +149,12 @@ export function Hero() {
             </span>
           </div>
 
-          {/* Action CTAs */}
-          <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 sm:gap-4 pt-4 w-full sm:w-auto">
+          {/* [FIXED] Action CTAs with full-width stack on small phones (w-full xs:w-auto) */}
+          <div className="flex flex-col xs:flex-row flex-wrap items-stretch xs:items-center justify-center lg:justify-start gap-3 sm:gap-4 pt-4 w-full">
             {/* Primary: Menu Explorer */}
             <a
               href="#menu"
-              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-sm sm:text-base font-bold text-white bg-gradient-to-r from-saffron-600 to-saffron-500 hover:from-saffron-500 hover:to-turmeric-gold shadow-lg shadow-saffron-600/25 active:scale-95 transition-all duration-300 group"
+              className="inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-3.5 rounded-full text-sm sm:text-base font-bold text-white bg-gradient-to-r from-saffron-600 to-saffron-500 hover:from-saffron-500 hover:to-turmeric-gold shadow-lg shadow-saffron-600/25 active:scale-95 transition-all duration-300 group w-full xs:w-auto"
             >
               <span>Explore the Menu</span>
               <ArrowDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
@@ -152,7 +163,7 @@ export function Hero() {
             {/* Secondary: Location & Storefront */}
             <a
               href="#location"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full text-sm sm:text-base font-bold text-brown-900 bg-white hover:bg-cream-200 border-2 border-turmeric-400/60 shadow-sm active:scale-95 transition-all duration-200"
+              className="inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-3.5 rounded-full text-sm sm:text-base font-bold text-brown-900 bg-white hover:bg-cream-200 border-2 border-turmeric-400/60 shadow-sm active:scale-95 transition-all duration-200 w-full xs:w-auto"
             >
               <MapPin className="w-4 h-4 text-saffron-600" />
               <span>Visit Us</span>
@@ -163,7 +174,7 @@ export function Hero() {
               href={`https://wa.me/${restaurant.whatsappNumber}?text=Namaskar%20Swadam%20Swadishta!%20I%20would%20like%20to%20order/enquire.`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-full text-sm font-semibold text-brandGreen-800 bg-brandGreen-50 hover:bg-brandGreen-100 border border-brandGreen-600/30 active:scale-95 transition-all duration-200"
+              className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-full text-sm font-semibold text-brandGreen-800 bg-brandGreen-50 hover:bg-brandGreen-100 border border-brandGreen-600/30 active:scale-95 transition-all duration-200 w-full xs:w-auto"
               title="Chat with Swadam on WhatsApp"
             >
               <MessageCircle className="w-4 h-4 text-brandGreen-700" />
@@ -193,25 +204,25 @@ export function Hero() {
               <SteamSwirl className="w-5 h-8 text-turmeric-gold -mt-2 animate-pulse-subtle delay-300" />
             </div>
 
-            {/* Floating Brand Badge (Top-Left) */}
-            <div className="absolute -top-4 -left-4 z-20 bg-white rounded-2xl p-2.5 border-2 border-brandGreen-600 shadow-lg flex items-center gap-2 group hover:scale-105 transition-transform">
+            {/* [FIXED] Floating Brand Badge: positioned safely inside padding on small screens */}
+            <div className="absolute -top-3 left-1 sm:-top-4 sm:-left-4 z-20 bg-white rounded-2xl p-2 sm:p-2.5 border-2 border-brandGreen-600 shadow-lg flex items-center gap-1.5 sm:gap-2 group hover:scale-105 transition-transform">
               <Image
                 src="/images/logo.png"
                 alt="Swadam Swadishta Badge"
-                width={44}
-                height={44}
-                className="object-contain"
+                width={40}
+                height={40}
+                className="object-contain w-8 h-8 sm:w-11 sm:h-11"
               />
               <div className="pr-1 text-left">
-                <p className="text-[11px] font-bold text-brown-900 leading-tight">SWADAM</p>
-                <p className="text-[10px] font-devanagari text-brandGreen-700 font-bold">स्वाद घराचा</p>
+                <p className="text-[10px] sm:text-[11px] font-bold text-brown-900 leading-tight">SWADAM</p>
+                <p className="text-[9px] sm:text-[10px] font-devanagari text-brandGreen-700 font-bold">स्वाद घराचा</p>
               </div>
             </div>
 
-            {/* Floating Pune Favorite Badge (Top-Right) */}
-            <div className="absolute -top-4 -right-4 z-20 bg-gradient-to-r from-saffron-600 to-turmeric-gold text-white rounded-2xl px-3.5 py-1.5 shadow-lg flex items-center gap-1.5">
-              <SpiceSparkle className="w-3.5 h-3.5 text-cream-100" />
-              <span className="text-xs font-bold tracking-tight">Baner Hotspot</span>
+            {/* [FIXED] Floating Pune Favorite Badge: positioned safely inside padding on small screens */}
+            <div className="absolute -top-3 right-1 sm:-top-4 sm:-right-4 z-20 bg-gradient-to-r from-saffron-600 to-turmeric-gold text-white rounded-2xl px-2.5 sm:px-3.5 py-1 sm:py-1.5 shadow-lg flex items-center gap-1 sm:gap-1.5">
+              <SpiceSparkle className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-cream-100" />
+              <span className="text-[11px] sm:text-xs font-bold tracking-tight">Baner Hotspot</span>
             </div>
 
             {/* Centerpiece Food Photography: The Authentic Pune Lunch Thali & Misal */}

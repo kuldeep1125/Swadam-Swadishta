@@ -81,30 +81,31 @@ export function SwadamExperience() {
                 key={idx}
                 onMouseEnter={() => setActiveWordIndex(idx)}
                 onClick={() => setActiveWordIndex(idx)}
-                className={`py-8 sm:py-10 transition-all duration-300 cursor-pointer flex flex-col md:flex-row md:items-center justify-between gap-4 ${
-                  isActive ? "pl-4 sm:pl-8 bg-white/70 rounded-2xl shadow-sm" : "opacity-80 hover:opacity-100"
+                className={`py-5 sm:py-10 transition-all duration-300 cursor-pointer flex flex-col md:flex-row md:items-center justify-between gap-2.5 sm:gap-4 ${
+                  isActive ? "p-3 sm:p-4 sm:pl-8 bg-white/70 rounded-2xl shadow-sm" : "opacity-80 hover:opacity-100"
                 }`}
               >
-                <div className="flex items-baseline gap-4 sm:gap-8">
-                  <span className="font-mono text-xs sm:text-sm text-brown-400 font-bold">
+                <div className="flex items-baseline gap-3 sm:gap-8 min-w-0">
+                  <span className="font-mono text-xs sm:text-sm text-brown-400 font-bold flex-shrink-0">
                     0{idx + 1}
                   </span>
-                  <div className="flex items-baseline gap-3 sm:gap-6">
+                  {/* [FIXED] flex-wrap and fluid sizing prevents long word (MAHARASHTRIAN) from clipping on 320px viewports */}
+                  <div className="flex flex-wrap items-baseline gap-2 sm:gap-6 min-w-0">
                     <span
-                      className={`font-display text-4xl sm:text-6xl md:text-7xl font-black tracking-tight transition-colors ${
+                      className={`font-display text-2xl xs:text-3xl sm:text-6xl md:text-7xl font-black tracking-tight transition-colors break-words ${
                         isActive ? item.color : "text-brown-800"
                       }`}
                     >
                       {item.word}
                     </span>
-                    <span className="font-devanagari text-xl sm:text-3xl font-bold text-brown-500">
+                    <span className="font-devanagari text-base xs:text-xl sm:text-3xl font-bold text-brown-500">
                       ({item.marathi})
                     </span>
                   </div>
                 </div>
 
-                <div className="md:max-w-md md:text-right pl-10 md:pl-0">
-                  <p className="text-sm sm:text-base text-brown-700 font-sans font-medium leading-relaxed">
+                <div className="md:max-w-md md:text-right pl-6 sm:pl-10 md:pl-0">
+                  <p className="text-xs sm:text-base text-brown-700 font-sans font-medium leading-relaxed">
                     {item.microcopy}
                   </p>
                 </div>

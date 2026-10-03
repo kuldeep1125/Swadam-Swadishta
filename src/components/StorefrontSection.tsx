@@ -56,11 +56,11 @@ export function StorefrontSection() {
             Step into our welcoming shop on Pan Card Club Road, Baner. Pull up a chair under the marigold toran, smell the sizzling tempering, and enjoy genuine Maharashtrian hospitality.
           </p>
 
-          {/* Photo Switcher Pills */}
-          <div className="pt-2 flex items-center justify-center gap-2">
+          {/* [FIXED] Photo Switcher Pills with flex-wrap and responsive sizing for small screens */}
+          <div className="pt-2 flex flex-wrap items-center justify-center gap-2">
             <button
               onClick={() => setActivePhoto("street")}
-              className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all duration-300 ${
+              className={`px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-bold transition-all duration-300 ${
                 activePhoto === "street"
                   ? "bg-brown-900 text-cream-100 shadow-md scale-105"
                   : "bg-white text-brown-800 border border-turmeric-400/60 hover:bg-cream-100"
@@ -70,7 +70,7 @@ export function StorefrontSection() {
             </button>
             <button
               onClick={() => setActivePhoto("counter")}
-              className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all duration-300 ${
+              className={`px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-bold transition-all duration-300 ${
                 activePhoto === "counter"
                   ? "bg-brown-900 text-cream-100 shadow-md scale-105"
                   : "bg-white text-brown-800 border border-turmeric-400/60 hover:bg-cream-100"
@@ -85,8 +85,9 @@ export function StorefrontSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           
           {/* Real Photo Frame (Col 1-8) */}
-          <div className="lg:col-span-8 rounded-3xl overflow-hidden bg-white p-3 sm:p-4 border-2 border-turmeric-400 shadow-2xl group">
-            <div className="relative w-full h-[380px] sm:h-[480px] md:h-[540px] rounded-2xl overflow-hidden bg-brown-900">
+          <div className="lg:col-span-8 rounded-3xl overflow-hidden bg-white p-2.5 sm:p-4 border-2 border-turmeric-400 shadow-2xl group">
+            {/* [FIXED] Responsive height starting at 260px on 320px screens */}
+            <div className="relative w-full h-[260px] xs:h-[320px] sm:h-[460px] md:h-[540px] rounded-2xl overflow-hidden bg-brown-900">
               <Image
                 src={current.src}
                 alt={current.alt}
@@ -95,25 +96,25 @@ export function StorefrontSection() {
                 priority
               />
               
-              {/* Badge Over Photo */}
-              <div className="absolute top-4 left-4 bg-brown-900/90 text-white backdrop-blur-md px-4 py-2 rounded-2xl border border-turmeric-400/50 flex items-center gap-2 shadow-lg">
-                <PureVegBadge className="w-4 h-4" />
-                <div>
-                  <span className="font-display font-bold text-xs sm:text-sm block leading-tight">
+              {/* [FIXED] Badge positioned safely within image bounds on small screens */}
+              <div className="absolute top-2.5 left-2.5 sm:top-4 sm:left-4 max-w-[calc(100%-1.25rem)] bg-brown-900/90 text-white backdrop-blur-md px-3 sm:px-4 py-1.5 sm:py-2 rounded-2xl border border-turmeric-400/50 flex items-center gap-2 shadow-lg">
+                <PureVegBadge className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
+                <div className="min-w-0">
+                  <span className="font-display font-bold text-[11px] sm:text-sm block leading-tight truncate">
                     SS KITCHEN&apos;S SWADAM SWADISHTA
                   </span>
-                  <span className="text-[10px] text-turmeric-300 font-mono">
+                  <span className="text-[9px] sm:text-[10px] text-turmeric-300 font-mono block truncate">
                     {restaurant.fssaiNumber} • {current.badge}
                   </span>
                 </div>
               </div>
 
               {/* Bottom Caption Overlay */}
-              <div className="absolute bottom-4 left-4 right-4 bg-gradient-to-t from-black/85 via-black/50 to-transparent p-4 rounded-xl text-white">
-                <p className="font-display text-lg sm:text-xl font-bold">
+              <div className="absolute bottom-2.5 left-2.5 right-2.5 sm:bottom-4 sm:left-4 sm:right-4 bg-gradient-to-t from-black/85 via-black/50 to-transparent p-3 sm:p-4 rounded-xl text-white">
+                <p className="font-display text-base sm:text-xl font-bold">
                   {current.title}
                 </p>
-                <p className="text-xs sm:text-sm text-cream-200 mt-0.5">
+                <p className="text-xs sm:text-sm text-cream-200 mt-0.5 line-clamp-2 sm:line-clamp-none">
                   {current.desc}
                 </p>
               </div>
@@ -124,7 +125,7 @@ export function StorefrontSection() {
           <div className="lg:col-span-4 space-y-6">
             
             {/* Address Card */}
-            <div className="p-6 rounded-3xl bg-white border border-turmeric-400/50 shadow-md">
+            <div className="p-4 xs:p-6 rounded-3xl bg-white border border-turmeric-400/50 shadow-md">
               <div className="flex items-center gap-2 text-saffron-600 mb-3">
                 <MapPin className="w-5 h-5" />
                 <span className="font-display font-bold text-lg text-brown-900">Baner Location</span>

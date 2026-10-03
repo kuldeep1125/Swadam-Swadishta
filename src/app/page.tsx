@@ -20,8 +20,9 @@ import { Footer } from "@/components/Footer";
 import { FloatingCTA } from "@/components/FloatingCTA";
 
 export default function Home() {
+  // [FIXED] Updated bottom padding to pb-20 sm:pb-24 lg:pb-0 to ensure complete clearance above mobile bottom sticky bar
   return (
-    <main className="min-h-screen flex flex-col bg-cream-bg selection:bg-saffron-500 selection:text-white pb-16 sm:pb-20 lg:pb-0">
+    <main className="min-h-screen flex flex-col bg-cream-bg selection:bg-saffron-500 selection:text-white pb-20 sm:pb-24 lg:pb-0">
       {/* Morphing Sticky Glass Navigation */}
       <Navigation />
 
