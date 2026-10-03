@@ -32,10 +32,12 @@ export function WeAreOpen() {
           {/* Top Brand Logo & Pure Veg */}
           <div className="flex flex-col items-center justify-center space-y-2 mb-6">
             <div className="relative w-14 h-14 sm:w-20 sm:h-20">
+              {/* // [FIXED] Added responsive sizes attribute to logo */}
               <Image
                 src="/images/logo.png"
                 alt="Swadam Swadishta Logo"
                 fill
+                sizes="(max-width: 640px) 56px, 80px"
                 className="object-contain"
               />
             </div>
@@ -75,10 +77,12 @@ export function WeAreOpen() {
             {/* Badge 1: Tasty Food */}
             <div className="flex flex-col items-center p-4 rounded-2xl bg-white/80 border border-turmeric-400/40 shadow-sm">
               <div className="relative w-14 h-14 mb-2">
+                {/* // [FIXED] Added explicit sizes attribute for badge icon */}
                 <Image
                   src="/images/badge_tasty.png"
                   alt="Tasty Food"
                   fill
+                  sizes="56px"
                   className="object-contain"
                 />
               </div>
@@ -90,10 +94,12 @@ export function WeAreOpen() {
             {/* Badge 2: Quick Service */}
             <div className="flex flex-col items-center p-4 rounded-2xl bg-white/80 border border-turmeric-400/40 shadow-sm">
               <div className="relative w-14 h-14 mb-2">
+                {/* // [FIXED] Added explicit sizes attribute for badge icon */}
                 <Image
                   src="/images/badge_quick.png"
                   alt="Quick Service"
                   fill
+                  sizes="56px"
                   className="object-contain"
                 />
               </div>
@@ -105,10 +111,12 @@ export function WeAreOpen() {
             {/* Badge 3: Warm Ambience */}
             <div className="flex flex-col items-center p-4 rounded-2xl bg-white/80 border border-turmeric-400/40 shadow-sm">
               <div className="relative w-14 h-14 mb-2">
+                {/* // [FIXED] Added explicit sizes attribute for badge icon */}
                 <Image
                   src="/images/badge_warm.png"
                   alt="Warm Ambience"
                   fill
+                  sizes="56px"
                   className="object-contain"
                 />
               </div>
@@ -120,23 +128,25 @@ export function WeAreOpen() {
           </div>
 
           {/* Meal Timings Ribbon - [ADDED] Bilingual */}
+          {/* [FIXED] Removed opacity-80 to ensure full WCAG AAA color contrast on dark brown background */}
           <div className="inline-flex flex-wrap items-center justify-center gap-2.5 sm:gap-4 py-3 px-5 sm:px-7 rounded-2xl bg-brown-900 text-cream-100 font-medium text-xs sm:text-sm shadow-md mb-8">
-            <span className="font-bold text-turmeric-300">Breakfast <span className="font-devanagari font-normal opacity-80">(न्याहारी)</span></span>
+            <span className="font-bold text-turmeric-300">Breakfast <span className="font-devanagari font-normal text-cream-200">(न्याहारी)</span></span>
             <span className="text-saffron-500 font-bold">•</span>
-            <span className="font-bold text-cream-100">Lunch <span className="font-devanagari font-normal opacity-80">(दुपारचे जेवण)</span></span>
+            <span className="font-bold text-cream-100">Lunch <span className="font-devanagari font-normal text-cream-200">(दुपारचे जेवण)</span></span>
             <span className="text-saffron-500 font-bold">•</span>
-            <span className="font-bold text-turmeric-300">Evening Snacks <span className="font-devanagari font-normal opacity-80">(स्नॅक्स)</span></span>
+            <span className="font-bold text-turmeric-300">Evening Snacks <span className="font-devanagari font-normal text-cream-200">(स्नॅक्स)</span></span>
             <span className="text-saffron-500 font-bold">•</span>
-            <span className="text-brandGreen-400 font-bold">Open Daily <span className="font-devanagari font-normal opacity-80">(दररोज सुरू)</span></span>
+            <span className="text-brandGreen-400 font-bold">Open Daily <span className="font-devanagari font-normal text-cream-200">(दररोज सुरू)</span></span>
           </div>
 
           {/* CTAs */}
           <div className="flex flex-wrap items-center justify-center gap-4">
+            {/* // [FIXED] Added focus-visible rings for WCAG 2.2 keyboard navigation */}
             <a
               href={restaurant.googleMapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-sm font-bold text-white bg-gradient-to-r from-saffron-600 to-saffron-500 hover:from-saffron-500 hover:to-turmeric-gold shadow-lg active:scale-95 transition-all"
+              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-sm font-bold text-white bg-gradient-to-r from-saffron-600 to-saffron-500 hover:from-saffron-500 hover:to-turmeric-gold shadow-lg active:scale-95 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saffron-500 focus-visible:ring-offset-2"
             >
               <MapPin className="w-4 h-4" />
               <span>Visit Us Today!</span>
@@ -145,7 +155,7 @@ export function WeAreOpen() {
 
             <a
               href={`tel:${restaurant.phoneRaw}`}
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-sm font-bold text-brown-900 bg-white hover:bg-cream-200 border-2 border-turmeric-400 shadow-sm active:scale-95 transition-all"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-sm font-bold text-brown-900 bg-white hover:bg-cream-200 border-2 border-turmeric-400 shadow-sm active:scale-95 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saffron-500 focus-visible:ring-offset-2"
             >
               <Phone className="w-4 h-4 text-brandGreen-700" />
               <span>{restaurant.phone}</span>

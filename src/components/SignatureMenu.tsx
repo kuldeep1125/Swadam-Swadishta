@@ -2,7 +2,7 @@
 
 // [ADDED] Signature Menu Experience: 4 visual chapters (Breakfast, Lunch Thali, Evening Snacks, Specialties & Drinks)
 // Now with 4K-quality food photography and original uploaded menu artworks viewer
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { restaurant, MenuItem } from "@/config/restaurant";
 import {
@@ -21,11 +21,30 @@ export function SignatureMenu() {
   const [hoveredSnack, setHoveredSnack] = useState<MenuItem | null>(restaurant.menu.evening[0]);
   const [selectedArtwork, setSelectedArtwork] = useState<string | null>(null);
 
+  // [FIXED] H-2: Keyboard Escape listener and body scroll lock for artwork lightbox modal
+  useEffect(() => {
+    if (!selectedArtwork) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setSelectedArtwork(null);
+    };
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [selectedArtwork]);
+
   return (
-    <section id="menu" className="relative w-full transition-colors duration-700" aria-label="Our Authentic Menu">
+    <section id="menu" className="relative w-full transition-colors duration-700 scroll-mt-20" aria-label="Our Authentic Menu">
       
       {/* Category Filter Navigation Bar */}
-      <div className="sticky top-16 z-30 py-2.5 sm:py-4 px-3 sm:px-4 bg-cream-100/95 backdrop-blur-md border-y border-turmeric-400/40 shadow-sm">
+      {/* [FIXED] Corrected sticky offset to top-[60px] sm:top-[68px] to prevent overlapping under the floating header */}
+      <div className="sticky top-[60px] sm:top-[68px] z-30 py-2.5 sm:py-4 px-3 sm:px-4 bg-cream-100/95 backdrop-blur-md border-y border-turmeric-400/40 shadow-sm">
+        {/* [ADDED] Screen-reader announcement for category change */}
+        <div aria-live="polite" className="sr-only">
+          Showing {activeCategory === "all" ? "all" : activeCategory} dishes
+        </div>
         <div className="mx-auto max-w-7xl flex flex-col md:flex-row items-center justify-between gap-3 sm:gap-4">
           <div className="flex items-center justify-between w-full md:w-auto">
             <div>
@@ -39,7 +58,12 @@ export function SignatureMenu() {
           </div>
 
           {/* [FIXED] Horizontal swipeable rail for mobile screens with clean no-scrollbar styling - [ADDED] Bilingual */}
-          <div className="w-full md:w-auto flex items-center gap-1.5 p-1 rounded-2xl sm:rounded-full bg-cream-200/80 border border-turmeric-400/50 overflow-x-auto no-scrollbar flex-nowrap sm:flex-wrap justify-start sm:justify-center">
+          <div
+            tabIndex={0}
+            role="region"
+            aria-label="Menu categories"
+            className="w-full md:w-auto flex items-center gap-1.5 p-1 rounded-2xl sm:rounded-full bg-cream-200/80 border border-turmeric-400/50 overflow-x-auto no-scrollbar flex-nowrap sm:flex-wrap justify-start sm:justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saffron-500"
+          >
             {(
               [
                 { id: "all", label: "ALL DISHES", mr: "सर्व" },
@@ -49,10 +73,11 @@ export function SignatureMenu() {
                 { id: "specialties", label: "04 SPECIALTIES & DRINKS", mr: "विशेष" },
               ] as const
             ).map((cat) => (
+              // [FIXED] 40px+ touch target for mobile thumb ergonomics
               <button
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.id)}
-                className={`whitespace-nowrap px-3 sm:px-4 py-1.5 rounded-full text-xs font-bold transition-all duration-300 flex-shrink-0 ${
+                className={`whitespace-nowrap px-3.5 sm:px-4 py-2 sm:py-2.5 min-h-[40px] inline-flex items-center justify-center rounded-full text-xs font-bold transition-all duration-300 flex-shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saffron-500 ${
                   activeCategory === cat.id
                     ? "bg-brown-900 text-cream-100 shadow-md scale-105"
                     : "text-brown-800 hover:text-saffron-600 hover:bg-cream-100"
@@ -125,10 +150,12 @@ export function SignatureMenu() {
 
                     {/* Misal Pav 4K Hero Image */}
                     <div className="relative w-full h-56 xs:h-72 sm:h-96 rounded-2xl overflow-hidden my-4 sm:my-6 bg-cream-100 group-hover:scale-[1.02] transition-transform duration-500 shadow-md">
+                      {/* // [FIXED] Added responsive sizes attribute */}
                       <Image
                         src={misal.image}
                         alt="Authentic Pune Misal Pav"
                         fill
+                        sizes="(max-width: 768px) 100vw, 60vw"
                         className="object-cover"
                       />
                       <div className="absolute bottom-3 left-3 bg-brown-900/90 text-cream-100 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-xl text-[11px] sm:text-xs font-semibold backdrop-blur-sm border border-white/20">
@@ -153,10 +180,12 @@ export function SignatureMenu() {
                       className="p-3 xs:p-4 sm:p-5 rounded-2xl bg-white border border-turmeric-400/50 shadow-sm hover:shadow-md hover:border-turmeric-gold transition-all duration-300 flex items-center justify-between gap-2.5 xs:gap-4 group"
                     >
                       <div className="relative w-16 h-16 xs:w-20 xs:h-20 sm:w-24 sm:h-24 rounded-xl overflow-hidden bg-cream-100 flex-shrink-0 group-hover:scale-105 transition-transform duration-300 border border-cream-200">
+                        {/* // [FIXED] Added responsive sizes attribute */}
                         <Image
                           src={item.image}
                           alt={item.name}
                           fill
+                          sizes="(max-width: 640px) 80px, 96px"
                           className="object-cover"
                         />
                       </div>
@@ -194,7 +223,7 @@ export function SignatureMenu() {
       {/* CHAPTER 2: LUNCH THALI (The Hero Moment — Lush Green & Terracotta)         */}
       {/* ========================================================================= */}
       {(activeCategory === "all" || activeCategory === "lunch") && (
-        <div id="thali" className="relative py-24 sm:py-32 px-4 sm:px-8 md:px-12 bg-gradient-to-b from-[#143D22] via-[#0D2B16] to-[#1A0E08] text-cream-100 overflow-hidden">
+        <div id="thali" className="relative py-24 sm:py-32 px-4 sm:px-8 md:px-12 bg-gradient-to-b from-[#143D22] via-[#0D2B16] to-[#1A0E08] text-cream-100 overflow-hidden scroll-mt-20">
           
           <div className="relative mx-auto max-w-7xl">
             
@@ -264,10 +293,12 @@ export function SignatureMenu() {
                   <div className="absolute inset-0 rounded-full bg-turmeric-500/15 blur-2xl pointer-events-none" />
 
                   <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-turmeric-400/60 shadow-2xl shadow-black/60 group-hover:scale-105 transition-transform duration-700">
+                    {/* // [FIXED] Added responsive sizes attribute */}
                     <Image
                       src="/images/hd_lunch_thali.jpg"
                       alt="Full Maharashtrian Lunch Thali with 3 Chapatis, 2 Sabjis, Rice, Dal, Papad and Pickle"
                       fill
+                      sizes="(max-width: 640px) 280px, (max-width: 1024px) 480px, 420px"
                       className="object-cover"
                     />
                   </div>
@@ -321,10 +352,12 @@ export function SignatureMenu() {
                       WITH DESSERT
                     </span>
                     <div className="relative w-10 h-10 rounded-full overflow-hidden border border-white/40">
+                      {/* // [FIXED] Explicit sizes attribute */}
                       <Image
                         src="/images/hd_lunch_thali_sweet.jpg"
                         alt="Sweet of the day"
                         fill
+                        sizes="40px"
                         className="object-cover"
                       />
                     </div>
@@ -361,7 +394,7 @@ export function SignatureMenu() {
       {/* CHAPTER 3: EVENING SNACKS (Warm Chocolate Brown & Street Energy)          */}
       {/* ========================================================================= */}
       {(activeCategory === "all" || activeCategory === "evening") && (
-        <div id="snacks" className="relative py-20 sm:py-28 px-4 sm:px-8 md:px-12 bg-brown-800 text-cream-100 overflow-hidden border-t-2 border-turmeric-400">
+        <div id="snacks" className="relative py-20 sm:py-28 px-4 sm:px-8 md:px-12 bg-brown-800 text-cream-100 overflow-hidden border-t-2 border-turmeric-400 scroll-mt-20">
           
           <div className="mx-auto max-w-7xl">
             
@@ -392,24 +425,37 @@ export function SignatureMenu() {
                 {restaurant.menu.evening.map((snack, idx) => {
                   const isHovered = hoveredSnack?.id === snack.id;
                   return (
+                    // [FIXED] H-7: Added role="button", tabIndex, onKeyDown and focus-visible ring for keyboard & touch access
                     <div
                       key={snack.id}
+                      role="button"
+                      tabIndex={0}
+                      aria-pressed={isHovered}
                       onMouseEnter={() => setHoveredSnack(snack)}
                       onClick={() => setHoveredSnack(snack)}
-                      className={`py-3.5 sm:py-6 flex items-center justify-between cursor-pointer transition-all duration-300 group ${
-                        isHovered ? "pl-3 sm:pl-6 bg-white/5 rounded-2xl" : ""
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          setHoveredSnack(snack);
+                        }
+                      }}
+                      className={`py-3.5 sm:py-6 flex items-center justify-between cursor-pointer transition-all duration-300 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-turmeric-gold rounded-2xl ${
+                        isHovered ? "pl-3 sm:pl-6 bg-white/5" : ""
                       }`}
                     >
                       <div className="flex items-center gap-2.5 sm:gap-6 min-w-0">
-                        <span className="text-xs font-mono text-turmeric-400 font-bold opacity-60 flex-shrink-0">
+                        {/* [FIXED] High-contrast text-turmeric-300 without opacity for WCAG compliance */}
+                        <span className="text-xs font-mono text-turmeric-300 font-bold flex-shrink-0">
                           0{idx + 1}
                         </span>
                         {/* Mobile Thumbnail */}
                         <div className="sm:hidden relative w-11 h-11 xs:w-12 xs:h-12 rounded-xl overflow-hidden flex-shrink-0 bg-brown-900 border border-turmeric-400/40">
+                          {/* // [FIXED] Explicit sizes attribute */}
                           <Image
                             src={snack.image}
                             alt={snack.name}
                             fill
+                            sizes="48px"
                             className="object-cover"
                           />
                         </div>
@@ -429,7 +475,8 @@ export function SignatureMenu() {
                       </div>
 
                       <div className="text-right flex items-center gap-2 sm:gap-4 flex-shrink-0 ml-2">
-                        <span className="font-display text-2xl xs:text-3xl sm:text-4xl font-black text-turmeric-400 group-hover:scale-110 transition-transform">
+                        {/* [FIXED] High-contrast turmeric-gold price */}
+                        <span className="font-display text-2xl xs:text-3xl sm:text-4xl font-black text-turmeric-gold group-hover:scale-110 transition-transform">
                           {snack.price}
                         </span>
                         <ArrowRight
@@ -457,10 +504,12 @@ export function SignatureMenu() {
                     </div>
 
                     <div className="relative w-full h-64 sm:h-72 rounded-2xl overflow-hidden bg-brown-800 shadow-md">
+                      {/* // [FIXED] Responsive sizes attribute */}
                       <Image
                         src={hoveredSnack.image}
                         alt={hoveredSnack.name}
                         fill
+                        sizes="(max-width: 768px) 100vw, 420px"
                         className="object-cover"
                       />
                     </div>
@@ -487,7 +536,7 @@ export function SignatureMenu() {
       {/* CHAPTER 4: SPECIALTIES & REFRESHING DRINKS (From Attached Banner Reference)*/}
       {/* ========================================================================= */}
       {(activeCategory === "all" || activeCategory === "specialties") && (
-        <div id="specialties" className="relative py-20 sm:py-28 px-4 sm:px-8 md:px-12 bg-cream-50 text-brown-900 overflow-hidden border-t-2 border-turmeric-400">
+        <div id="specialties" className="relative py-20 sm:py-28 px-4 sm:px-8 md:px-12 bg-cream-50 text-brown-900 overflow-hidden border-t-2 border-turmeric-400 scroll-mt-20">
           <div className="mx-auto max-w-7xl">
             
             {/* Header */}
@@ -522,6 +571,7 @@ export function SignatureMenu() {
                         src={item.image}
                         alt={item.name}
                         fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                         className="object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                       <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-[11px] font-bold text-brown-900 shadow-sm border border-turmeric-400/40">
@@ -586,14 +636,25 @@ export function SignatureMenu() {
             
             {/* Card 1: Horizontal Full Menu */}
             <div
+              role="button"
+              tabIndex={0}
+              aria-label="View Original Full Menu Card / मूळ संपूर्ण मेनू कार्ड"
               onClick={() => setSelectedArtwork("/images/menu_original.jpg")}
-              className="rounded-2xl p-3 bg-white border border-turmeric-400/60 shadow-md hover:shadow-xl cursor-pointer group transition-all"
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  setSelectedArtwork("/images/menu_original.jpg");
+                }
+              }}
+              className="rounded-2xl p-3 bg-white border border-turmeric-400/60 shadow-md hover:shadow-xl cursor-pointer group transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saffron-500"
             >
               <div className="relative w-full h-44 rounded-xl overflow-hidden bg-cream-100">
+                {/* // [FIXED] Responsive sizes attribute */}
                 <Image
                   src="/images/menu_original.jpg"
                   alt="Original Swadam Swadishta Menu Card"
                   fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
                   className="object-cover group-hover:scale-105 transition-transform duration-300"
                 />
                 <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white font-bold text-xs gap-1.5">
@@ -613,14 +674,25 @@ export function SignatureMenu() {
 
             {/* Card 2: Vertical Menu Flyer */}
             <div
+              role="button"
+              tabIndex={0}
+              aria-label="View In-Store Vertical Flyer / दुकानातील वर्टिकल फ्लायर"
               onClick={() => setSelectedArtwork("/images/menu_flyer_vertical.png")}
-              className="rounded-2xl p-3 bg-white border border-turmeric-400/60 shadow-md hover:shadow-xl cursor-pointer group transition-all"
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  setSelectedArtwork("/images/menu_flyer_vertical.png");
+                }
+              }}
+              className="rounded-2xl p-3 bg-white border border-turmeric-400/60 shadow-md hover:shadow-xl cursor-pointer group transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saffron-500"
             >
               <div className="relative w-full h-44 rounded-xl overflow-hidden bg-cream-100">
+                {/* // [FIXED] Responsive sizes attribute */}
                 <Image
                   src="/images/menu_flyer_vertical.png"
                   alt="Original Vertical Menu Flyer with Vada Pav Sketch"
                   fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
                   className="object-cover group-hover:scale-105 transition-transform duration-300"
                 />
                 <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white font-bold text-xs gap-1.5">
@@ -640,14 +712,25 @@ export function SignatureMenu() {
 
             {/* Card 3: Wide Kitchen Banner */}
             <div
+              role="button"
+              tabIndex={0}
+              aria-label="View Swadam Kitchen Banner"
               onClick={() => setSelectedArtwork("/images/banner_original.png")}
-              className="rounded-2xl p-3 bg-white border border-turmeric-400/60 shadow-md hover:shadow-xl cursor-pointer group transition-all"
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  setSelectedArtwork("/images/banner_original.png");
+                }
+              }}
+              className="rounded-2xl p-3 bg-white border border-turmeric-400/60 shadow-md hover:shadow-xl cursor-pointer group transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saffron-500"
             >
               <div className="relative w-full h-44 rounded-xl overflow-hidden bg-cream-100">
+                {/* // [FIXED] Responsive sizes attribute */}
                 <Image
                   src="/images/banner_original.png"
                   alt="Swadam Snacks & Kitchen Banner"
                   fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
                   className="object-cover group-hover:scale-105 transition-transform duration-300"
                 />
                 <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white font-bold text-xs gap-1.5">
@@ -664,16 +747,19 @@ export function SignatureMenu() {
         </div>
       </div>
 
-      {/* [FIXED] Lightbox Modal with z-[80] to sit above z-[70] navigation header and responsive touch controls */}
+      {/* [FIXED] Lightbox Modal with z-[80], role="dialog", aria-modal="true" and responsive touch controls */}
       {selectedArtwork && (
         <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Artwork image viewer"
           className="fixed inset-0 z-[80] bg-black/90 backdrop-blur-md flex items-center justify-center p-3 sm:p-8 animate-in fade-in duration-200"
           onClick={() => setSelectedArtwork(null)}
         >
           <button
             onClick={() => setSelectedArtwork(null)}
-            className="absolute top-4 right-4 sm:top-6 sm:right-6 z-[90] p-2.5 sm:p-3 rounded-full bg-white/20 hover:bg-white/40 text-white transition-colors active:scale-95"
-            aria-label="Close modal"
+            className="absolute top-4 right-4 sm:top-6 sm:right-6 z-[90] p-2.5 sm:p-3 rounded-full bg-white/20 hover:bg-white/40 text-white transition-colors active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-turmeric-gold"
+            aria-label="Close modal (Esc)"
           >
             <X className="w-6 h-6" />
           </button>
@@ -681,10 +767,12 @@ export function SignatureMenu() {
             className="relative max-w-4xl w-full max-h-[85vh] h-[75vh] sm:h-[80vh] rounded-2xl overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
+            {/* // [FIXED] Responsive sizes attribute */}
             <Image
               src={selectedArtwork}
               alt="Full view original artwork"
               fill
+              sizes="(max-width: 1024px) 95vw, 1000px"
               className="object-contain"
             />
           </div>

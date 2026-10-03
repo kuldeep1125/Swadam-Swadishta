@@ -12,16 +12,18 @@ export function StorefrontSection() {
 
   const photos = {
     street: {
-      src: "/images/real_storefront_street.png",
+      // [FIXED] Enhanced 4K architectural photograph of authentic storefront without street obstructions
+      src: "/images/hd_storefront_street.jpg",
       alt: "Authentic Swadam Swadishta street storefront at Shop No. 5, Baner Pune",
-      badge: "STREET VIEW & SEATING",
+      badge: "STREET VIEW & SEATING • बाहेरील बैठक",
       title: "Real Shopfront on Pan Card Club Road",
       desc: "Outdoor street seating, marigold toran, and clean welcoming facade in Baner, Pune.",
     },
     counter: {
-      src: "/images/storefront.jpg",
-      alt: "Swadam Swadishta counter and welcoming entrance",
-      badge: "SERVICE COUNTER",
+      // [FIXED] Enhanced 4K crisp welcoming counter & kitchen entrance view with warm lighting
+      src: "/images/hd_storefront_counter.jpg",
+      alt: "Swadam Swadishta counter and welcoming entrance with fresh food display",
+      badge: "SERVICE COUNTER • सेवा काउंटर",
       title: "Welcoming Counter & Kitchen",
       desc: "Spotless hygienic kitchen counter with fresh Maharashtrian dishes prepared before you.",
     },
@@ -30,7 +32,7 @@ export function StorefrontSection() {
   const current = photos[activePhoto];
 
   return (
-    <section id="storefront" className="relative py-24 sm:py-32 px-4 sm:px-8 md:px-12 bg-cream-50 overflow-hidden" aria-label="Our Real Storefront in Baner Pune">
+    <section id="storefront" className="relative py-24 sm:py-32 px-4 sm:px-8 md:px-12 bg-cream-50 overflow-hidden scroll-mt-20" aria-label="Our Real Storefront in Baner Pune">
       
       {/* Background grain */}
       <div className="absolute inset-0 bg-grain opacity-50 pointer-events-none" />
@@ -64,7 +66,7 @@ export function StorefrontSection() {
           <div className="pt-2 flex flex-wrap items-center justify-center gap-2">
             <button
               onClick={() => setActivePhoto("street")}
-              className={`px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-bold transition-all duration-300 ${
+              className={`px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-bold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saffron-500 ${
                 activePhoto === "street"
                   ? "bg-brown-900 text-cream-100 shadow-md scale-105"
                   : "bg-white text-brown-800 border border-turmeric-400/60 hover:bg-cream-100"
@@ -74,7 +76,7 @@ export function StorefrontSection() {
             </button>
             <button
               onClick={() => setActivePhoto("counter")}
-              className={`px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-bold transition-all duration-300 ${
+              className={`px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-bold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saffron-500 ${
                 activePhoto === "counter"
                   ? "bg-brown-900 text-cream-100 shadow-md scale-105"
                   : "bg-white text-brown-800 border border-turmeric-400/60 hover:bg-cream-100"
@@ -96,7 +98,8 @@ export function StorefrontSection() {
                 src={current.src}
                 alt={current.alt}
                 fill
-                className="object-contain sm:object-cover object-center group-hover:scale-105 transition-transform duration-700"
+                sizes="(max-width: 1024px) 100vw, 800px"
+                className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
                 priority
               />
               
@@ -179,7 +182,7 @@ export function StorefrontSection() {
                 href={restaurant.googleMapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full inline-flex items-center justify-center gap-2 py-3 px-6 rounded-full bg-gradient-to-r from-saffron-600 to-turmeric-gold text-white font-bold text-sm shadow-lg hover:shadow-saffron-500/30 active:scale-95 transition-all"
+                className="w-full inline-flex items-center justify-center gap-2 py-3 px-6 rounded-full bg-gradient-to-r from-saffron-600 to-turmeric-gold text-white font-bold text-sm shadow-lg hover:shadow-saffron-500/30 active:scale-95 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-turmeric-gold"
               >
                 <Navigation className="w-4 h-4" />
                 <span>Open in Google Maps</span>

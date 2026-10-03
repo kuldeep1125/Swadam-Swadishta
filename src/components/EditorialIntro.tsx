@@ -7,30 +7,34 @@ import { BrushUnderline, DecorativeLeaf, PureVegBadge } from "@/components/Brand
 import { UtensilsCrossed, Clock, HeartHandshake, Leaf } from "lucide-react";
 
 export function EditorialIntro() {
-  const [scrollY, setScrollY] = useState(0);
-  const [isTabletOrDesktop, setIsTabletOrDesktop] = useState(false);
+  const leftRef = React.useRef<HTMLDivElement>(null);
+  const rightRef = React.useRef<HTMLDivElement>(null);
 
+  // [REFACTORED] Using direct DOM manipulation via requestAnimationFrame instead of React state to prevent scroll-linked re-renders
   useEffect(() => {
-    const handleResize = () => {
-      setIsTabletOrDesktop(window.innerWidth >= 768);
-    };
-    handleResize();
-    window.addEventListener("resize", handleResize);
+    let ticking = false;
 
     const handleScroll = () => {
-      setScrollY(window.scrollY);
+      if (window.innerWidth < 768) return;
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrollY = window.scrollY;
+          const rawShift = Math.max(-50, Math.min(50, (scrollY - 600) * 0.08));
+          if (leftRef.current) {
+            leftRef.current.style.transform = `translateX(${rawShift}px)`;
+          }
+          if (rightRef.current) {
+            rightRef.current.style.transform = `translateX(${-rawShift}px)`;
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
 
-  // [FIXED] Smooth scroll shift active on tablet & desktop only; disabled on mobile (<768px) to prevent horizontal overflow
-  const rawShift = Math.max(-50, Math.min(50, (scrollY - 600) * 0.08));
-  const shiftLeft = isTabletOrDesktop ? rawShift : 0;
-  const shiftRight = isTabletOrDesktop ? -rawShift : 0;
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const iconMap: Record<string, React.ReactNode> = {
     UtensilsCrossed: <UtensilsCrossed className="w-6 h-6 text-saffron-600" />,
@@ -42,7 +46,7 @@ export function EditorialIntro() {
   return (
     <section
       id="experience"
-      className="relative py-20 sm:py-28 px-4 sm:px-8 md:px-12 bg-cream-50 overflow-hidden"
+      className="relative py-20 sm:py-28 px-4 sm:px-8 md:px-12 bg-cream-50 overflow-hidden scroll-mt-20"
       aria-label="About Swadam Swadishta"
     >
       {/* Subtle Grain Background */}
@@ -68,8 +72,8 @@ export function EditorialIntro() {
 
         {/* Primary Editorial Heading */}
         <div className="space-y-3 sm:space-y-4 max-w-4xl">
-          {/* [FIXED] Responsive typography down to 320px viewports - [ADDED] Bilingual statement */}
-          <h2 className="font-display text-2xl xs:text-3xl sm:text-5xl md:text-6xl font-black text-brown-900 leading-[1.18] tracking-tight">
+          {/* [FIXED] Refined responsive typography and break-words for flawless 320px-375px rendering */}
+          <h2 className="font-display text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-brown-900 leading-[1.2] tracking-tight break-words">
             Some food fills you up. <br />
             <span className="text-saffron-600 font-bold">
               Some food reminds you of home.
@@ -89,11 +93,11 @@ export function EditorialIntro() {
         <div className="my-14 sm:my-24 py-6 sm:py-8 border-y border-turmeric-400/40 select-none overflow-hidden">
           {/* [FIXED] Fluid typography with break-words and mobile-safe alignment */}
           <div
-            className="flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-4 font-display font-black text-3xl xs:text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight transition-transform duration-300 text-center sm:text-left"
-            style={{ transform: `translateX(${shiftLeft}px)` }}
+            ref={leftRef}
+            className="flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-4 font-display font-black text-3xl xs:text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight text-center sm:text-left will-change-transform"
           >
             <span className="text-brown-900">Simple food.</span>
-            <div className="relative inline-block" style={{ transform: `translateX(${shiftRight}px)` }}>
+            <div ref={rightRef} className="relative inline-block will-change-transform">
               <span className="text-saffron-600">Big swad.</span>
               <div className="w-full">
                 <BrushUnderline className="w-full h-2.5 sm:h-3 text-turmeric-gold" />

@@ -20,6 +20,12 @@
     overflow-x: hidden;
   }
 
+  /* [FIXED] M-1: Global scroll-margin-top ensures anchor links are never cut off by the sticky header */
+  section[id],
+  div[id] {
+    scroll-margin-top: 5.5rem;
+  }
+
   body {
     overflow-x: hidden;
     min-height: 100vh;

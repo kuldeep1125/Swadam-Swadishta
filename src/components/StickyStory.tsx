@@ -96,7 +96,8 @@ export function StickyStory() {
       tagClasses: "bg-saffron-600 text-white shadow-md border border-saffron-500 font-black",
       tagIconColor: "text-turmeric-gold",
       cardBorder: "border-turmeric-400/60",
-      image: "/images/real_storefront_street.png",
+      // [FIXED] Using 4K enhanced authentic storefront image
+      image: "/images/hd_storefront_street.jpg",
       tag: "Visit Us in Baner • बाणेर येथे भेट द्या",
       dishCaption: "Shop No. 5, Baner, Pune • दुकान क्र. ५",
     },
@@ -121,15 +122,16 @@ export function StickyStory() {
           {/* [FIXED] Stepper Tabs wrapped in mobile-safe horizontal scroll rail - [ADDED] Bilingual */}
           <div className="w-full sm:w-auto order-last sm:order-none overflow-x-auto no-scrollbar flex items-center gap-1.5 sm:gap-2 py-1">
             {stages.map((stg, i) => (
+              // [FIXED] 40px+ touch target for mobile thumb ergonomics
               <button
                 key={i}
                 onClick={() => setActiveStep(i)}
-                className={`whitespace-nowrap px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-300 flex-shrink-0 flex items-center gap-1 ${
+                className={`whitespace-nowrap px-3.5 sm:px-4 py-2 min-h-[40px] rounded-full text-xs font-bold transition-all duration-300 flex-shrink-0 inline-flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-turmeric-gold ${
                   activeStep === i
                     ? "bg-turmeric-gold text-brown-900 shadow-md scale-105"
                     : "bg-white/10 text-cream-200 hover:bg-white/20"
                 }`}
-                aria-label={`Jump to stage ${i + 1}: ${stg.word}`}
+                aria-label={`${stg.word} (${stg.marathi}) - Stage ${i + 1}`}
               >
                 <span>{stg.word}</span>
                 <span className="font-devanagari text-[10px] opacity-80">({stg.marathi})</span>
@@ -142,7 +144,7 @@ export function StickyStory() {
             <button
               onClick={() => setActiveStep((prev) => Math.max(0, prev - 1))}
               disabled={activeStep === 0}
-              className="p-2 rounded-full border border-white/20 hover:bg-white/10 disabled:opacity-30 disabled:pointer-events-none transition-colors"
+              className="p-2 rounded-full border border-white/20 hover:bg-white/10 disabled:opacity-30 disabled:pointer-events-none transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-turmeric-gold"
               aria-label="Previous story stage"
             >
               <ChevronLeft className="w-5 h-5 text-cream-100" />
@@ -150,7 +152,7 @@ export function StickyStory() {
             <button
               onClick={() => setActiveStep((prev) => Math.min(stages.length - 1, prev + 1))}
               disabled={activeStep === stages.length - 1}
-              className="p-2 rounded-full border border-white/20 hover:bg-white/10 disabled:opacity-30 disabled:pointer-events-none transition-colors"
+              className="p-2 rounded-full border border-white/20 hover:bg-white/10 disabled:opacity-30 disabled:pointer-events-none transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-turmeric-gold"
               aria-label="Next story stage"
             >
               <ChevronRight className="w-5 h-5 text-cream-100" />
@@ -202,14 +204,14 @@ export function StickyStory() {
               </p>
 
               {/* Bottom chapter navigator within card */}
-              <div className="pt-4 border-t border-black/10 dark:border-white/10 flex items-center justify-between">
+              <div className="pt-4 border-t border-black/15 flex items-center justify-between">
                 <span className={`text-xs font-mono font-bold ${current.descColor}`}>
                   Chapter 0{activeStep + 1} of 05
                 </span>
                 {activeStep < stages.length - 1 ? (
                   <button
                     onClick={() => setActiveStep((prev) => prev + 1)}
-                    className={`inline-flex items-center gap-1.5 text-xs font-bold underline underline-offset-4 hover:opacity-80 transition-opacity ${current.textColor}`}
+                    className={`inline-flex items-center gap-1.5 text-xs font-bold underline underline-offset-4 hover:opacity-80 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-turmeric-gold rounded-sm ${current.textColor}`}
                   >
                     <span>Next: {stages[activeStep + 1].word}</span>
                     <ChevronRight className="w-3.5 h-3.5" />

@@ -1,0 +1,22 @@
+{
+  "name": "Swadam Swadishta - Authentic Maharashtrian Vegetarian",
+  "short_name": "Swadam Swadishta",
+  "description": "Authentic Maharashtrian vegetarian breakfast, lunch thali, and evening snacks in Baner, Pune.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFF9EE",
+  "theme_color": "#E85D04",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/images/logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

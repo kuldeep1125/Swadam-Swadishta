@@ -77,16 +77,27 @@ export function SwadamExperience() {
           {pillars.map((item, idx) => {
             const isActive = activeWordIndex === idx;
             return (
+              // [FIXED] Added full WCAG 2.2 keyboard accessibility (role, tabIndex, onKeyDown, focus-visible)
               <div
                 key={idx}
+                role="button"
+                tabIndex={0}
+                aria-pressed={isActive}
                 onMouseEnter={() => setActiveWordIndex(idx)}
                 onClick={() => setActiveWordIndex(idx)}
-                className={`py-5 sm:py-10 transition-all duration-300 cursor-pointer flex flex-col md:flex-row md:items-center justify-between gap-2.5 sm:gap-4 ${
-                  isActive ? "p-3 sm:p-4 sm:pl-8 bg-white/70 rounded-2xl shadow-sm" : "opacity-80 hover:opacity-100"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setActiveWordIndex(idx);
+                  }
+                }}
+                className={`py-5 sm:py-10 transition-all duration-300 cursor-pointer flex flex-col md:flex-row md:items-center justify-between gap-2.5 sm:gap-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saffron-500 rounded-2xl ${
+                  isActive ? "p-3 sm:p-4 sm:pl-8 bg-white/70 shadow-sm" : "opacity-80 hover:opacity-100"
                 }`}
               >
                 <div className="flex items-baseline gap-3 sm:gap-8 min-w-0">
-                  <span className="font-mono text-xs sm:text-sm text-brown-400 font-bold flex-shrink-0">
+                  {/* [FIXED] High-contrast text-brown-700 for WCAG AA compliance on cream background */}
+                  <span className="font-mono text-xs sm:text-sm text-brown-700 font-bold flex-shrink-0">
                     0{idx + 1}
                   </span>
                   {/* [FIXED] flex-wrap and fluid sizing prevents long word (MAHARASHTRIAN) from clipping on 320px viewports */}

@@ -62,10 +62,12 @@ export function FoodMarquee() {
           }`,
         }}
       >
-        {/* Render twice for infinite loop */}
+        {/* Render 3x for continuous infinite loop; aria-hidden on repeats so screen readers don't repeat 33 times */}
+        {/* // [FIXED] Screen reader duplicate loop suppression via aria-hidden */}
         {[...marqueeItems, ...marqueeItems, ...marqueeItems].map((item, index) => (
           <div
             key={index}
+            aria-hidden={index >= marqueeItems.length}
             className="inline-flex items-center gap-4 sm:gap-6 mx-4 sm:mx-6 group cursor-default"
           >
             <span className="font-display text-2xl sm:text-4xl md:text-5xl font-black tracking-wider text-cream-100 group-hover:text-turmeric-gold transition-colors">

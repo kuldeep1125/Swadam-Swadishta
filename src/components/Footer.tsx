@@ -51,13 +51,13 @@ export function Footer() {
             Fresh hot Poha at sunrise, a fulfilling ₹110 Thali for lunch, and crispy Wada Pav & Bhaji in the evening. We are ready to serve you! (सकाळचा गरमा-गरम पोहे, दुपारची ₹११० तृप्त करणारी थाळी आणि संध्याकाळी कुरकुरीत वडा पाव. आम्ही आपल्या स्वागतासाठी सज्ज आहोत!)
           </p>
 
-          {/* [FIXED] CTAs stack full-width on mobile */}
+          {/* [FIXED] CTAs stack full-width on mobile with accessible focus styles */}
           <div className="flex flex-col xs:flex-row flex-wrap items-stretch xs:items-center justify-center gap-3 sm:gap-4 pt-6">
             <a
               href={restaurant.googleMapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 rounded-full bg-gradient-to-r from-saffron-600 to-turmeric-gold hover:from-saffron-500 hover:to-turmeric-400 text-white font-bold text-sm sm:text-base shadow-xl hover:shadow-saffron-500/25 active:scale-95 transition-all w-full xs:w-auto"
+              className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 rounded-full bg-gradient-to-r from-saffron-600 to-turmeric-gold hover:from-saffron-500 hover:to-turmeric-400 text-white font-bold text-sm sm:text-base shadow-xl hover:shadow-saffron-500/25 active:scale-95 transition-all w-full xs:w-auto focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-turmeric-gold"
             >
               <MapPin className="w-4 h-4" />
               <span>Get Directions / मार्ग पहा</span>
@@ -66,7 +66,7 @@ export function Footer() {
 
             <a
               href={`tel:${restaurant.phoneRaw}`}
-              className="inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-3.5 sm:py-4 rounded-full bg-white/10 hover:bg-white/20 text-cream-100 font-bold text-sm sm:text-base border border-white/20 active:scale-95 transition-all w-full xs:w-auto"
+              className="inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-3.5 sm:py-4 rounded-full bg-white/10 hover:bg-white/20 text-cream-100 font-bold text-sm sm:text-base border border-white/20 active:scale-95 transition-all w-full xs:w-auto focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-turmeric-gold"
             >
               <Phone className="w-4 h-4 text-turmeric-400" />
               <span>Call {restaurant.phone} / कॉल करा</span>
@@ -76,7 +76,7 @@ export function Footer() {
               href={`https://wa.me/${restaurant.whatsappNumber}?text=Namaskar%20Swadam%20Swadishta!%20I%20am%20planning%20to%20visit.`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-3.5 sm:py-4 rounded-full bg-brandGreen-700 hover:bg-brandGreen-800 text-white font-bold text-sm sm:text-base shadow-lg active:scale-95 transition-all w-full xs:w-auto"
+              className="inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-3.5 sm:py-4 rounded-full bg-brandGreen-700 hover:bg-brandGreen-800 text-white font-bold text-sm sm:text-base shadow-lg active:scale-95 transition-all w-full xs:w-auto focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brandGreen-400"
             >
               <MessageCircle className="w-4 h-4" />
               <span>WhatsApp Us / व्हॉट्सॲप</span>
@@ -96,10 +96,12 @@ export function Footer() {
           <div className="lg:col-span-5 space-y-4">
             <div className="flex items-center gap-3">
               <div className="relative w-12 h-12 rounded-full overflow-hidden border border-brandGreen-500 bg-white p-0.5">
+                {/* // [FIXED] Explicit sizes attribute */}
                 <Image
                   src="/images/logo.png"
                   alt="Swadam Swadishta"
                   fill
+                  sizes="48px"
                   className="object-contain"
                 />
               </div>
@@ -122,14 +124,14 @@ export function Footer() {
                 href={restaurant.instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-white/10 hover:bg-saffron-600 text-cream-100 flex items-center justify-center transition-colors"
+                className="w-10 h-10 rounded-full bg-white/10 hover:bg-saffron-600 text-cream-100 flex items-center justify-center transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saffron-500"
                 aria-label="Instagram Profile"
               >
                 <Instagram className="w-5 h-5" />
               </a>
               <a
                 href={`tel:${restaurant.phoneRaw}`}
-                className="w-10 h-10 rounded-full bg-white/10 hover:bg-brandGreen-600 text-cream-100 flex items-center justify-center transition-colors"
+                className="w-10 h-10 rounded-full bg-white/10 hover:bg-brandGreen-600 text-cream-100 flex items-center justify-center transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brandGreen-400"
                 aria-label="Call Us"
               >
                 <Phone className="w-5 h-5" />
@@ -138,7 +140,7 @@ export function Footer() {
                 href={restaurant.googleMapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-white/10 hover:bg-turmeric-gold hover:text-brown-900 text-cream-100 flex items-center justify-center transition-colors"
+                className="w-10 h-10 rounded-full bg-white/10 hover:bg-turmeric-gold hover:text-brown-900 text-cream-100 flex items-center justify-center transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-turmeric-gold"
                 aria-label="Find on Google Maps"
               >
                 <MapPin className="w-5 h-5" />
@@ -232,8 +234,8 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Bottom Copyright & Pure Veg Badge */}
-        <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-cream-300/80 font-sans">
+        {/* [FIXED] Bottom Copyright & Pure Veg Badge with pb-12 on mobile to guarantee clearance above FloatingCTA */}
+        <div className="mt-12 pt-6 pb-12 sm:pb-0 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-cream-300/80 font-sans">
           <div className="flex items-center gap-2">
             <PureVegBadge className="w-3.5 h-3.5" />
             <span>100% Pure Vegetarian Kitchen • १००% शुद्ध शाकाहारी • {restaurant.fssaiNumber}</span>

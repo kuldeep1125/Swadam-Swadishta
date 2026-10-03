@@ -1,0 +1,5 @@
+# Swadam Swadishta — Pure Vegetarian Maharashtrian Restaurant Baner Pune
+User-agent: *
+Allow: /
+
+Sitemap: https://swadamswadishta.com/sitemap.xml

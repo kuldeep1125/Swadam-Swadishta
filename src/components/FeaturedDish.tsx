@@ -71,9 +71,10 @@ export function FeaturedDish() {
               </div>
 
               <div className="pt-4">
+                {/* // [FIXED] Added focus-visible ring for WCAG 2.2 keyboard navigation */}
                 <a
                   href="#menu"
-                  className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-brown-900 hover:bg-brown-800 text-cream-100 font-bold text-sm shadow-md active:scale-95 transition-all group"
+                  className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-brown-900 hover:bg-brown-800 text-cream-100 font-bold text-sm shadow-md active:scale-95 transition-all group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saffron-500 focus-visible:ring-offset-2"
                 >
                   <span>Order at Counter</span>
                   <span className="font-devanagari text-xs opacity-90 font-normal">/ काउंटरवर ऑर्डर करा</span>
@@ -87,10 +88,12 @@ export function FeaturedDish() {
             <div className="lg:col-span-5 relative flex items-center justify-center">
               <div className="relative w-full max-w-[380px] aspect-square rounded-3xl overflow-hidden bg-white p-4 border-2 border-turmeric-400 shadow-2xl group">
                 <div className="relative w-full h-full rounded-2xl overflow-hidden bg-cream-100">
+                  {/* // [FIXED] Added responsive sizes attribute to prevent oversized mobile image decoding */}
                   <Image
                     src={dish.image}
                     alt={dish.name}
                     fill
+                    sizes="(max-width: 768px) 100vw, 380px"
                     className="object-cover group-hover:scale-105 transition-transform duration-700"
                   />
                 </div>

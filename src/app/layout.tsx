@@ -1,7 +1,8 @@
 import type { Metadata, Viewport } from "next";
-import { Outfit, Rozha_One, Kalam } from "next/font/google";
+import { Outfit, Rozha_One, Kalam, Noto_Sans_Devanagari } from "next/font/google";
 import "./globals.css";
 import { restaurant } from "@/config/restaurant";
+import { ErrorBoundary } from "@/components/ErrorBoundary"; // [ADDED]
 
 // [ADDED] Google Fonts for modern sans, authentic Devanagari display, and brush typography
 const outfit = Outfit({
@@ -24,8 +25,17 @@ const kalam = Kalam({
   display: "swap",
 });
 
+// [FIXED] C-1: Dedicated Noto Sans Devanagari font loader for all Marathi/Devanagari typography
+const notoDevanagari = Noto_Sans_Devanagari({
+  weight: ["400", "500", "600", "700", "800", "900"],
+  subsets: ["devanagari"],
+  variable: "--font-devanagari",
+  display: "swap",
+});
+
 export const viewport: Viewport = {
-  themeColor: "#FFF7E3",
+  // [FIXED] M-7: Vibrant saffron theme color for browser chrome
+  themeColor: "#E85D04",
   width: "device-width",
   initialScale: 1,
 };
@@ -74,6 +84,12 @@ export const metadata: Metadata = {
     icon: "/images/logo.png",
     apple: "/images/logo.png",
   },
+  // [ADDED] Canonical URL
+  alternates: {
+    canonical: "https://swadamswadishta.com/",
+  },
+  // [ADDED] Progressive Web App Manifest
+  manifest: "/manifest.json",
 };
 
 export default function RootLayout({
@@ -169,15 +185,31 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" className={`${outfit.variable} ${rozhaOne.variable} ${kalam.variable}`}>
+    // [FIXED] C-2: Set lang to en-IN for Indian bilingual context and attach all font variables including dedicated Devanagari font
+    <html
+      lang="en-IN"
+      className={`${outfit.variable} ${rozhaOne.variable} ${kalam.variable} ${notoDevanagari.variable}`}
+    >
       <head>
+        {/* [ADDED] Preconnect hints for Google Fonts */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
       <body className="font-sans bg-cream-bg text-brown-900 antialiased selection:bg-saffron-500 selection:text-white">
-        {children}
+        {/* [ADDED] WCAG AA 2.4.1 Skip-to-content link for keyboard & screen reader accessibility */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-5 focus:py-2.5 focus:bg-saffron-600 focus:text-white focus:font-bold focus:text-sm focus:rounded-full focus:shadow-2xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-saffron-500"
+        >
+          Skip to main content / मुख्य मजकुराकडे जा
+        </a>
+        <ErrorBoundary>
+          {children}
+        </ErrorBoundary>
       </body>
     </html>
   );

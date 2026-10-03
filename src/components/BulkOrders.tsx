@@ -9,7 +9,7 @@ import { Phone, MessageCircle, Users, CheckCircle2, Calendar } from "lucide-reac
 
 export function BulkOrders() {
   return (
-    <section id="bulk-orders" className="relative py-20 sm:py-28 px-4 sm:px-8 md:px-12 bg-cream-50 overflow-hidden" aria-label="Bulk Orders and Gatherings">
+    <section id="bulk-orders" className="relative py-20 sm:py-28 px-4 sm:px-8 md:px-12 bg-cream-50 overflow-hidden scroll-mt-20" aria-label="Bulk Orders and Gatherings">
       
       {/* Decorative leaf motifs */}
       <div className="absolute top-10 right-10 opacity-30 pointer-events-none">
@@ -72,7 +72,7 @@ export function BulkOrders() {
                   href={`https://wa.me/${restaurant.bulkOrders.whatsappNumber}?text=Namaskar%20Swadam%20Swadishta!%20I%20would%20like%20to%20enquire%20about%20a%20bulk%20order%20for%20an%20upcoming%20event.`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full text-sm font-bold text-white bg-brandGreen-700 hover:bg-brandGreen-800 shadow-md active:scale-95 transition-all w-full xs:w-auto"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full text-sm font-bold text-white bg-brandGreen-700 hover:bg-brandGreen-800 shadow-md active:scale-95 transition-all w-full xs:w-auto focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brandGreen-500"
                 >
                   <MessageCircle className="w-4 h-4" />
                   <span>Enquire on WhatsApp</span>
@@ -81,7 +81,7 @@ export function BulkOrders() {
 
                 <a
                   href={`tel:${restaurant.phoneRaw}`}
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full text-sm font-bold text-brown-900 bg-white hover:bg-cream-200 border-2 border-turmeric-400 shadow-sm active:scale-95 transition-all w-full xs:w-auto"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full text-sm font-bold text-brown-900 bg-white hover:bg-cream-200 border-2 border-turmeric-400 shadow-sm active:scale-95 transition-all w-full xs:w-auto focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saffron-500"
                 >
                   <Phone className="w-4 h-4 text-saffron-600" />
                   <span>Call {restaurant.phone}</span>
@@ -98,10 +98,12 @@ export function BulkOrders() {
             <div className="lg:col-span-5 relative flex items-center justify-center">
               <div className="p-8 rounded-3xl bg-brown-900 text-cream-100 border-2 border-turmeric-400 text-center shadow-xl w-full max-w-[340px] space-y-4">
                 <div className="relative w-16 h-16 mx-auto">
+                  {/* // [FIXED] Explicit sizes attribute */}
                   <Image
                     src="/images/logo.png"
                     alt="Swadam Swadishta"
                     fill
+                    sizes="64px"
                     className="object-contain"
                   />
                 </div>

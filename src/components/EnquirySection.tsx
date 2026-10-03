@@ -4,7 +4,7 @@
 import React, { useState } from "react";
 import { restaurant } from "@/config/restaurant";
 import { BrushUnderline } from "@/components/BrandMotifs";
-import { Send, MessageCircle, AlertCircle } from "lucide-react"; // [FIXED] Removed unused CheckCircle2 import
+import { Send, MessageCircle, AlertCircle, CheckCircle2 } from "lucide-react"; // [ADDED] CheckCircle2 for enquiry feedback
 
 export function EnquirySection() {
   const [formData, setFormData] = useState({
@@ -27,13 +27,15 @@ export function EnquirySection() {
       const url = `https://wa.me/${restaurant.whatsappNumber}?text=${textPayload}`;
       window.open(url, "_blank");
     } else {
-      const mailtoUrl = `mailto:swadamswadishta@gmail.com?subject=${encodeURIComponent(`Enquiry: ${formData.enquiryType} from ${formData.name}`)}&body=${textPayload.replaceAll("%0A", "\n")}`;
+      // [FIXED] Using centralized restaurant.email from config
+      const mailtoUrl = `mailto:${restaurant.email}?subject=${encodeURIComponent(`Enquiry: ${formData.enquiryType} from ${formData.name}`)}&body=${textPayload.replaceAll("%0A", "\n")}`;
       window.location.href = mailtoUrl;
     }
   };
 
   return (
-    <section id="enquiry" className="relative py-20 sm:py-28 px-4 sm:px-8 md:px-12 bg-cream-100 overflow-hidden" aria-label="Customer Enquiry Form">
+    // [FIXED] M-1: Added scroll-mt-20 for smooth scroll margin
+    <section id="enquiry" className="relative py-20 sm:py-28 px-4 sm:px-8 md:px-12 bg-cream-100 overflow-hidden scroll-mt-20" aria-label="Customer Enquiry Form">
       
       <div className="mx-auto max-w-4xl">
         
@@ -60,35 +62,58 @@ export function EnquirySection() {
 
         {/* [FIXED] Form Container padding adjusted to p-4 on small phones */}
         <div className="rounded-3xl p-4 xs:p-6 sm:p-10 bg-white border-2 border-turmeric-400/60 shadow-xl">
-          <form className="space-y-6">
+          <form
+            className="space-y-6"
+            onSubmit={(e) => {
+              if (formData.name && formData.phone) {
+                handleSubmit("whatsapp", e);
+              } else {
+                e.preventDefault();
+              }
+            }}
+          >
             
+            {/* [ADDED] Submission feedback alert */}
+            {submittedMethod && (
+              <div className="p-4 rounded-xl bg-brandGreen-50 border border-brandGreen-500/40 text-brandGreen-900 flex items-center gap-3 animate-in fade-in duration-300">
+                <CheckCircle2 className="w-5 h-5 text-brandGreen-700 flex-shrink-0" />
+                <div className="text-xs sm:text-sm">
+                  <strong className="block font-bold">Enquiry Prepared! (चौकशी संदेश तयार केला!)</strong>
+                  Your details have been pre-filled for {submittedMethod === "whatsapp" ? "WhatsApp" : "Email"}. Our team will verify and connect with you shortly.
+                </div>
+              </div>
+            )}
+
             {/* Grid 1: Name and Phone */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-brown-800 mb-1.5 font-sans">
+                <label htmlFor="enquiry-name" className="block text-xs font-bold uppercase tracking-wider text-brown-800 mb-1.5 font-sans">
                   Your Full Name / पूर्ण नाव *
                 </label>
+                {/* [FIXED] C-4: text-base on mobile prevents iOS Safari auto-zoom, sm:text-sm on larger screens */}
                 <input
+                  id="enquiry-name"
                   type="text"
                   required
                   placeholder="e.g. Rahul Deshmukh"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl border border-turmeric-400/60 bg-cream-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-saffron-500 text-sm text-brown-900"
+                  className="w-full px-4 py-3 rounded-xl border border-turmeric-400/60 bg-cream-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-saffron-500 text-base sm:text-sm text-brown-900"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-brown-800 mb-1.5 font-sans">
+                <label htmlFor="enquiry-phone" className="block text-xs font-bold uppercase tracking-wider text-brown-800 mb-1.5 font-sans">
                   Phone Number / मोबाईल नंबर *
                 </label>
                 <input
+                  id="enquiry-phone"
                   type="tel"
                   required
                   placeholder="+91 98765 43210"
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl border border-turmeric-400/60 bg-cream-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-saffron-500 text-sm text-brown-900"
+                  className="w-full px-4 py-3 rounded-xl border border-turmeric-400/60 bg-cream-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-saffron-500 text-base sm:text-sm text-brown-900"
                 />
               </div>
             </div>
@@ -96,26 +121,28 @@ export function EnquirySection() {
             {/* Grid 2: Email and Enquiry Type */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-brown-800 mb-1.5 font-sans">
+                <label htmlFor="enquiry-email" className="block text-xs font-bold uppercase tracking-wider text-brown-800 mb-1.5 font-sans">
                   Email Address / ईमेल (Optional / ऐच्छिक)
                 </label>
                 <input
+                  id="enquiry-email"
                   type="email"
                   placeholder="your.email@example.com"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl border border-turmeric-400/60 bg-cream-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-saffron-500 text-sm text-brown-900"
+                  className="w-full px-4 py-3 rounded-xl border border-turmeric-400/60 bg-cream-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-saffron-500 text-base sm:text-sm text-brown-900"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-brown-800 mb-1.5 font-sans">
+                <label htmlFor="enquiry-type" className="block text-xs font-bold uppercase tracking-wider text-brown-800 mb-1.5 font-sans">
                   Enquiry Type / चौकशीचा प्रकार *
                 </label>
                 <select
+                  id="enquiry-type"
                   value={formData.enquiryType}
                   onChange={(e) => setFormData({ ...formData, enquiryType: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl border border-turmeric-400/60 bg-cream-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-saffron-500 text-sm text-brown-900 font-sans"
+                  className="w-full px-4 py-3 rounded-xl border border-turmeric-400/60 bg-cream-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-saffron-500 text-base sm:text-sm text-brown-900 font-sans"
                 >
                   <option value="General Enquiry">General Enquiry (सर्वसाधारण चौकशी)</option>
                   <option value="Bulk Order">Bulk Order (ऑफिस / कार्यक्रम)</option>
@@ -127,28 +154,30 @@ export function EnquirySection() {
 
             {/* Preferred Date */}
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-brown-800 mb-1.5 font-sans">
+              <label htmlFor="enquiry-date" className="block text-xs font-bold uppercase tracking-wider text-brown-800 mb-1.5 font-sans">
                 Preferred Date / नियोजित तारीख (If for bulk gathering / कार्यक्रमासाठी)
               </label>
               <input
+                id="enquiry-date"
                 type="date"
                 value={formData.date}
                 onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                className="w-full px-4 py-3 rounded-xl border border-turmeric-400/60 bg-cream-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-saffron-500 text-sm text-brown-900 font-sans"
+                className="w-full px-4 py-3 rounded-xl border border-turmeric-400/60 bg-cream-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-saffron-500 text-base sm:text-sm text-brown-900 font-sans"
               />
             </div>
 
             {/* Message Area */}
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-brown-800 mb-1.5 font-sans">
+              <label htmlFor="enquiry-message" className="block text-xs font-bold uppercase tracking-wider text-brown-800 mb-1.5 font-sans">
                 Your Message / Requirement / संदेश किंवा आवश्यकता
               </label>
               <textarea
+                id="enquiry-message"
                 rows={3}
                 placeholder="Let us know dish preferences, number of guests, or any question... (डिशेस, लोकांची संख्या किंवा इतर माहिती लिहा...)"
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                className="w-full px-4 py-3 rounded-xl border border-turmeric-400/60 bg-cream-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-saffron-500 text-sm text-brown-900"
+                className="w-full px-4 py-3 rounded-xl border border-turmeric-400/60 bg-cream-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-saffron-500 text-base sm:text-sm text-brown-900"
               />
             </div>
 
@@ -166,7 +195,7 @@ export function EnquirySection() {
                 type="button"
                 onClick={(e) => handleSubmit("whatsapp", e)}
                 disabled={!formData.name || !formData.phone}
-                className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-full bg-brandGreen-700 hover:bg-brandGreen-800 text-white font-bold text-sm shadow-md disabled:opacity-50 disabled:pointer-events-none active:scale-95 transition-all"
+                className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-full bg-brandGreen-700 hover:bg-brandGreen-800 text-white font-bold text-sm shadow-md disabled:opacity-50 disabled:pointer-events-none active:scale-95 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brandGreen-500"
               >
                 <MessageCircle className="w-4 h-4" />
                 <span>Send via WhatsApp / व्हॉट्सॲप</span>
@@ -176,7 +205,7 @@ export function EnquirySection() {
                 type="button"
                 onClick={(e) => handleSubmit("email", e)}
                 disabled={!formData.name || !formData.phone}
-                className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-full bg-brown-900 hover:bg-brown-800 text-cream-100 font-bold text-sm shadow-md disabled:opacity-50 disabled:pointer-events-none active:scale-95 transition-all"
+                className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-full bg-brown-900 hover:bg-brown-800 text-cream-100 font-bold text-sm shadow-md disabled:opacity-50 disabled:pointer-events-none active:scale-95 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-turmeric-gold"
               >
                 <Send className="w-4 h-4 text-turmeric-400" />
                 <span>Send via Email / ईमेल</span>

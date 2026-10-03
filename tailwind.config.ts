@@ -58,7 +58,10 @@ const config: Config = {
           300: "#FCE182",
           gold: "#EAA812",
         },
+        // [ADDED] Terracotta tints for background contrast
         terracotta: {
+          50: "#FDF5F2",
+          100: "#FBEAE4",
           500: "#C85A32",
           600: "#B84A28",
         },
@@ -87,7 +90,8 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  // [ADDED] tailwindcss-animate plugin to support animate-in, fade-in, and slide-in utilities
+  plugins: [require("tailwindcss-animate")],
 };
 
 export default config;

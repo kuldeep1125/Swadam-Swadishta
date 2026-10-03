@@ -12,64 +12,69 @@ import {
   SteamSwirl,
   PureVegBadge,
 } from "@/components/BrandMotifs";
-import { ArrowDown, MapPin, MessageCircle, Sparkles, Utensils } from "lucide-react";
+import { ArrowDown, MapPin, MessageCircle, Sparkles, Utensils, Clock } from "lucide-react";
 
 export function Hero() {
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-  const [isDesktop, setIsDesktop] = useState(false);
+  const fgRef = React.useRef<HTMLDivElement>(null);
+  const bgRef = React.useRef<HTMLDivElement>(null);
+  // [ADDED] WC-6: Live time-based status indicating what is cooking right now
+  const [servingNow, setServingNow] = useState<{ en: string; mr: string } | null>(null);
 
   useEffect(() => {
-    // Check for desktop screen size for parallax
-    const checkIsDesktop = () => {
-      setIsDesktop(window.innerWidth >= 1024);
-    };
-    checkIsDesktop();
-    window.addEventListener("resize", checkIsDesktop);
+    const hour = new Date().getHours();
+    const min = new Date().getMinutes();
+    const time = hour + min / 60;
 
-    // Check for prefers-reduced-motion
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setPrefersReducedMotion(mediaQuery.matches);
-
-    const handleChange = () => setPrefersReducedMotion(mediaQuery.matches);
-    mediaQuery.addEventListener("change", handleChange);
-    return () => {
-      window.removeEventListener("resize", checkIsDesktop);
-      mediaQuery.removeEventListener("change", handleChange);
-    };
+    if (time >= 7.5 && time < 11.5) {
+      setServingNow({ en: "Now Serving: Hot Breakfast (Poha, Upma & Misal)", mr: "सध्या गरमा-गरम नाश्ता सुरू" });
+    } else if (time >= 11.5 && time < 15.5) {
+      setServingNow({ en: "Now Serving: Midday Lunch Thali (₹110)", mr: "दुपारची परिपूर्ण थाळी सुरू" });
+    } else if (time >= 15.5 && time < 21.5) {
+      setServingNow({ en: "Now Serving: Evening Snacks (Wada Pav & Bhaji)", mr: "गरमा-गरम स्नॅक्स व चहा सुरू" });
+    } else {
+      setServingNow({ en: "Kitchen Opens at 7:30 AM Daily", mr: "दररोज सकाळी ७:३० वाजता सुरू" });
+    }
   }, []);
 
+  // [REFACTORED] Parallax transforms handled directly via requestAnimationFrame on DOM nodes to avoid React re-renders on mousemove
   useEffect(() => {
-    if (prefersReducedMotion || !isDesktop) return;
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (mediaQuery.matches) return;
+
+    let ticking = false;
 
     const handleMouseMove = (e: MouseEvent) => {
-      // Calculate normalized mouse coordinates from -1 to 1
-      const x = (e.clientX / window.innerWidth) * 2 - 1;
-      const y = (e.clientY / window.innerHeight) * 2 - 1;
-      setMousePos({ x, y });
+      if (window.innerWidth < 1024) return;
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const x = (e.clientX / window.innerWidth) * 2 - 1;
+          const y = (e.clientY / window.innerHeight) * 2 - 1;
+          if (fgRef.current) {
+            fgRef.current.style.transform = `translate3d(${x * 12}px, ${y * 12}px, 0)`;
+          }
+          if (bgRef.current) {
+            bgRef.current.style.transform = `translate3d(${-x * 8}px, ${-y * 8}px, 0)`;
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
     return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [prefersReducedMotion, isDesktop]);
-
-  // [FIXED] Parallax offsets active only on desktop to eliminate mobile horizontal jank
-  const fgX = prefersReducedMotion || !isDesktop ? 0 : mousePos.x * 12;
-  const fgY = prefersReducedMotion || !isDesktop ? 0 : mousePos.y * 12;
-  const bgX = prefersReducedMotion || !isDesktop ? 0 : -mousePos.x * 8;
-  const bgY = prefersReducedMotion || !isDesktop ? 0 : -mousePos.y * 8;
+  }, []);
 
   return (
     <section
-      className="relative min-h-[92vh] lg:min-h-screen pt-28 pb-16 sm:pb-24 px-4 sm:px-8 md:px-12 flex items-center justify-center overflow-hidden bg-cream-100"
+      // [FIXED] Optimized mobile top padding (pt-20 sm:pt-28) and min-h for immediate mobile headline visibility
+      className="relative min-h-0 sm:min-h-[90vh] lg:min-h-screen pt-20 sm:pt-28 pb-14 sm:pb-24 px-4 sm:px-8 md:px-12 flex items-center justify-center overflow-hidden bg-cream-100"
       aria-label="Welcome to Swadam Swadishta"
     >
       {/* Background Decorative Graphic Layer (Depth Layer 1) */}
       <div
-        className="absolute inset-0 pointer-events-none transition-transform duration-700 ease-out"
-        style={{
-          transform: `translate3d(${bgX}px, ${bgY}px, 0)`,
-        }}
+        ref={bgRef}
+        className="absolute inset-0 pointer-events-none transition-transform duration-700 ease-out will-change-transform"
       >
         {/* Subtle Watermark Marathi Typography */}
         <div className="absolute top-1/4 -left-12 select-none opacity-[0.04] text-brown-900 font-devanagari text-[16vw] font-black leading-none pointer-events-none">
@@ -102,13 +107,24 @@ export function Hero() {
         <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6">
           
           {/* Top Pill / Pure Veg Assurance - [ADDED] Bilingual English + Devanagari */}
-          <div className="inline-flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 px-3.5 sm:px-4 py-1.5 rounded-full bg-cream-200/90 border border-brandGreen-600/30 text-xs sm:text-sm font-semibold text-brandGreen-800 shadow-sm animate-in fade-in slide-in-from-bottom-2 duration-500">
-            <PureVegBadge className="w-3.5 h-3.5 flex-shrink-0" />
-            <span>100% Pure Vegetarian Maharashtrian Kitchen</span>
-            <span className="text-saffron-600 font-bold">•</span>
-            <span className="font-devanagari font-bold text-brandGreen-800">१००% शुद्ध शाकाहारी</span>
-            <span className="text-saffron-600 font-bold">•</span>
-            <span className="text-brown-700">Baner, Pune</span>
+          <div className="flex flex-col sm:flex-row items-center gap-2">
+            <div className="inline-flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 px-3.5 sm:px-4 py-1.5 rounded-full bg-cream-200/90 border border-brandGreen-600/30 text-xs sm:text-sm font-semibold text-brandGreen-800 shadow-sm animate-in fade-in slide-in-from-bottom-2 duration-500">
+              <PureVegBadge className="w-3.5 h-3.5 flex-shrink-0" />
+              <span>100% Pure Vegetarian Maharashtrian Kitchen</span>
+              <span className="text-saffron-600 font-bold">•</span>
+              <span className="font-devanagari font-bold text-brandGreen-800">१००% शुद्ध शाकाहारी</span>
+              <span className="text-saffron-600 font-bold">•</span>
+              <span className="text-brown-700">Baner, Pune</span>
+            </div>
+
+            {/* [ADDED] WC-6: Live time-based serving badge */}
+            {servingNow && (
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-saffron-600 to-turmeric-gold text-white text-[11px] font-bold shadow-sm animate-in fade-in duration-300">
+                <Clock className="w-3 h-3 flex-shrink-0" />
+                <span>{servingNow.en}</span>
+                <span className="font-devanagari font-bold opacity-90">• {servingNow.mr}</span>
+              </div>
+            )}
           </div>
 
           {/* Master Headings: Marathi first, followed by English interpretation */}
@@ -154,12 +170,12 @@ export function Hero() {
             </span>
           </div>
 
-          {/* [FIXED] Action CTAs with full-width stack on small phones (w-full xs:w-auto) - [ADDED] Bilingual */}
+          {/* [FIXED] Action CTAs with full-width stack on small phones (w-full xs:w-auto) - [ADDED] Bilingual with focus rings */}
           <div className="flex flex-col xs:flex-row flex-wrap items-stretch xs:items-center justify-center lg:justify-start gap-3 sm:gap-4 pt-4 w-full">
             {/* Primary: Menu Explorer */}
             <a
               href="#menu"
-              className="inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-3.5 rounded-full text-sm sm:text-base font-bold text-white bg-gradient-to-r from-saffron-600 to-saffron-500 hover:from-saffron-500 hover:to-turmeric-gold shadow-lg shadow-saffron-600/25 active:scale-95 transition-all duration-300 group w-full xs:w-auto"
+              className="inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-3.5 rounded-full text-sm sm:text-base font-bold text-white bg-gradient-to-r from-saffron-600 to-saffron-500 hover:from-saffron-500 hover:to-turmeric-gold shadow-lg shadow-saffron-600/25 active:scale-95 transition-all duration-300 group w-full xs:w-auto focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saffron-500"
             >
               <span>Explore the Menu</span>
               <span className="font-devanagari text-xs opacity-90 font-normal">/ मेनू पहा</span>
@@ -169,7 +185,7 @@ export function Hero() {
             {/* Secondary: Location & Storefront */}
             <a
               href="#location"
-              className="inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-3.5 rounded-full text-sm sm:text-base font-bold text-brown-900 bg-white hover:bg-cream-200 border-2 border-turmeric-400/60 shadow-sm active:scale-95 transition-all duration-200 w-full xs:w-auto"
+              className="inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-3.5 rounded-full text-sm sm:text-base font-bold text-brown-900 bg-white hover:bg-cream-200 border-2 border-turmeric-400/60 shadow-sm active:scale-95 transition-all duration-200 w-full xs:w-auto focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saffron-500"
             >
               <MapPin className="w-4 h-4 text-saffron-600" />
               <span>Visit Us</span>
@@ -181,7 +197,7 @@ export function Hero() {
               href={`https://wa.me/${restaurant.whatsappNumber}?text=Namaskar%20Swadam%20Swadishta!%20I%20would%20like%20to%20order/enquire.`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-full text-sm font-semibold text-brandGreen-800 bg-brandGreen-50 hover:bg-brandGreen-100 border border-brandGreen-600/30 active:scale-95 transition-all duration-200 w-full xs:w-auto"
+              className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-full text-sm font-semibold text-brandGreen-800 bg-brandGreen-50 hover:bg-brandGreen-100 border border-brandGreen-600/30 active:scale-95 transition-all duration-200 w-full xs:w-auto focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brandGreen-500"
               title="Chat with Swadam on WhatsApp"
             >
               <MessageCircle className="w-4 h-4 text-brandGreen-700" />
@@ -202,10 +218,8 @@ export function Hero() {
           
           {/* Main Visual Poster Card Container */}
           <div
-            className="relative w-full max-w-[440px] aspect-square rounded-3xl p-4 sm:p-6 bg-gradient-to-b from-white to-cream-200/90 border-2 border-turmeric-400/50 shadow-2xl shadow-brown-900/10 transition-transform duration-500 ease-out"
-            style={{
-              transform: `translate3d(${fgX}px, ${fgY}px, 0)`,
-            }}
+            ref={fgRef}
+            className="relative w-full max-w-[440px] aspect-square rounded-3xl p-4 sm:p-6 bg-gradient-to-b from-white to-cream-200/90 border-2 border-turmeric-400/50 shadow-2xl shadow-brown-900/10 transition-transform duration-500 ease-out will-change-transform"
           >
             {/* Top Swirl Steam Decoration */}
             <div className="absolute -top-8 left-1/2 -translate-x-1/2 flex items-center gap-1">
@@ -278,10 +292,12 @@ export function Hero() {
               className="hidden sm:flex absolute -bottom-6 -left-6 z-20 bg-white rounded-2xl p-2 border-2 border-saffron-500 shadow-xl items-center gap-2.5 max-w-[210px] hover:scale-105 transition-transform duration-300"
             >
               <div className="relative w-12 h-12 rounded-xl overflow-hidden flex-shrink-0 bg-cream-100">
+                {/* // [FIXED] Explicit sizes for satellite thumbnail */}
                 <Image
                   src="/images/hd_misal_pav.jpg"
                   alt="Pune Misal Pav"
                   fill
+                  sizes="48px"
                   className="object-cover"
                 />
               </div>
@@ -301,10 +317,12 @@ export function Hero() {
               className="hidden sm:flex absolute -bottom-6 -right-4 z-20 bg-white rounded-2xl p-2 border-2 border-turmeric-400 shadow-xl items-center gap-2 max-w-[170px] hover:scale-105 transition-transform duration-300"
             >
               <div className="relative w-11 h-11 rounded-xl overflow-hidden flex-shrink-0 bg-cream-100">
+                {/* // [FIXED] Explicit sizes for satellite thumbnail */}
                 <Image
                   src="/images/hd_wada_pav.jpg"
                   alt="Maharashtra Wada Pav"
                   fill
+                  sizes="44px"
                   className="object-cover"
                 />
               </div>

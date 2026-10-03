@@ -12,6 +12,8 @@ export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  const [activeSection, setActiveSection] = useState<string>("");
+
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 80) {
@@ -22,6 +24,33 @@ export function Navigation() {
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // [ADDED] WC-2: IntersectionObserver to highlight currently active section in navigation
+  useEffect(() => {
+    const sectionIds = ["menu", "thali", "snacks", "experience", "storefront", "reviews", "location"];
+    const elements = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null);
+
+    if (elements.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(`#${entry.target.id}`);
+          }
+        });
+      },
+      {
+        rootMargin: "-25% 0px -60% 0px",
+        threshold: 0.1,
+      }
+    );
+
+    elements.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
   }, []);
 
   // Close mobile menu on esc key or resize
@@ -66,10 +95,10 @@ export function Navigation() {
       >
         <div
           className={`mx-auto max-w-7xl transition-all duration-500 rounded-full ${
-            isScrolled
+            mobileMenuOpen
+              ? "bg-transparent px-2 py-1 border-transparent shadow-none"
+              : isScrolled
               ? "bg-[#FFF9EE]/95 backdrop-blur-md border border-turmeric-400/40 shadow-xl shadow-brown-900/5 px-3.5 sm:px-6 py-2 sm:py-2.5"
-              : mobileMenuOpen
-              ? "bg-transparent px-2 py-1"
               : "bg-transparent px-2 py-1"
           } flex items-center justify-between gap-2`}
         >
@@ -78,7 +107,7 @@ export function Navigation() {
             href="/"
             onClick={() => setMobileMenuOpen(false)}
             className="flex items-center gap-2 sm:gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-saffron-500 rounded-full flex-shrink-0"
-            aria-label="Swadam Swadishta Homepage"
+            aria-label="SWADAM स्वादिष्ट — Homepage"
           >
             <div className="relative w-9 h-9 sm:w-11 sm:h-11 rounded-full overflow-hidden border border-brandGreen-700/20 bg-white shadow-sm flex items-center justify-center p-0.5 group-hover:scale-105 transition-transform duration-300 flex-shrink-0">
               <Image
@@ -106,24 +135,42 @@ export function Navigation() {
             </div>
           </Link>
 
-          {/* Desktop Navigation Links - [ADDED] Bilingual English + Marathi touch */}
+          {/* Desktop Navigation Links - [ADDED] Bilingual English + Marathi touch with active section indicator */}
           <nav
             className="hidden lg:flex items-center gap-0.5 xl:gap-2 text-xs xl:text-sm font-medium"
             aria-label="Main Navigation"
           >
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="px-2 xl:px-3 py-1 rounded-full text-brown-800 hover:text-saffron-600 hover:bg-cream-200/50 transition-all duration-200 relative group whitespace-nowrap text-center"
-              >
-                <div className="flex flex-col items-center leading-tight">
-                  <span className="font-semibold text-xs xl:text-sm">{link.label}</span>
-                  <span className="text-[10px] text-brown-600 group-hover:text-brandGreen-700 font-devanagari transition-colors">{link.marathi}</span>
-                </div>
-                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-saffron-500 rounded-full group-hover:w-1/2 transition-all duration-300" />
-              </a>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = activeSection === link.href;
+              return (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  aria-current={isActive ? "page" : undefined}
+                  className={`px-2 xl:px-3 py-1 rounded-full transition-all duration-200 relative group whitespace-nowrap text-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saffron-500 ${
+                    isActive
+                      ? "text-saffron-600 font-bold bg-cream-200/80 shadow-sm"
+                      : "text-brown-800 hover:text-saffron-600 hover:bg-cream-200/50"
+                  }`}
+                >
+                  <div className="flex flex-col items-center leading-tight">
+                    <span className="font-semibold text-xs xl:text-sm">{link.label}</span>
+                    <span
+                      className={`text-[10px] font-devanagari transition-colors ${
+                        isActive ? "text-brandGreen-800 font-bold" : "text-brown-600 group-hover:text-brandGreen-700"
+                      }`}
+                    >
+                      {link.marathi}
+                    </span>
+                  </div>
+                  <span
+                    className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-saffron-500 rounded-full transition-all duration-300 ${
+                      isActive ? "w-3/4" : "w-0 group-hover:w-1/2"
+                    }`}
+                  />
+                </a>
+              );
+            })}
           </nav>
 
           {/* Right Action Buttons */}
@@ -133,7 +180,7 @@ export function Navigation() {
               href={`tel:${restaurant.phoneRaw}`}
               className={`${
                 mobileMenuOpen ? "hidden" : "hidden sm:inline-flex"
-              } items-center gap-1.5 px-2.5 xl:px-3 py-1.5 rounded-full text-xs font-semibold text-brown-800 bg-cream-200/70 hover:bg-turmeric-400/40 border border-turmeric-400/50 transition-colors whitespace-nowrap`}
+              } items-center gap-1.5 px-2.5 xl:px-3 py-1.5 rounded-full text-xs font-semibold text-brown-800 bg-cream-200/70 hover:bg-turmeric-400/40 border border-turmeric-400/50 transition-colors whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saffron-500`}
               title="Call restaurant"
             >
               <Phone className="w-3.5 h-3.5 text-brandGreen-700 flex-shrink-0" />
@@ -141,18 +188,18 @@ export function Navigation() {
               <span className="inline xl:hidden">Call <span className="font-devanagari text-[10px]">/ कॉल</span></span>
             </a>
 
-            {/* Main CTA: Directions (condensed on small screens / hidden when mobile menu open to give full focus to close button) */}
+            {/* Main CTA: Directions (hidden on mobile < sm to give full breathing room to brand and hamburger menu; mobile is handled by persistent bottom FloatingCTA) */}
+            {/* // [FIXED] Hidden on < sm screens to prevent header overflow on 375px viewports */}
             <a
               href={restaurant.googleMapsUrl}
               target="_blank"
               rel="noopener noreferrer"
               className={`${
-                mobileMenuOpen ? "hidden" : "inline-flex"
-              } items-center gap-1 sm:gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-bold text-white bg-gradient-to-r from-saffron-600 to-saffron-500 hover:from-saffron-500 hover:to-turmeric-gold shadow-md hover:shadow-lg hover:shadow-saffron-500/20 active:scale-95 transition-all duration-200 whitespace-nowrap`}
+                mobileMenuOpen ? "hidden" : "hidden sm:inline-flex"
+              } items-center gap-1 sm:gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-bold text-white bg-gradient-to-r from-saffron-600 to-saffron-500 hover:from-saffron-500 hover:to-turmeric-gold shadow-md hover:shadow-lg hover:shadow-saffron-500/20 active:scale-95 transition-all duration-200 whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saffron-500`}
             >
               <MapPin className="w-3.5 h-3.5 text-cream-100 flex-shrink-0" />
-              <span className="hidden xs:inline sm:inline">Directions <span className="font-devanagari text-[11px] opacity-90 font-normal">/ मार्ग</span></span>
-              <span className="inline xs:hidden sm:hidden">Map</span>
+              <span>Directions <span className="font-devanagari text-[11px] opacity-90 font-normal">/ मार्ग</span></span>
               <ArrowUpRight className="w-3.5 h-3.5 opacity-80 flex-shrink-0" />
             </a>
 
@@ -160,7 +207,7 @@ export function Navigation() {
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 rounded-full text-brown-800 bg-cream-200/60 hover:bg-cream-200/90 active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-saffron-500"
+              className="lg:hidden p-2 rounded-full text-brown-800 bg-cream-200/60 hover:bg-cream-200/90 active:scale-95 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-saffron-500"
               aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
               aria-expanded={mobileMenuOpen}
             >

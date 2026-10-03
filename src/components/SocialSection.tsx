@@ -9,7 +9,8 @@ import { Instagram, ArrowUpRight } from "lucide-react"; // [FIXED] Removed unuse
 export function SocialSection() {
   const posts = [
     {
-      image: "/images/real_storefront_street.png",
+      // [FIXED] Using 4K enhanced authentic storefront image
+      image: "/images/hd_storefront_street.jpg",
       caption: "Shop No. 5, 34 Western Pavilion, Baner. Welcoming Pune food lovers every morning! ✨ (बाणेर, पुण्यात दररोज सकाळी तुमचे स्वागत आहे!)",
       tag: "#SwadamSwadishta • #स्वादम_स्वादिष्ट",
     },
@@ -51,11 +52,12 @@ export function SocialSection() {
             </span>
           </div>
 
+          {/* // [FIXED] Added focus-visible ring for WCAG 2.2 keyboard navigation */}
           <a
             href={restaurant.instagramUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-4 md:mt-0 inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-saffron-600 to-turmeric-gold text-white font-bold text-sm shadow-md hover:shadow-lg active:scale-95 transition-all w-full sm:w-auto"
+            className="mt-4 md:mt-0 inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-saffron-600 to-turmeric-gold text-white font-bold text-sm shadow-md hover:shadow-lg active:scale-95 transition-all w-full sm:w-auto focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saffron-500 focus-visible:ring-offset-2"
           >
             <Instagram className="w-4 h-4" />
             <span>Follow {restaurant.instagramHandle} / फॉलो करा</span>
@@ -71,13 +73,15 @@ export function SocialSection() {
               href={restaurant.instagramUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-3xl overflow-hidden bg-white border border-turmeric-400/40 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col group"
+              className="rounded-3xl overflow-hidden bg-white border border-turmeric-400/40 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saffron-500 focus-visible:ring-offset-2"
             >
               <div className="relative w-full h-64 overflow-hidden bg-cream-200">
+                {/* // [FIXED] Added responsive sizes attribute to optimize mobile and tablet loading */}
                 <Image
                   src={post.image}
                   alt={post.caption}
                   fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                   className="object-cover group-hover:scale-110 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">

@@ -13,7 +13,7 @@ export function ReviewsSection() {
   const current = reviews[currentIdx];
 
   return (
-    <section id="reviews" className="relative py-24 sm:py-32 px-4 sm:px-8 md:px-12 bg-cream-100 overflow-hidden" aria-label="Customer Reviews">
+    <section id="reviews" className="relative py-24 sm:py-32 px-4 sm:px-8 md:px-12 bg-cream-100 overflow-hidden scroll-mt-20" aria-label="Customer Reviews">
       
       <div className="mx-auto max-w-5xl">
         
@@ -78,26 +78,43 @@ export function ReviewsSection() {
                 </span>
               </div>
 
-              {/* Slider Controls */}
+              {/* Slider Controls with Dots */}
               {reviews.length > 1 && (
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={() => setCurrentIdx((prev) => (prev > 0 ? prev - 1 : reviews.length - 1))}
-                    className="p-2 rounded-full border border-turmeric-400/60 hover:bg-cream-100 text-brown-800 transition-colors"
-                    aria-label="Previous review"
-                  >
-                    <ChevronLeft className="w-4 h-4" />
-                  </button>
-                  <span className="text-xs font-mono text-brown-500">
-                    {currentIdx + 1} / {reviews.length}
-                  </span>
-                  <button
-                    onClick={() => setCurrentIdx((prev) => (prev < reviews.length - 1 ? prev + 1 : 0))}
-                    className="p-2 rounded-full border border-turmeric-400/60 hover:bg-cream-100 text-brown-800 transition-colors"
-                    aria-label="Next review"
-                  >
-                    <ChevronRight className="w-4 h-4" />
-                  </button>
+                <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-1.5 mr-1" aria-label="Review pagination">
+                    {reviews.map((_, dotIdx) => (
+                      <button
+                        key={dotIdx}
+                        onClick={() => setCurrentIdx(dotIdx)}
+                        aria-label={`Jump to review ${dotIdx + 1}`}
+                        className={`h-2 rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saffron-500 ${
+                          currentIdx === dotIdx
+                            ? "w-6 bg-saffron-600"
+                            : "w-2 bg-turmeric-400/50 hover:bg-turmeric-400"
+                        }`}
+                      />
+                    ))}
+                  </div>
+
+                  <div className="flex items-center gap-1.5">
+                    <button
+                      onClick={() => setCurrentIdx((prev) => (prev > 0 ? prev - 1 : reviews.length - 1))}
+                      className="p-2 rounded-full border border-turmeric-400/60 hover:bg-cream-100 text-brown-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saffron-500"
+                      aria-label="Previous review"
+                    >
+                      <ChevronLeft className="w-4 h-4" />
+                    </button>
+                    <span className="text-xs font-mono text-brown-500">
+                      {currentIdx + 1} / {reviews.length}
+                    </span>
+                    <button
+                      onClick={() => setCurrentIdx((prev) => (prev < reviews.length - 1 ? prev + 1 : 0))}
+                      className="p-2 rounded-full border border-turmeric-400/60 hover:bg-cream-100 text-brown-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saffron-500"
+                      aria-label="Next review"
+                    >
+                      <ChevronRight className="w-4 h-4" />
+                    </button>
+                  </div>
                 </div>
               )}
             </div>

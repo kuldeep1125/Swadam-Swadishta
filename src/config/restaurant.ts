@@ -38,6 +38,8 @@ export interface RestaurantConfig {
   phone: string;
   phoneRaw: string;
   whatsappNumber: string;
+  // [ADDED] Centralized email configuration
+  email: string;
   instagramHandle: string;
   instagramUrl: string;
   googleMapsUrl: string;
@@ -117,6 +119,8 @@ export const restaurant: RestaurantConfig = {
   phone: "+91 84211 02810",
   phoneRaw: "+918421102810",
   whatsappNumber: "918421102810",
+  // [ADDED] Contact email address
+  email: "swadamswadishta@gmail.com",
   instagramHandle: "@swadamswadishta",
   instagramUrl: "https://www.instagram.com/swadamswadishta/",
   googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Shop+No+5+34+Western+Pavilion+Rohan+Seher+Lane+Pan+Card+Club+Road+Baner+Pune+411069",

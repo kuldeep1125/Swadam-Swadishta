@@ -1,15 +1,17 @@
 "use client";
 
 // [ADDED] Location Section with stylized custom SVG map of Baner, Pune landmarks and direct directions
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { restaurant } from "@/config/restaurant";
 import { BrushUnderline, DecorativeLeaf, PureVegBadge } from "@/components/BrandMotifs";
 import { MapPin, Navigation, Phone, Instagram, Clock, ArrowUpRight } from "lucide-react";
 
 export function LocationSection() {
+  const [mapView, setMapView] = useState<"interactive" | "stylized">("interactive");
+
   return (
-    <section id="location" className="relative py-24 sm:py-32 px-4 sm:px-8 md:px-12 bg-cream-50 overflow-hidden" aria-label="Restaurant Location and Directions">
+    <section id="location" className="relative py-24 sm:py-32 px-4 sm:px-8 md:px-12 bg-cream-50 overflow-hidden scroll-mt-20" aria-label="Restaurant Location and Directions">
       
       <div className="mx-auto max-w-7xl">
         
@@ -43,10 +45,12 @@ export function LocationSection() {
             <div>
               <div className="flex items-center gap-2 mb-4">
                 <div className="relative w-10 h-10 rounded-full overflow-hidden border border-brandGreen-600">
+                  {/* // [FIXED] Explicit sizes attribute */}
                   <Image
                     src="/images/logo.png"
                     alt="Swadam Swadishta"
                     fill
+                    sizes="40px"
                     className="object-contain"
                   />
                 </div>
@@ -139,72 +143,114 @@ export function LocationSection() {
             </div>
           </div>
 
-          {/* Right Stylized SVG Map Representation (Col 6-12) */}
-          {/* [FIXED] Responsive padding and min-height for small mobile screens */}
-          <div className="lg:col-span-7 rounded-3xl overflow-hidden bg-gradient-to-br from-[#2D1810] to-[#1A0E08] border-2 border-turmeric-400/60 p-4 xs:p-6 sm:p-8 flex flex-col justify-between text-cream-100 relative min-h-[340px] sm:min-h-[420px] shadow-2xl">
+          {/* Right Map Presentation (Col 6-12) */}
+          <div className="lg:col-span-7 rounded-3xl overflow-hidden bg-gradient-to-br from-[#2D1810] to-[#1A0E08] border-2 border-turmeric-400/60 p-4 xs:p-6 sm:p-8 flex flex-col justify-between text-cream-100 relative min-h-[380px] sm:min-h-[460px] shadow-2xl">
             
-            {/* Background Stylized Road Grid Network */}
-            <svg
-              className="absolute inset-0 w-full h-full opacity-25 pointer-events-none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <defs>
-                <pattern id="roadPattern" width="120" height="120" patternUnits="userSpaceOnUse">
-                  <path d="M 0 60 L 120 60 M 60 0 L 60 120" stroke="#FFF7E3" strokeWidth="2" strokeDasharray="6 4" />
-                </pattern>
-              </defs>
-              <rect width="100%" height="100%" fill="url(#roadPattern)" />
-              {/* Major Roads in Baner */}
-              <line x1="10%" y1="90%" x2="90%" y2="10%" stroke="#FFB703" strokeWidth="6" strokeLinecap="round" opacity="0.6" />
-              <line x1="20%" y1="10%" x2="80%" y2="90%" stroke="#E85D04" strokeWidth="4" strokeLinecap="round" opacity="0.5" />
-              <line x1="5%" y1="50%" x2="95%" y2="50%" stroke="#2D6A4F" strokeWidth="5" strokeLinecap="round" opacity="0.6" />
-            </svg>
-
-            {/* Top Map Labels */}
-            <div className="relative z-10 flex items-center justify-between">
-              <div className="bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/20 text-xs">
-                <span className="text-turmeric-400 font-bold">Baner, Pune</span>
-                <span className="text-cream-300 ml-1">411069</span>
+            {/* Top Map Labels & View Mode Toggle */}
+            <div className="relative z-10 flex flex-wrap items-center justify-between gap-3 mb-4">
+              <div className="flex items-center gap-2">
+                <div className="bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/20 text-xs">
+                  <span className="text-turmeric-400 font-bold">Baner, Pune</span>
+                  <span className="text-cream-300 ml-1">411069</span>
+                </div>
+                <div className="bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/20 text-xs text-cream-200 hidden xs:inline">
+                  Pan Card Club Road
+                </div>
               </div>
-              <div className="bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/20 text-xs text-cream-200">
-                Pan Card Club Road Area
+
+              {/* [ADDED] Interactive Map Toggle */}
+              <div className="flex items-center gap-1 p-1 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-xs">
+                <button
+                  type="button"
+                  onClick={() => setMapView("interactive")}
+                  className={`px-3 py-1 rounded-full font-bold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-turmeric-gold ${
+                    mapView === "interactive"
+                      ? "bg-saffron-600 text-white shadow-md"
+                      : "text-cream-200 hover:text-white"
+                  }`}
+                >
+                  Live Map
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setMapView("stylized")}
+                  className={`px-3 py-1 rounded-full font-bold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-turmeric-gold ${
+                    mapView === "stylized"
+                      ? "bg-saffron-600 text-white shadow-md"
+                      : "text-cream-200 hover:text-white"
+                  }`}
+                >
+                  Landmarks
+                </button>
               </div>
             </div>
 
-            {/* Center Animated Location Pin Marker */}
-            <div className="relative z-10 my-auto flex flex-col items-center justify-center text-center py-6">
-              
-              {/* Pulsing Target Waves */}
-              <div className="relative flex items-center justify-center">
-                <div className="absolute w-24 h-24 rounded-full bg-saffron-500/20 animate-ping" />
-                <div className="absolute w-16 h-16 rounded-full bg-turmeric-gold/30 animate-pulse" />
-                
-                {/* Pin Badge */}
-                <div className="relative z-20 w-16 h-16 rounded-full bg-white border-4 border-saffron-500 shadow-2xl flex items-center justify-center p-1 group hover:scale-110 transition-transform">
-                  <Image
-                    src="/images/logo.png"
-                    alt="Swadam Pin"
-                    width={48}
-                    height={48}
-                    className="object-contain"
-                  />
-                </div>
+            {/* Content: Either Interactive Google Map or Stylized SVG Map */}
+            {mapView === "interactive" ? (
+              <div className="relative z-10 w-full flex-1 min-h-[280px] sm:min-h-[340px] rounded-2xl overflow-hidden border border-white/10 shadow-inner my-2 bg-brown-900">
+                <iframe
+                  title="Swadam Swadishta Google Maps Location in Baner Pune"
+                  src="https://maps.google.com/maps?q=Swadam+Swadishta+Shop+No+5+34+Western+Pavilion+Baner+Pune&t=&z=16&ie=UTF8&iwloc=&output=embed"
+                  className="w-full h-full min-h-[280px] sm:min-h-[340px] border-0"
+                  allowFullScreen={false}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
               </div>
+            ) : (
+              <>
+                {/* Background Stylized Road Grid Network */}
+                <svg
+                  className="absolute inset-0 w-full h-full opacity-25 pointer-events-none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <defs>
+                    <pattern id="roadPattern" width="120" height="120" patternUnits="userSpaceOnUse">
+                      <path d="M 0 60 L 120 60 M 60 0 L 60 120" stroke="#FFF7E3" strokeWidth="2" strokeDasharray="6 4" />
+                    </pattern>
+                  </defs>
+                  <rect width="100%" height="100%" fill="url(#roadPattern)" />
+                  {/* Major Roads in Baner */}
+                  <line x1="10%" y1="90%" x2="90%" y2="10%" stroke="#FFB703" strokeWidth="6" strokeLinecap="round" opacity="0.6" />
+                  <line x1="20%" y1="10%" x2="80%" y2="90%" stroke="#E85D04" strokeWidth="4" strokeLinecap="round" opacity="0.5" />
+                  <line x1="5%" y1="50%" x2="95%" y2="50%" stroke="#2D6A4F" strokeWidth="5" strokeLinecap="round" opacity="0.6" />
+                </svg>
 
-              {/* Pin Callout Bubble */}
-              <div className="mt-4 bg-white text-brown-900 rounded-2xl p-4 shadow-2xl border-2 border-turmeric-400 max-w-xs text-center">
-                <div className="flex items-center justify-center gap-1.5 mb-1">
-                  <PureVegBadge className="w-3.5 h-3.5" />
-                  <span className="font-display font-black text-sm">SWADAM SWADISHTA</span>
+                {/* Center Animated Location Pin Marker */}
+                <div className="relative z-10 my-auto flex flex-col items-center justify-center text-center py-6">
+                  {/* Pulsing Target Waves */}
+                  <div className="relative flex items-center justify-center">
+                    <div className="absolute w-24 h-24 rounded-full bg-saffron-500/20 animate-ping" />
+                    <div className="absolute w-16 h-16 rounded-full bg-turmeric-gold/30 animate-pulse" />
+                    
+                    {/* Pin Badge */}
+                    <div className="relative z-20 w-16 h-16 rounded-full bg-white border-4 border-saffron-500 shadow-2xl flex items-center justify-center p-1 group hover:scale-110 transition-transform">
+                      <Image
+                        src="/images/logo.png"
+                        alt="Swadam Pin"
+                        width={48}
+                        height={48}
+                        className="object-contain"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Pin Callout Bubble */}
+                  <div className="mt-4 bg-white text-brown-900 rounded-2xl p-4 shadow-2xl border-2 border-turmeric-400 max-w-xs text-center">
+                    <div className="flex items-center justify-center gap-1.5 mb-1">
+                      <PureVegBadge className="w-3.5 h-3.5" />
+                      <span className="font-display font-black text-sm">SWADAM SWADISHTA</span>
+                    </div>
+                    <p className="text-xs text-brown-700 font-sans font-medium">
+                      Shop No. 5, 34 Western Pavilion, Rohan Seher Lane
+                    </p>
+                    <div className="mt-2 pt-2 border-t border-cream-200 text-[11px] font-bold text-saffron-600">
+                      Ready to serve you fresh & warm!
+                    </div>
+                  </div>
                 </div>
-                <p className="text-xs text-brown-700 font-sans font-medium">
-                  Shop No. 5, 34 Western Pavilion, Rohan Seher Lane
-                </p>
-                <div className="mt-2 pt-2 border-t border-cream-200 text-[11px] font-bold text-saffron-600">
-                  Ready to serve you fresh & warm!
-                </div>
-              </div>
-            </div>
+              </>
+            )}
 
             {/* Bottom Landmark Breadcrumbs */}
             <div className="relative z-10 flex flex-wrap items-center justify-between gap-2 pt-4 border-t border-white/20 text-xs text-cream-300">

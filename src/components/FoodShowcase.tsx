@@ -103,10 +103,12 @@ export function FoodShowcase() {
             >
               {/* [FIXED] Image Frame with responsive height */}
               <div className="relative w-full h-56 xs:h-64 sm:h-72 overflow-hidden bg-cream-200/50">
+                {/* // [FIXED] Added responsive sizes attribute to optimize mobile/tablet bandwidth */}
                 <Image
                   src={item.image}
                   alt={item.title}
                   fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   className="object-cover group-hover:scale-110 transition-transform duration-700"
                 />
                 <div className="absolute top-3 left-3 sm:top-4 sm:left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-brown-900 shadow-sm border border-turmeric-400/40">
