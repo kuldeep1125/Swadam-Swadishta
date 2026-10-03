@@ -4,30 +4,29 @@
 import React from "react";
 import Image from "next/image";
 import { restaurant } from "@/config/restaurant";
-import { BrushUnderline, DecorativeLeaf } from "@/components/BrandMotifs";
-import { Instagram, ArrowUpRight } from "lucide-react";
+import { Instagram, ArrowUpRight } from "lucide-react"; // [FIXED] Removed unused BrushUnderline and DecorativeLeaf imports
 
 export function SocialSection() {
   const posts = [
     {
       image: "/images/real_storefront_street.png",
-      caption: "Shop No. 5, 34 Western Pavilion, Baner. Welcoming Pune food lovers every morning! ✨",
-      tag: "#SwadamSwadishta",
+      caption: "Shop No. 5, 34 Western Pavilion, Baner. Welcoming Pune food lovers every morning! ✨ (बाणेर, पुण्यात दररोज सकाळी तुमचे स्वागत आहे!)",
+      tag: "#SwadamSwadishta • #स्वादम_स्वादिष्ट",
     },
     {
       image: "/images/hd_lunch_thali.jpg",
-      caption: "Proper Maharashtrian Lunch Thali at ₹110. Simple food, big swad! 🍛",
-      tag: "#PuneThali",
+      caption: "Proper Maharashtrian Lunch Thali at ₹110. Simple food, big swad! 🍛 (अस्सल महाराष्ट्रीयन लंच थाळी - तृप्तीचा आनंद!)",
+      tag: "#PuneThali • #पुणेरी_थाळी",
     },
     {
       image: "/images/hd_misal_pav.jpg",
-      caption: "Garma-garam Misal Pav with spicy rassa and fresh farsan. 🌶️",
-      tag: "#MisalPav",
+      caption: "Garma-garam Misal Pav with spicy rassa and fresh farsan. 🌶️ (गरमा-गरम झणझणीत मिसळ पाव आणि कट.)",
+      tag: "#MisalPav • #झणझणीत_मिसळ",
     },
     {
       image: "/images/hd_tea.jpg",
-      caption: "Cutting chai & evening cravings on Pan Card Club Road. ☕",
-      tag: "#ChaiLovers",
+      caption: "Cutting chai & evening cravings on Pan Card Club Road. ☕ (संध्याकाळचा चहा आणि चवदार स्नॅक्स.)",
+      tag: "#ChaiLovers • #कटिंग_चहा",
     },
   ];
 
@@ -41,14 +40,14 @@ export function SocialSection() {
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cream-200 border border-turmeric-400/50 text-xs font-bold text-brown-800 mb-2">
               <Instagram className="w-3.5 h-3.5 text-saffron-600" />
-              <span>FOLLOW ALONG ON INSTAGRAM</span>
+              <span>FOLLOW ALONG ON INSTAGRAM • इंस्टाग्रामवर कनेक्ट व्हा</span>
             </div>
             {/* [FIXED] Fluid typography for Social heading */}
             <h2 className="font-display text-3xl xs:text-4xl sm:text-5xl font-black text-brown-900 tracking-tight">
               See what&apos;s cooking.
             </h2>
             <span className="font-devanagari text-lg sm:text-xl font-bold text-brandGreen-700 block mt-1">
-              आमच्यासोबत कनेक्ट व्हा • {restaurant.instagramHandle}
+              काय नवीन शिजतंय? • {restaurant.instagramHandle}
             </span>
           </div>
 
@@ -59,7 +58,7 @@ export function SocialSection() {
             className="mt-4 md:mt-0 inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-saffron-600 to-turmeric-gold text-white font-bold text-sm shadow-md hover:shadow-lg active:scale-95 transition-all w-full sm:w-auto"
           >
             <Instagram className="w-4 h-4" />
-            <span>Follow {restaurant.instagramHandle}</span>
+            <span>Follow {restaurant.instagramHandle} / फॉलो करा</span>
             <ArrowUpRight className="w-4 h-4" />
           </a>
         </div>

@@ -37,16 +37,20 @@ export function StorefrontSection() {
 
       <div className="mx-auto max-w-7xl relative">
         
-        {/* Header */}
+        {/* Header - [ADDED] Bilingual */}
         <div className="text-center max-w-3xl mx-auto space-y-3 mb-12">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cream-200 border border-turmeric-400/50 text-xs font-bold text-brown-800">
             <ShieldCheck className="w-4 h-4 text-brandGreen-700" />
             <span>REAL PHYSICAL DESTINATION IN PUNE</span>
+            <span className="font-devanagari text-xs text-brandGreen-700 font-bold">• बाणेर, पुणे</span>
           </div>
 
           <h2 className="font-display text-4xl sm:text-6xl md:text-7xl font-black text-brown-900 tracking-tight leading-tight">
             Come find us.
           </h2>
+          <span className="font-devanagari text-2xl sm:text-3xl font-bold text-saffron-600 block mt-1">
+            आमच्या दुकानाला नक्की भेट द्या.
+          </span>
 
           <div className="w-32 mx-auto">
             <BrushUnderline className="w-full h-3 text-saffron-500" />
@@ -56,7 +60,7 @@ export function StorefrontSection() {
             Step into our welcoming shop on Pan Card Club Road, Baner. Pull up a chair under the marigold toran, smell the sizzling tempering, and enjoy genuine Maharashtrian hospitality.
           </p>
 
-          {/* [FIXED] Photo Switcher Pills with flex-wrap and responsive sizing for small screens */}
+          {/* [FIXED] Photo Switcher Pills with flex-wrap and responsive sizing for small screens - [ADDED] Bilingual */}
           <div className="pt-2 flex flex-wrap items-center justify-center gap-2">
             <button
               onClick={() => setActivePhoto("street")}
@@ -66,7 +70,7 @@ export function StorefrontSection() {
                   : "bg-white text-brown-800 border border-turmeric-400/60 hover:bg-cream-100"
               }`}
             >
-              🏢 Street Front & Outdoor View
+              🏢 Street Front & Outdoor View <span className="font-devanagari text-[11px] opacity-80">/ बाहेरील बैठक</span>
             </button>
             <button
               onClick={() => setActivePhoto("counter")}
@@ -76,7 +80,7 @@ export function StorefrontSection() {
                   : "bg-white text-brown-800 border border-turmeric-400/60 hover:bg-cream-100"
               }`}
             >
-              🛎️ Entrance & Counter View
+              🛎️ Entrance & Counter View <span className="font-devanagari text-[11px] opacity-80">/ स्वागत काउंटर</span>
             </button>
           </div>
         </div>
@@ -126,9 +130,14 @@ export function StorefrontSection() {
             
             {/* Address Card */}
             <div className="p-4 xs:p-6 rounded-3xl bg-white border border-turmeric-400/50 shadow-md">
-              <div className="flex items-center gap-2 text-saffron-600 mb-3">
-                <MapPin className="w-5 h-5" />
-                <span className="font-display font-bold text-lg text-brown-900">Baner Location</span>
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-2 text-saffron-600">
+                  <MapPin className="w-5 h-5" />
+                  <span className="font-display font-bold text-lg text-brown-900">Baner Location</span>
+                </div>
+                <span className="font-devanagari text-xs font-bold text-brandGreen-700">
+                  बाणेर शाखा
+                </span>
               </div>
               <p className="text-sm text-brown-800 leading-relaxed font-sans">
                 <span className="font-bold">{restaurant.address.shopNo}, {restaurant.address.building}</span><br />
@@ -138,12 +147,15 @@ export function StorefrontSection() {
               </p>
 
               <div className="mt-4 pt-4 border-t border-cream-200">
-                <div className="flex items-center gap-2 text-xs text-brown-600 font-semibold mb-1">
-                  <Clock className="w-4 h-4 text-brandGreen-700" />
-                  <span>Daily Timings</span>
+                <div className="flex items-center justify-between text-xs text-brown-600 font-semibold mb-1">
+                  <div className="flex items-center gap-2">
+                    <Clock className="w-4 h-4 text-brandGreen-700" />
+                    <span>Daily Timings</span>
+                  </div>
+                  <span className="font-devanagari text-[11px] text-brown-500">रोजची वेळ</span>
                 </div>
                 <p className="text-xs text-brown-700 leading-tight">
-                  7:30 AM – 9:30 PM (Fresh cooking all day)
+                  7:30 AM – 9:30 PM (सकाळी ७:३० ते रात्री ९:३०)
                 </p>
               </div>
             </div>
@@ -151,11 +163,14 @@ export function StorefrontSection() {
             {/* Direct Google Maps Navigation Card */}
             <div className="p-6 rounded-3xl bg-gradient-to-br from-brown-900 to-brown-800 text-cream-100 border border-turmeric-400 shadow-xl">
               <span className="text-xs font-bold uppercase tracking-wider text-turmeric-300">
-                PLAN YOUR VISIT
+                PLAN YOUR VISIT • प्रवासाचे नियोजन
               </span>
-              <h3 className="font-display text-2xl font-bold text-cream-50 mt-1 mb-2">
+              <h3 className="font-display text-2xl font-bold text-cream-50 mt-1 mb-1">
                 Easy to Reach in Baner
               </h3>
+              <span className="font-devanagari text-sm font-bold text-turmeric-200 block mb-2">
+                बाणेरमध्ये सहज पोहोचा
+              </span>
               <p className="text-xs text-cream-200 leading-relaxed font-sans mb-5">
                 Located near Pan Card Club Road, conveniently accessible from Balewadi High Street, Mumbai-Pune Expressway, and Baner Road.
               </p>
@@ -168,6 +183,7 @@ export function StorefrontSection() {
               >
                 <Navigation className="w-4 h-4" />
                 <span>Open in Google Maps</span>
+                <span className="font-devanagari text-xs opacity-90 font-normal">/ मार्ग पहा</span>
                 <ArrowUpRight className="w-4 h-4 opacity-80" />
               </a>
             </div>

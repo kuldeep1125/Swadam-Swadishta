@@ -2,7 +2,7 @@
 
 // [ADDED] Food Marquee with scroll-direction and velocity sensitivity, oversized typography and Maharashtrian cultural accents
 import React, { useEffect, useRef, useState } from "react";
-import { SpiceSparkle, DecorativeLeaf } from "@/components/BrandMotifs";
+import { SpiceSparkle } from "@/components/BrandMotifs"; // [FIXED] Removed unused DecorativeLeaf import
 
 export function FoodMarquee() {
   const [scrollDir, setScrollDir] = useState<"forward" | "reverse">("forward");

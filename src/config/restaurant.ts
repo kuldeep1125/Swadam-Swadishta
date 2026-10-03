@@ -58,10 +58,16 @@ export interface RestaurantConfig {
     lunch: string;
     evening: string;
     allDays: string;
+    breakfastMarathi?: string; // [ADDED]
+    lunchMarathi?: string; // [ADDED]
+    eveningMarathi?: string; // [ADDED]
+    allDaysMarathi?: string; // [ADDED]
   };
   features: Array<{
     title: string;
+    titleMarathi?: string; // [ADDED]
     description: string;
+    descriptionMarathi?: string; // [ADDED]
     icon: string;
   }>;
   menu: {
@@ -76,15 +82,20 @@ export interface RestaurantConfig {
     nameMarathi: string;
     price: string;
     category: string;
+    categoryMarathi?: string; // [ADDED]
     tagline: string;
+    taglineMarathi?: string; // [ADDED]
     description: string;
     image: string;
     badge: string;
+    badgeMarathi?: string; // [ADDED]
   };
   bulkOrders: {
     enabled: boolean;
     headline: string;
+    headlineMarathi?: string; // [ADDED]
     subheadline: string;
+    subheadlineMarathi?: string; // [ADDED]
     description: string;
     phone: string;
     whatsappNumber: string;
@@ -128,27 +139,39 @@ export const restaurant: RestaurantConfig = {
     lunch: "12:00 PM – 3:30 PM",
     evening: "4:00 PM – 9:30 PM",
     allDays: "Open All 7 Days (Fresh preparation throughout the day)",
+    breakfastMarathi: "सकाळी ७:३० ते ११:३०", // [ADDED]
+    lunchMarathi: "दुपारी १२:०० ते ३:३०", // [ADDED]
+    eveningMarathi: "संध्याकाळी ४:०० ते ९:३०", // [ADDED]
+    allDaysMarathi: "आठवड्याचे सर्व ७ दिवस सुरू", // [ADDED]
   },
 
   features: [
     {
       title: "Tasty Food",
+      titleMarathi: "चविष्ट जेवण", // [ADDED]
       description: "Authentic homemade Maharashtrian spice blends & time-tested recipes.",
+      descriptionMarathi: "अस्सल घरगुती मसाले आणि पारंपरिक चव.", // [ADDED]
       icon: "UtensilsCrossed",
     },
     {
       title: "Quick Service",
+      titleMarathi: "त्वरित सेवा", // [ADDED]
       description: "Steaming hot breakfast, swift wholesome lunch thalis, and instant evening snacks.",
+      descriptionMarathi: "गरमा-गरम नाश्ता आणि तत्पर जेवण सेवा.", // [ADDED]
       icon: "Clock",
     },
     {
       title: "Warm Ambience",
+      titleMarathi: "आपुलकीचे वातावरण", // [ADDED]
       description: "A friendly, homely spot in Baner where every guest is welcomed like family.",
+      descriptionMarathi: "प्रत्येक पाहुण्याचे घरासारखे आत्मीय स्वागत.", // [ADDED]
       icon: "HeartHandshake",
     },
     {
       title: "100% Pure Veg",
+      titleMarathi: "१००% शुद्ध शाकाहारी", // [ADDED]
       description: "Prepared with pristine hygiene, fresh ingredients and unconditional vegetarian purity.",
+      descriptionMarathi: "उत्कृष्ट स्वच्छता आणि १००% शाकाहारी शुद्धता.", // [ADDED]
       icon: "Leaf",
     },
   ],
@@ -446,16 +469,21 @@ export const restaurant: RestaurantConfig = {
     nameMarathi: "मिसळ पाव",
     price: "₹90",
     category: "Breakfast & Anytime Craving",
+    categoryMarathi: "सकाळचा नाश्ता व खास चव", // [ADDED]
     tagline: "The Legendary Maharashtra Kick",
+    taglineMarathi: "झणझणीत चव, अस्सल पुणेरी अंदाज", // [ADDED]
     description: "Prepared with sprouted matki, secret Maharashtrian goda masala, and served with steaming rassa, crisp crunchy farsan, and pillow-soft pav.",
     image: "/images/hd_misal_pav.jpg",
     badge: "Most Loved",
+    badgeMarathi: "पुणेकरांची पहिली पसंती", // [ADDED]
   },
 
   bulkOrders: {
     enabled: true,
     headline: "Feeding a crowd?",
+    headlineMarathi: "मोठ्या ऑर्डर्ससाठी संपर्क साधा", // [ADDED]
     subheadline: "We Take Bulk Orders",
+    subheadlineMarathi: "कौटुंबिक व कार्यालयीन कार्यक्रम", // [ADDED]
     description: "Hosting an office breakfast, festival gathering, or family get-together in Baner? Treat your guests to authentic, freshly cooked Maharashtrian breakfast, thalis, and evening snacks.",
     phone: "+91 84211 02810",
     whatsappNumber: "918421102810",

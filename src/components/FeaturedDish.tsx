@@ -28,9 +28,10 @@ export function FeaturedDish() {
             {/* Left Narrative (Col 1-7) */}
             <div className="lg:col-span-7 space-y-4">
               
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-saffron-50 border border-saffron-300 text-xs font-bold text-saffron-700">
-                <Flame className="w-3.5 h-3.5 text-saffron-600" />
+              <div className="inline-flex flex-wrap items-center gap-2 px-3.5 py-1.5 rounded-full bg-saffron-50 border border-saffron-300 text-xs font-bold text-saffron-700">
+                <Flame className="w-3.5 h-3.5 text-saffron-600 flex-shrink-0" />
                 <span>TODAY&apos;S CRAVING • {dish.category}</span>
+                <span className="font-devanagari text-xs text-saffron-800 font-bold">• आजची खास डिश</span>
               </div>
 
               <div className="space-y-1">
@@ -46,21 +47,26 @@ export function FeaturedDish() {
                 </div>
               </div>
 
-              <p className="font-display text-lg sm:text-2xl font-bold text-saffron-600">
-                {dish.tagline}
-              </p>
+              <div>
+                <p className="font-display text-lg sm:text-2xl font-bold text-saffron-600">
+                  {dish.tagline}
+                </p>
+                <span className="font-devanagari text-sm sm:text-base font-bold text-brandGreen-800 block mt-0.5">
+                  {dish.taglineMarathi || "झणझणीत चव, अस्सल पुणेरी अंदाज"}
+                </span>
+              </div>
 
               <p className="text-sm sm:text-base text-brown-700 font-sans leading-relaxed">
                 {dish.description}
               </p>
 
-              <div className="flex items-baseline gap-4 pt-2">
-                <span className="text-xs font-mono text-brown-500 font-bold uppercase">Price</span>
+              <div className="flex flex-wrap items-baseline gap-4 pt-2">
+                <span className="text-xs font-mono text-brown-500 font-bold uppercase">Price / दर</span>
                 <span className="font-display text-4xl xs:text-5xl font-black text-brown-900">
                   {dish.price}
                 </span>
                 <span className="text-xs text-brandGreen-700 font-semibold bg-brandGreen-50 px-2.5 py-1 rounded-md border border-brandGreen-200">
-                  Freshly Prepared
+                  Freshly Prepared • गरमा-गरम ताजे
                 </span>
               </div>
 
@@ -70,6 +76,7 @@ export function FeaturedDish() {
                   className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-brown-900 hover:bg-brown-800 text-cream-100 font-bold text-sm shadow-md active:scale-95 transition-all group"
                 >
                   <span>Order at Counter</span>
+                  <span className="font-devanagari text-xs opacity-90 font-normal">/ काउंटरवर ऑर्डर करा</span>
                   <ArrowRight className="w-4 h-4 text-turmeric-400 group-hover:translate-x-1 transition-transform" />
                 </a>
               </div>
@@ -88,7 +95,7 @@ export function FeaturedDish() {
                   />
                 </div>
                 <div className="absolute top-6 right-6 bg-gradient-to-r from-saffron-600 to-turmeric-gold text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
-                  {dish.badge}
+                  {dish.badge} • {dish.badgeMarathi || "पुणेकरांची आवड"}
                 </div>
               </div>
             </div>

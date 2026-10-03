@@ -2,7 +2,7 @@
 
 // [ADDED] The Swadam Experience: Giant typographic rhythm (FRESH, WARM, QUICK, VEG, LOCAL, MAHARASHTRIAN)
 import React, { useState } from "react";
-import { DecorativeLeaf, SpiceSparkle } from "@/components/BrandMotifs";
+// [FIXED] Removed unused DecorativeLeaf and SpiceSparkle imports
 
 export function SwadamExperience() {
   const [activeWordIndex, setActiveWordIndex] = useState(0);
@@ -11,42 +11,42 @@ export function SwadamExperience() {
     {
       word: "FRESH",
       marathi: "ताजे",
-      microcopy: "Prepared hot and served right for the day's cravings.",
+      microcopy: "Prepared hot and served right for the day's cravings. (कढईतून थेट ताटात गरमा-गरम जेवण)",
       color: "text-brandGreen-700",
       bg: "bg-brandGreen-50",
     },
     {
       word: "WARM",
       marathi: "आपुलकी",
-      microcopy: "Heartfelt hospitality where every guest is welcomed like family.",
+      microcopy: "Heartfelt hospitality where every guest is welcomed like family. (घरासारखी आपुलकी आणि प्रेम)",
       color: "text-saffron-600",
       bg: "bg-saffron-50",
     },
     {
       word: "QUICK",
       marathi: "त्वरित",
-      microcopy: "Prompt service so your busy morning and lunch hours move effortlessly.",
+      microcopy: "Prompt service so your busy morning and lunch hours move effortlessly. (कामाच्या घाईतही झटपट व दर्जेदार सेवा)",
       color: "text-turmeric-gold",
       bg: "bg-cream-200",
     },
     {
       word: "VEG",
       marathi: "शुद्ध शाकाहारी",
-      microcopy: "100% pure vegetarian culinary purity and hygiene you can trust.",
+      microcopy: "100% pure vegetarian culinary purity and hygiene you can trust. (१००% शुद्ध शाकाहारी आणि स्वच्छतेची हमी)",
       color: "text-brandGreen-800",
       bg: "bg-brandGreen-100",
     },
     {
       word: "LOCAL",
       marathi: "स्थानिक",
-      microcopy: "Deeply rooted in Baner, Pune, feeding neighbours and food lovers daily.",
+      microcopy: "Deeply rooted in Baner, Pune, feeding neighbours and food lovers daily. (बाणेर, पुण्यात दररोज शेकडो खवय्यांची पसंती)",
       color: "text-terracotta-500",
       bg: "bg-terracotta-50",
     },
     {
       word: "MAHARASHTRIAN",
       marathi: "महाराष्ट्रीयन",
-      microcopy: "Authentic regional taste and time-honoured culinary identity.",
+      microcopy: "Authentic regional taste and time-honoured culinary identity. (पिढ्यानपिढ्या चालत आलेली अस्सल मराठमोळी चव)",
       color: "text-brown-900",
       bg: "bg-cream-300",
     },
@@ -61,7 +61,7 @@ export function SwadamExperience() {
         <div className="mb-14 pb-4 border-b border-turmeric-400/40 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
             <span className="text-xs font-mono font-bold tracking-widest text-saffron-600 uppercase">
-              THE SWADAM ESSENCE
+              THE SWADAM ESSENCE • आमची मूल्ये
             </span>
             <h2 className="font-display text-4xl sm:text-5xl font-black text-brown-900 mt-1">
               What defines us.

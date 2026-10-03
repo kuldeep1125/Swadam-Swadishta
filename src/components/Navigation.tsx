@@ -106,7 +106,7 @@ export function Navigation() {
             </div>
           </Link>
 
-          {/* Desktop Navigation Links */}
+          {/* Desktop Navigation Links - [ADDED] Bilingual English + Marathi touch */}
           <nav
             className="hidden lg:flex items-center gap-0.5 xl:gap-2 text-xs xl:text-sm font-medium"
             aria-label="Main Navigation"
@@ -115,9 +115,12 @@ export function Navigation() {
               <a
                 key={link.href}
                 href={link.href}
-                className="px-2 xl:px-3.5 py-1.5 rounded-full text-brown-800 hover:text-saffron-600 hover:bg-cream-200/50 transition-all duration-200 relative group whitespace-nowrap"
+                className="px-2 xl:px-3 py-1 rounded-full text-brown-800 hover:text-saffron-600 hover:bg-cream-200/50 transition-all duration-200 relative group whitespace-nowrap text-center"
               >
-                <span>{link.label}</span>
+                <div className="flex flex-col items-center leading-tight">
+                  <span className="font-semibold text-xs xl:text-sm">{link.label}</span>
+                  <span className="text-[10px] text-brown-600 group-hover:text-brandGreen-700 font-devanagari transition-colors">{link.marathi}</span>
+                </div>
                 <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-saffron-500 rounded-full group-hover:w-1/2 transition-all duration-300" />
               </a>
             ))}
@@ -135,7 +138,7 @@ export function Navigation() {
             >
               <Phone className="w-3.5 h-3.5 text-brandGreen-700 flex-shrink-0" />
               <span className="hidden xl:inline">{restaurant.phone}</span>
-              <span className="inline xl:hidden">Call</span>
+              <span className="inline xl:hidden">Call <span className="font-devanagari text-[10px]">/ कॉल</span></span>
             </a>
 
             {/* Main CTA: Directions (condensed on small screens / hidden when mobile menu open to give full focus to close button) */}
@@ -148,7 +151,7 @@ export function Navigation() {
               } items-center gap-1 sm:gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-bold text-white bg-gradient-to-r from-saffron-600 to-saffron-500 hover:from-saffron-500 hover:to-turmeric-gold shadow-md hover:shadow-lg hover:shadow-saffron-500/20 active:scale-95 transition-all duration-200 whitespace-nowrap`}
             >
               <MapPin className="w-3.5 h-3.5 text-cream-100 flex-shrink-0" />
-              <span className="hidden xs:inline sm:inline">Directions</span>
+              <span className="hidden xs:inline sm:inline">Directions <span className="font-devanagari text-[11px] opacity-90 font-normal">/ मार्ग</span></span>
               <span className="inline xs:hidden sm:hidden">Map</span>
               <ArrowUpRight className="w-3.5 h-3.5 opacity-80 flex-shrink-0" />
             </a>
@@ -215,28 +218,28 @@ export function Navigation() {
             ))}
           </div>
 
-          {/* Quick Contact Actions in Mobile Menu */}
+          {/* Quick Contact Actions in Mobile Menu - [ADDED] Bilingual English + Marathi */}
           <div className="mt-6 pt-4 border-t border-turmeric-400/40 flex flex-col gap-3 max-w-lg mx-auto w-full">
             <div className="flex items-center justify-between text-xs text-brown-700 font-medium">
               <span>{restaurant.address.building}, {restaurant.address.area}</span>
-              <span className="text-brandGreen-700 font-bold">100% Pure Veg</span>
+              <span className="text-brandGreen-700 font-bold">100% Pure Veg • १००% शुद्ध शाकाहारी</span>
             </div>
 
             <div className="grid grid-cols-2 gap-3 pt-1">
               <a
                 href={`tel:${restaurant.phoneRaw}`}
-                className="flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-brown-900 text-cream-100 font-semibold text-sm active:scale-95 transition-transform"
+                className="flex items-center justify-center gap-1.5 py-3 px-3 rounded-xl bg-brown-900 text-cream-100 font-semibold text-xs xs:text-sm active:scale-95 transition-transform"
               >
-                <Phone className="w-4 h-4 text-turmeric-400" />
-                <span>Call Us</span>
+                <Phone className="w-4 h-4 text-turmeric-400 flex-shrink-0" />
+                <span>Call Us <span className="font-devanagari text-xs opacity-80">/ कॉल</span></span>
               </a>
               <a
                 href={`https://wa.me/${restaurant.whatsappNumber}?text=Namaskar%20Swadam%20Swadishta!%20I%20would%20like%20to%20enquire%20about%20your%20menu.`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-brandGreen-700 text-white font-semibold text-sm active:scale-95 transition-transform"
+                className="flex items-center justify-center gap-1.5 py-3 px-3 rounded-xl bg-brandGreen-700 text-white font-semibold text-xs xs:text-sm active:scale-95 transition-transform"
               >
-                <span>WhatsApp</span>
+                <span>WhatsApp <span className="font-devanagari text-xs opacity-90">/ व्हॉट्सॲप</span></span>
               </a>
             </div>
 
@@ -247,9 +250,9 @@ export function Navigation() {
               onClick={() => setMobileMenuOpen(false)}
               className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-gradient-to-r from-saffron-600 to-turmeric-gold text-white font-bold text-sm shadow-md active:scale-95 transition-transform"
             >
-              <MapPin className="w-4 h-4" />
-              <span>Get Directions to Restaurant</span>
-              <ArrowUpRight className="w-4 h-4" />
+              <MapPin className="w-4 h-4 flex-shrink-0" />
+              <span>Get Directions <span className="font-devanagari opacity-90 font-normal">/ मार्ग पहा</span></span>
+              <ArrowUpRight className="w-4 h-4 flex-shrink-0" />
             </a>
           </div>
         </div>

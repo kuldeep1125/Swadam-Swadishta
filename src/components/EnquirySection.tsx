@@ -4,7 +4,7 @@
 import React, { useState } from "react";
 import { restaurant } from "@/config/restaurant";
 import { BrushUnderline } from "@/components/BrandMotifs";
-import { Send, MessageCircle, AlertCircle, CheckCircle2 } from "lucide-react";
+import { Send, MessageCircle, AlertCircle } from "lucide-react"; // [FIXED] Removed unused CheckCircle2 import
 
 export function EnquirySection() {
   const [formData, setFormData] = useState({
@@ -39,18 +39,22 @@ export function EnquirySection() {
         
         {/* Header */}
         <div className="text-center space-y-3 mb-12">
+          {/* [ADDED] Bilingual eyebrow tag */}
           <span className="text-xs font-mono font-bold tracking-widest text-saffron-600 uppercase">
-            CONNECT WITH US
+            CONNECT WITH US • आमच्याशी संपर्क साधा
           </span>
-          {/* [FIXED] Fluid typography for Enquiry heading */}
+          {/* [FIXED] Fluid typography for Enquiry heading with Marathi subtitle */}
           <h2 className="font-display text-3xl xs:text-4xl sm:text-5xl font-black text-brown-900 tracking-tight">
             Send an Enquiry.
           </h2>
+          <span className="font-devanagari text-lg sm:text-2xl font-bold text-brandGreen-700 block">
+            विचारपूस करा किंवा माहिती मिळवा
+          </span>
           <div className="w-28 mx-auto">
             <BrushUnderline className="w-full h-3 text-turmeric-gold" />
           </div>
           <p className="text-sm sm:text-base text-brown-700 font-sans max-w-xl mx-auto">
-            Have a question about our menu, special dietary requirements, or planning a bulk breakfast/lunch order in Baner? Reach out below.
+            Have a question about our menu, special dietary requirements, or planning a bulk breakfast/lunch order in Baner? Reach out below. (आमचा मेनू, बल्क ऑर्डर्स किंवा इतर कोणत्याही चौकशीसाठी येथे संपर्क साधा.)
           </p>
         </div>
 
@@ -62,7 +66,7 @@ export function EnquirySection() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div>
                 <label className="block text-xs font-bold uppercase tracking-wider text-brown-800 mb-1.5 font-sans">
-                  Your Full Name *
+                  Your Full Name / पूर्ण नाव *
                 </label>
                 <input
                   type="text"
@@ -76,7 +80,7 @@ export function EnquirySection() {
 
               <div>
                 <label className="block text-xs font-bold uppercase tracking-wider text-brown-800 mb-1.5 font-sans">
-                  Phone Number *
+                  Phone Number / मोबाईल नंबर *
                 </label>
                 <input
                   type="tel"
@@ -93,7 +97,7 @@ export function EnquirySection() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div>
                 <label className="block text-xs font-bold uppercase tracking-wider text-brown-800 mb-1.5 font-sans">
-                  Email Address (Optional)
+                  Email Address / ईमेल (Optional / ऐच्छिक)
                 </label>
                 <input
                   type="email"
@@ -106,17 +110,17 @@ export function EnquirySection() {
 
               <div>
                 <label className="block text-xs font-bold uppercase tracking-wider text-brown-800 mb-1.5 font-sans">
-                  Enquiry Type *
+                  Enquiry Type / चौकशीचा प्रकार *
                 </label>
                 <select
                   value={formData.enquiryType}
                   onChange={(e) => setFormData({ ...formData, enquiryType: e.target.value })}
                   className="w-full px-4 py-3 rounded-xl border border-turmeric-400/60 bg-cream-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-saffron-500 text-sm text-brown-900 font-sans"
                 >
-                  <option value="General Enquiry">General Enquiry</option>
-                  <option value="Bulk Order">Bulk Order (Office / Gathering)</option>
-                  <option value="Catering Enquiry">Catering Enquiry</option>
-                  <option value="Other">Other Query</option>
+                  <option value="General Enquiry">General Enquiry (सर्वसाधारण चौकशी)</option>
+                  <option value="Bulk Order">Bulk Order (ऑफिस / कार्यक्रम)</option>
+                  <option value="Catering Enquiry">Catering Enquiry (केटरिंग विचारपूस)</option>
+                  <option value="Other">Other Query (इतर चौकशी)</option>
                 </select>
               </div>
             </div>
@@ -124,7 +128,7 @@ export function EnquirySection() {
             {/* Preferred Date */}
             <div>
               <label className="block text-xs font-bold uppercase tracking-wider text-brown-800 mb-1.5 font-sans">
-                Preferred Date (If for bulk gathering)
+                Preferred Date / नियोजित तारीख (If for bulk gathering / कार्यक्रमासाठी)
               </label>
               <input
                 type="date"
@@ -137,11 +141,11 @@ export function EnquirySection() {
             {/* Message Area */}
             <div>
               <label className="block text-xs font-bold uppercase tracking-wider text-brown-800 mb-1.5 font-sans">
-                Your Message / Requirement
+                Your Message / Requirement / संदेश किंवा आवश्यकता
               </label>
               <textarea
                 rows={3}
-                placeholder="Let us know dish preferences, number of guests, or any question..."
+                placeholder="Let us know dish preferences, number of guests, or any question... (डिशेस, लोकांची संख्या किंवा इतर माहिती लिहा...)"
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                 className="w-full px-4 py-3 rounded-xl border border-turmeric-400/60 bg-cream-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-saffron-500 text-sm text-brown-900"
@@ -152,7 +156,7 @@ export function EnquirySection() {
             <div className="flex items-start gap-2.5 p-3.5 rounded-xl bg-cream-200/70 border border-turmeric-400/50 text-xs text-brown-700">
               <AlertCircle className="w-4 h-4 text-saffron-600 flex-shrink-0 mt-0.5" />
               <span>
-                <strong>Please note:</strong> Submitting an enquiry does not automatically confirm an order. Our team will verify kitchen capacity and connect back with you promptly.
+                <strong>Please note (कृपया नोंद घ्या):</strong> Submitting an enquiry does not automatically confirm an order. Our team will verify kitchen capacity and connect back with you promptly. (फॉर्म पाठवल्यानंतर आमची टीम त्वरित खात्री करून आपल्याशी संपर्क साधेल.)
               </span>
             </div>
 
@@ -165,7 +169,7 @@ export function EnquirySection() {
                 className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-full bg-brandGreen-700 hover:bg-brandGreen-800 text-white font-bold text-sm shadow-md disabled:opacity-50 disabled:pointer-events-none active:scale-95 transition-all"
               >
                 <MessageCircle className="w-4 h-4" />
-                <span>Send via WhatsApp</span>
+                <span>Send via WhatsApp / व्हॉट्सॲप</span>
               </button>
 
               <button
@@ -175,7 +179,7 @@ export function EnquirySection() {
                 className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-full bg-brown-900 hover:bg-brown-800 text-cream-100 font-bold text-sm shadow-md disabled:opacity-50 disabled:pointer-events-none active:scale-95 transition-all"
               >
                 <Send className="w-4 h-4 text-turmeric-400" />
-                <span>Send via Email</span>
+                <span>Send via Email / ईमेल</span>
               </button>
             </div>
 

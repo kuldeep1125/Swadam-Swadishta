@@ -101,10 +101,12 @@ export function Hero() {
         {/* Left Typography & Brand Manifesto (Col 1-7) */}
         <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6">
           
-          {/* Top Pill / Pure Veg Assurance */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cream-200/90 border border-brandGreen-600/30 text-xs sm:text-sm font-semibold text-brandGreen-800 shadow-sm animate-in fade-in slide-in-from-bottom-2 duration-500">
-            <PureVegBadge className="w-3.5 h-3.5" />
+          {/* Top Pill / Pure Veg Assurance - [ADDED] Bilingual English + Devanagari */}
+          <div className="inline-flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 px-3.5 sm:px-4 py-1.5 rounded-full bg-cream-200/90 border border-brandGreen-600/30 text-xs sm:text-sm font-semibold text-brandGreen-800 shadow-sm animate-in fade-in slide-in-from-bottom-2 duration-500">
+            <PureVegBadge className="w-3.5 h-3.5 flex-shrink-0" />
             <span>100% Pure Vegetarian Maharashtrian Kitchen</span>
+            <span className="text-saffron-600 font-bold">•</span>
+            <span className="font-devanagari font-bold text-brandGreen-800">१००% शुद्ध शाकाहारी</span>
             <span className="text-saffron-600 font-bold">•</span>
             <span className="text-brown-700">Baner, Pune</span>
           </div>
@@ -133,23 +135,26 @@ export function Hero() {
             {restaurant.subheading} Steaming hot <span className="font-semibold text-brown-900">Poha & Upma</span>, legendary <span className="font-semibold text-saffron-600">Misal Pav</span>, satisfying <span className="font-semibold text-brandGreen-800">Lunch Thalis</span>, and crisp evening snacks.
           </p>
 
-          {/* Feature Highlights Pills */}
+          {/* Feature Highlights Pills - [ADDED] Bilingual tags */}
           <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2.5 pt-1">
             <span className="px-3 py-1 rounded-full text-xs font-semibold bg-white/80 border border-turmeric-400/50 text-brown-800 flex items-center gap-1.5 shadow-sm">
               <Sparkles className="w-3 h-3 text-saffron-600" />
-              Garma-Garam Breakfast
+              <span>Garma-Garam Breakfast</span>
+              <span className="font-devanagari text-[11px] text-saffron-700 font-bold">• गरम नाश्ता</span>
             </span>
             <span className="px-3 py-1 rounded-full text-xs font-semibold bg-white/80 border border-turmeric-400/50 text-brown-800 flex items-center gap-1.5 shadow-sm">
               <Utensils className="w-3 h-3 text-brandGreen-700" />
-              Wholesome ₹110 Thali
+              <span>Wholesome ₹110 Thali</span>
+              <span className="font-devanagari text-[11px] text-brandGreen-800 font-bold">• परिपूर्ण थाळी</span>
             </span>
             <span className="px-3 py-1 rounded-full text-xs font-semibold bg-white/80 border border-turmeric-400/50 text-brown-800 flex items-center gap-1.5 shadow-sm">
               <span className="w-2 h-2 rounded-full bg-saffron-500 animate-ping" />
-              Evening Kravings
+              <span>Evening Kravings</span>
+              <span className="font-devanagari text-[11px] text-brown-700 font-bold">• चवदार स्नॅक्स</span>
             </span>
           </div>
 
-          {/* [FIXED] Action CTAs with full-width stack on small phones (w-full xs:w-auto) */}
+          {/* [FIXED] Action CTAs with full-width stack on small phones (w-full xs:w-auto) - [ADDED] Bilingual */}
           <div className="flex flex-col xs:flex-row flex-wrap items-stretch xs:items-center justify-center lg:justify-start gap-3 sm:gap-4 pt-4 w-full">
             {/* Primary: Menu Explorer */}
             <a
@@ -157,6 +162,7 @@ export function Hero() {
               className="inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-3.5 rounded-full text-sm sm:text-base font-bold text-white bg-gradient-to-r from-saffron-600 to-saffron-500 hover:from-saffron-500 hover:to-turmeric-gold shadow-lg shadow-saffron-600/25 active:scale-95 transition-all duration-300 group w-full xs:w-auto"
             >
               <span>Explore the Menu</span>
+              <span className="font-devanagari text-xs opacity-90 font-normal">/ मेनू पहा</span>
               <ArrowDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
             </a>
 
@@ -167,6 +173,7 @@ export function Hero() {
             >
               <MapPin className="w-4 h-4 text-saffron-600" />
               <span>Visit Us</span>
+              <span className="font-devanagari text-xs opacity-90 font-normal">/ भेट द्या</span>
             </a>
 
             {/* Tertiary: WhatsApp Quick Enquiry */}
@@ -179,12 +186,14 @@ export function Hero() {
             >
               <MessageCircle className="w-4 h-4 text-brandGreen-700" />
               <span>WhatsApp Us</span>
+              <span className="font-devanagari text-xs opacity-90 font-normal">/ संपर्क</span>
             </a>
           </div>
 
           {/* Authentic Location Snippet */}
-          <div className="pt-2 text-xs text-brown-600 flex items-center justify-center lg:justify-start gap-1.5 font-medium">
+          <div className="pt-2 text-xs text-brown-600 flex flex-wrap items-center justify-center lg:justify-start gap-1.5 font-medium">
             <span className="font-semibold text-brown-800">Shop No. 5</span>, 34 Western Pavilion, Rohan Seher Lane, Baner, Pune
+            <span className="font-devanagari text-brandGreen-700 font-bold ml-1">• बाणेर, पुणे</span>
           </div>
         </div>
 
@@ -239,17 +248,20 @@ export function Hero() {
               {/* Bottom Gradient Overlay on Image */}
               <div className="absolute inset-0 bg-gradient-to-t from-brown-900/80 via-transparent to-transparent opacity-80" />
 
-              {/* In-Photo Highlights */}
-              <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between text-white">
+              {/* In-Photo Highlights - [ADDED] Bilingual */}
+              <div className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 flex items-end justify-between text-white">
                 <div>
-                  <span className="text-[11px] uppercase tracking-wider text-turmeric-300 font-bold block">
-                    Authentic Maharashtrian
+                  <span className="text-[10px] sm:text-[11px] uppercase tracking-wider text-turmeric-300 font-bold block">
+                    Authentic Maharashtrian • अस्सल चव
                   </span>
-                  <span className="font-display text-2xl font-bold text-cream-50 leading-tight">
+                  <span className="font-display text-xl sm:text-2xl font-bold text-cream-50 leading-tight block">
                     Full Lunch Thali
                   </span>
-                  <p className="text-xs text-cream-200 mt-0.5 font-medium">
+                  <p className="text-[11px] sm:text-xs text-cream-200 mt-0.5 font-medium">
                     3 Chapati • 2 Sabji • Rice • Dal • Papad
+                  </p>
+                  <p className="font-devanagari text-[10px] text-turmeric-200 hidden xs:block">
+                    ३ चपात्या • २ भाज्या • भात • वरण • पापड
                   </p>
                 </div>
                 <div className="text-right">
@@ -261,7 +273,7 @@ export function Hero() {
               </div>
             </div>
 
-            {/* Floating Satellite Dish: Misal Pav (sm+ only to prevent mobile overlap) */}
+            {/* Floating Satellite Dish: Misal Pav (sm+ only to prevent mobile overlap) - [ADDED] Bilingual */}
             <div
               className="hidden sm:flex absolute -bottom-6 -left-6 z-20 bg-white rounded-2xl p-2 border-2 border-saffron-500 shadow-xl items-center gap-2.5 max-w-[210px] hover:scale-105 transition-transform duration-300"
             >
@@ -278,13 +290,13 @@ export function Hero() {
                   Spicy Misal Pav
                 </span>
                 <span className="text-[10px] text-saffron-600 font-semibold font-devanagari">
-                  झणझणीत रस्सा
+                  झणझणीत मिसळ
                 </span>
                 <span className="text-xs font-bold text-brown-800 block">₹90</span>
               </div>
             </div>
 
-            {/* Floating Satellite Dish: Wada Pav (sm+ only to prevent mobile overlap) */}
+            {/* Floating Satellite Dish: Wada Pav (sm+ only to prevent mobile overlap) - [ADDED] Bilingual */}
             <div
               className="hidden sm:flex absolute -bottom-6 -right-4 z-20 bg-white rounded-2xl p-2 border-2 border-turmeric-400 shadow-xl items-center gap-2 max-w-[170px] hover:scale-105 transition-transform duration-300"
             >
@@ -299,6 +311,9 @@ export function Hero() {
               <div className="text-left">
                 <span className="text-[11px] font-bold text-brown-900 block leading-tight">
                   Wada Pav
+                </span>
+                <span className="text-[10px] font-semibold text-brandGreen-700 font-devanagari block">
+                  गरमा-गरम वडा
                 </span>
                 <span className="text-xs font-black text-brandGreen-700 block">₹25</span>
               </div>

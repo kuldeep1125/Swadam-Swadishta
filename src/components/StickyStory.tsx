@@ -13,7 +13,7 @@ export function StickyStory() {
     {
       word: "SWAD",
       marathi: "स्वाद",
-      subtitle: "The Taste that Defines Us",
+      subtitle: "The Taste that Defines Us • ओळख अस्सल चवीची",
       description:
         "Rooted in authentic homemade Maharashtrian seasonings, balancing spicy, tangy, and savoury perfection.",
       bg: "bg-gradient-to-br from-[#FFFDF7] via-[#FFF7E3] to-[#FEEDC7]",
@@ -25,13 +25,13 @@ export function StickyStory() {
       tagIconColor: "text-turmeric-300",
       cardBorder: "border-2 border-saffron-500/70",
       image: "/images/hd_misal_pav.jpg",
-      tag: "Authentic Flavor",
-      dishCaption: "Spicy Pune Misal Pav",
+      tag: "Authentic Flavor • अस्सल स्वाद",
+      dishCaption: "Spicy Pune Misal Pav • झणझणीत मिसळ",
     },
     {
       word: "MASALA",
       marathi: "मसाला",
-      subtitle: "The Soul of Marathi Spice",
+      subtitle: "The Soul of Marathi Spice • मराठमोळा मसाल्याचा दरवळ",
       description:
         "Aromatic goda masala, roasted dry coconut, pungent mustard, and carom seeds roasted to peak fragrance.",
       bg: "bg-gradient-to-br from-saffron-600 to-saffron-deep",
@@ -43,13 +43,13 @@ export function StickyStory() {
       tagIconColor: "text-turmeric-gold",
       cardBorder: "border-turmeric-300/40",
       image: "/images/hd_kanda_bhaji.jpg",
-      tag: "Tempering & Spices",
-      dishCaption: "Crispy Golden Kanda Bhaji",
+      tag: "Tempering & Spices • खमंग फोडणी",
+      dishCaption: "Crispy Golden Kanda Bhaji • कुरकुरीत कांदा भजी",
     },
     {
       word: "GARMA-GARAM",
       marathi: "गरमा-गरम",
-      subtitle: "Fresh From the Kadhai & Tawa",
+      subtitle: "Fresh From the Kadhai & Tawa • कढई व तव्यावरून थेट ताटात",
       description:
         "Never pre-packaged or stale. Food cooked right when you order it, steaming hot onto your plate.",
       bg: "bg-gradient-to-br from-[#2D1810] to-[#1A0E08]",
@@ -61,13 +61,13 @@ export function StickyStory() {
       tagIconColor: "text-brown-900",
       cardBorder: "border-turmeric-400/50",
       image: "/images/hd_wada_pav.jpg",
-      tag: "Cooked Fresh",
-      dishCaption: "Iconic Maharashtra Wada Pav",
+      tag: "Cooked Fresh • ताजेतवाने",
+      dishCaption: "Iconic Maharashtra Wada Pav • गरमा-गरम वडा पाव",
     },
     {
       word: "MAHARASHTRA",
       marathi: "महाराष्ट्र",
-      subtitle: "Culinary Heritage of the Soil",
+      subtitle: "Culinary Heritage of the Soil • मातीशी जोडलेली खाद्यसंस्कृती",
       description:
         "From the breakfast streets of Pune to the thali traditions of rural Maharashtra, pure veg comfort in every bite.",
       bg: "bg-gradient-to-br from-[#143D22] to-[#0D2B16]",
@@ -79,13 +79,13 @@ export function StickyStory() {
       tagIconColor: "text-brandGreen-700",
       cardBorder: "border-turmeric-400/40",
       image: "/images/hd_lunch_thali.jpg",
-      tag: "Culture on a Plate",
-      dishCaption: "Maharashtrian Lunch Thali",
+      tag: "Culture on a Plate • ताटात महाराष्ट्र",
+      dishCaption: "Maharashtrian Lunch Thali • परिपूर्ण थाळी",
     },
     {
       word: "SWADAM",
       marathi: "स्वादिष्ट",
-      subtitle: "चव महाराष्ट्राची",
+      subtitle: "चव महाराष्ट्राची • The Taste of Maharashtra",
       description:
         "Shop No. 5, 34 Western Pavilion, Pan Card Club Road, Baner. Where Pune comes home for true Swad.",
       bg: "bg-gradient-to-br from-[#1A0E08] via-brown-900 to-[#2D1810]",
@@ -97,8 +97,8 @@ export function StickyStory() {
       tagIconColor: "text-turmeric-gold",
       cardBorder: "border-turmeric-400/60",
       image: "/images/real_storefront_street.png",
-      tag: "Visit Us in Baner",
-      dishCaption: "Shop No. 5, Baner, Pune",
+      tag: "Visit Us in Baner • बाणेर येथे भेट द्या",
+      dishCaption: "Shop No. 5, Baner, Pune • दुकान क्र. ५",
     },
   ];
 
@@ -118,7 +118,7 @@ export function StickyStory() {
             </span>
           </div>
 
-          {/* [FIXED] Stepper Tabs wrapped in mobile-safe horizontal scroll rail */}
+          {/* [FIXED] Stepper Tabs wrapped in mobile-safe horizontal scroll rail - [ADDED] Bilingual */}
           <div className="w-full sm:w-auto order-last sm:order-none overflow-x-auto no-scrollbar flex items-center gap-1.5 sm:gap-2 py-1">
             {stages.map((stg, i) => (
               <button
@@ -132,6 +132,7 @@ export function StickyStory() {
                 aria-label={`Jump to stage ${i + 1}: ${stg.word}`}
               >
                 <span>{stg.word}</span>
+                <span className="font-devanagari text-[10px] opacity-80">({stg.marathi})</span>
               </button>
             ))}
           </div>

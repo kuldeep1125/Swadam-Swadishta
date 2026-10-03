@@ -13,11 +13,12 @@ export function LocationSection() {
       
       <div className="mx-auto max-w-7xl">
         
-        {/* Header */}
+        {/* Header - [ADDED] Bilingual */}
         <div className="text-center max-w-3xl mx-auto space-y-3 mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cream-200 border border-turmeric-400/50 text-xs font-bold text-brown-800">
             <MapPin className="w-4 h-4 text-saffron-600" />
             <span>FIND SWADAM IN BANER</span>
+            <span className="font-devanagari text-xs text-brandGreen-700 font-bold">• आमचा पत्ता</span>
           </div>
 
           {/* [FIXED] Fluid typography for Location heading */}
@@ -70,39 +71,51 @@ export function LocationSection() {
                   {restaurant.address.area}, {restaurant.address.city} – {restaurant.address.postalCode}
                 </p>
                 <p className="text-xs text-brown-500 pt-1">
-                  Maharashtra, India
+                  Maharashtra, India • महाराष्ट्र, भारत
                 </p>
               </div>
 
-              {/* Operating Hours */}
+              {/* Operating Hours - [ADDED] Bilingual */}
               <div className="mt-6 pt-4 border-t border-cream-200 space-y-2">
-                <div className="flex items-center gap-2 text-xs font-bold text-brown-700 uppercase tracking-wider">
-                  <Clock className="w-4 h-4 text-saffron-600" />
-                  <span>Serving Timings</span>
+                <div className="flex items-center justify-between text-xs font-bold text-brown-700 uppercase tracking-wider">
+                  <div className="flex items-center gap-2">
+                    <Clock className="w-4 h-4 text-saffron-600" />
+                    <span>Serving Timings</span>
+                  </div>
+                  <span className="font-devanagari text-xs font-semibold text-brandGreen-700">वेळेचे नियोजन</span>
                 </div>
                 <div className="grid grid-cols-2 gap-2 text-xs text-brown-800">
                   <div className="bg-cream-100 p-2.5 rounded-xl border border-turmeric-400/30">
-                    <span className="font-bold block text-saffron-700">Breakfast</span>
+                    <div className="flex items-baseline justify-between mb-0.5">
+                      <span className="font-bold text-saffron-700">Breakfast</span>
+                      <span className="font-devanagari text-[10px] text-brown-600">न्याहारी</span>
+                    </div>
                     <span>{restaurant.timings.breakfast}</span>
                   </div>
                   <div className="bg-cream-100 p-2.5 rounded-xl border border-turmeric-400/30">
-                    <span className="font-bold block text-brandGreen-700">Lunch Thali</span>
+                    <div className="flex items-baseline justify-between mb-0.5">
+                      <span className="font-bold text-brandGreen-700">Lunch Thali</span>
+                      <span className="font-devanagari text-[10px] text-brown-600">थाळी</span>
+                    </div>
                     <span>{restaurant.timings.lunch}</span>
                   </div>
                   <div className="col-span-2 bg-cream-100 p-2.5 rounded-xl border border-turmeric-400/30 flex items-center justify-between">
                     <div>
-                      <span className="font-bold block text-brown-900">Evening Snacks</span>
+                      <div className="flex items-baseline gap-1.5">
+                        <span className="font-bold text-brown-900">Evening Snacks</span>
+                        <span className="font-devanagari text-[11px] text-brown-600">(संध्याकाळचे स्नॅक्स)</span>
+                      </div>
                       <span>{restaurant.timings.evening}</span>
                     </div>
                     <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-brandGreen-700 text-white">
-                      All 7 Days
+                      All 7 Days • दररोज
                     </span>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Direct CTAs */}
+            {/* Direct CTAs - [ADDED] Bilingual */}
             <div className="pt-4 border-t border-cream-200 flex flex-col sm:flex-row gap-3">
               <a
                 href={restaurant.googleMapsUrl}
@@ -112,6 +125,7 @@ export function LocationSection() {
               >
                 <Navigation className="w-4 h-4" />
                 <span>Get Directions ↗</span>
+                <span className="font-devanagari text-xs opacity-90 font-normal">/ मार्ग पहा</span>
               </a>
 
               <a
@@ -120,6 +134,7 @@ export function LocationSection() {
               >
                 <Phone className="w-4 h-4 text-brandGreen-700" />
                 <span>Call</span>
+                <span className="font-devanagari text-xs opacity-90 font-normal">/ कॉल</span>
               </a>
             </div>
           </div>

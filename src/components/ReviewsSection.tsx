@@ -17,17 +17,21 @@ export function ReviewsSection() {
       
       <div className="mx-auto max-w-5xl">
         
-        {/* Section Header */}
+        {/* Section Header - [ADDED] Bilingual */}
         <div className="text-center max-w-2xl mx-auto space-y-3 mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cream-200 border border-turmeric-400/50 text-xs font-bold text-brown-800">
             <MessageSquareQuote className="w-4 h-4 text-saffron-600" />
             <span>VERIFIED FEEDBACK</span>
+            <span className="font-devanagari text-xs text-brandGreen-700 font-bold">• ग्राहकांचे अनुभव</span>
           </div>
 
           {/* [FIXED] Fluid typography for reviews heading */}
           <h2 className="font-display text-3xl xs:text-4xl sm:text-6xl font-black text-brown-900 tracking-tight leading-tight">
             What people are saying
           </h2>
+          <span className="font-devanagari text-xl sm:text-2xl font-bold text-saffron-600 block mt-1">
+            ग्राहकांची पसंती आणि विश्वास.
+          </span>
 
           <div className="w-32 mx-auto">
             <BrushUnderline className="w-full h-3 text-turmeric-gold" />
@@ -128,6 +132,7 @@ export function ReviewsSection() {
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-brown-900 hover:bg-brown-800 text-cream-100 font-semibold text-xs sm:text-sm active:scale-95 transition-all"
           >
             <span>Read on Google Maps</span>
+            <span className="font-devanagari text-xs opacity-90 font-normal">/ गुगलवर वाचा</span>
             <ArrowUpRight className="w-4 h-4 text-turmeric-400" />
           </a>
         </div>

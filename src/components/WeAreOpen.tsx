@@ -41,11 +41,11 @@ export function WeAreOpen() {
             </div>
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-brandGreen-600/30 text-xs font-bold text-brandGreen-800">
               <PureVegBadge className="w-3.5 h-3.5" />
-              <span>100% PURE VEGETARIAN</span>
+              <span>100% PURE VEGETARIAN • १००% शुद्ध शाकाहारी</span>
             </div>
           </div>
 
-          {/* [FIXED] Dramatic "WE ARE OPEN" Typographic Stamp with fluid scaling */}
+          {/* [FIXED] Dramatic "WE ARE OPEN" Typographic Stamp with fluid scaling - [ADDED] Bilingual */}
           <div className="relative inline-block my-2">
             <span className="font-brush text-2xl xs:text-3xl sm:text-4xl text-saffron-600 font-bold block -mb-2">
               We are
@@ -53,6 +53,9 @@ export function WeAreOpen() {
             <h2 className="font-display text-5xl xs:text-6xl sm:text-8xl md:text-9xl font-black text-brown-900 tracking-tight leading-none uppercase drop-shadow-sm">
               OPEN.
             </h2>
+            <span className="font-devanagari text-2xl xs:text-3xl sm:text-4xl font-black text-brandGreen-800 block mt-1">
+              आम्ही सुरू आहोत!
+            </span>
             <div className="w-36 xs:w-48 sm:w-64 mx-auto mt-2">
               <BrushStroke className="w-full h-3.5 sm:h-4 text-turmeric-gold" />
             </div>
@@ -66,7 +69,7 @@ export function WeAreOpen() {
             ताजेतवाने अन्न, आत्मीय स्वागत!
           </span>
 
-          {/* The 3 Core Badges from the Physical Poster */}
+          {/* The 3 Core Badges from the Physical Poster - [ADDED] Bilingual */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-2xl mx-auto my-12">
             
             {/* Badge 1: Tasty Food */}
@@ -80,7 +83,8 @@ export function WeAreOpen() {
                 />
               </div>
               <span className="font-display font-bold text-base text-brown-900">Tasty Food</span>
-              <span className="text-xs text-brown-600 font-sans">चविष्ट घरगुती चव</span>
+              <span className="font-devanagari text-xs text-brandGreen-700 font-bold">चविष्ट जेवण</span>
+              <span className="text-xs text-brown-600 font-sans mt-0.5">घरगुती अस्सल चव</span>
             </div>
 
             {/* Badge 2: Quick Service */}
@@ -94,7 +98,8 @@ export function WeAreOpen() {
                 />
               </div>
               <span className="font-display font-bold text-base text-brown-900">Quick Service</span>
-              <span className="text-xs text-brown-600 font-sans">त्वरित आणि तत्पर सेवा</span>
+              <span className="font-devanagari text-xs text-brandGreen-700 font-bold">त्वरित सेवा</span>
+              <span className="text-xs text-brown-600 font-sans mt-0.5">तत्पर आणि ताजी सेवा</span>
             </div>
 
             {/* Badge 3: Warm Ambience */}
@@ -108,20 +113,21 @@ export function WeAreOpen() {
                 />
               </div>
               <span className="font-display font-bold text-base text-brown-900">Warm Ambience</span>
-              <span className="text-xs text-brown-600 font-sans">आपुलकीचे वातावरण</span>
+              <span className="font-devanagari text-xs text-brandGreen-700 font-bold">आपुलकीचे वातावरण</span>
+              <span className="text-xs text-brown-600 font-sans mt-0.5">घरासारखे प्रेमळ आदरातिथ्य</span>
             </div>
 
           </div>
 
-          {/* Meal Timings Ribbon */}
-          <div className="inline-flex flex-wrap items-center justify-center gap-3 sm:gap-6 py-3 px-6 rounded-2xl bg-brown-900 text-cream-100 font-medium text-xs sm:text-sm shadow-md mb-8">
-            <span className="font-bold text-turmeric-300">Breakfast</span>
+          {/* Meal Timings Ribbon - [ADDED] Bilingual */}
+          <div className="inline-flex flex-wrap items-center justify-center gap-2.5 sm:gap-4 py-3 px-5 sm:px-7 rounded-2xl bg-brown-900 text-cream-100 font-medium text-xs sm:text-sm shadow-md mb-8">
+            <span className="font-bold text-turmeric-300">Breakfast <span className="font-devanagari font-normal opacity-80">(न्याहारी)</span></span>
             <span className="text-saffron-500 font-bold">•</span>
-            <span className="font-bold text-cream-100">Lunch</span>
+            <span className="font-bold text-cream-100">Lunch <span className="font-devanagari font-normal opacity-80">(दुपारचे जेवण)</span></span>
             <span className="text-saffron-500 font-bold">•</span>
-            <span className="font-bold text-turmeric-300">Evening Snacks</span>
+            <span className="font-bold text-turmeric-300">Evening Snacks <span className="font-devanagari font-normal opacity-80">(स्नॅक्स)</span></span>
             <span className="text-saffron-500 font-bold">•</span>
-            <span className="text-brandGreen-400 font-bold">Open Daily</span>
+            <span className="text-brandGreen-400 font-bold">Open Daily <span className="font-devanagari font-normal opacity-80">(दररोज सुरू)</span></span>
           </div>
 
           {/* CTAs */}
@@ -134,6 +140,7 @@ export function WeAreOpen() {
             >
               <MapPin className="w-4 h-4" />
               <span>Visit Us Today!</span>
+              <span className="font-devanagari text-xs opacity-90 font-normal">/ आजच भेट द्या!</span>
             </a>
 
             <a
@@ -142,6 +149,7 @@ export function WeAreOpen() {
             >
               <Phone className="w-4 h-4 text-brandGreen-700" />
               <span>{restaurant.phone}</span>
+              <span className="font-devanagari text-xs opacity-90 font-normal">/ कॉल</span>
             </a>
           </div>
 

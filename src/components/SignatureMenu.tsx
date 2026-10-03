@@ -31,13 +31,14 @@ export function SignatureMenu() {
             <div>
               <span className="font-devanagari text-lg sm:text-xl font-bold text-brown-900 mr-2">मेनू</span>
               <span className="font-display text-base sm:text-lg font-bold text-saffron-600">What&apos;s Cooking?</span>
+              <span className="font-devanagari text-xs text-brandGreen-700 font-bold ml-1.5 hidden sm:inline">/ मेनू काय आहे?</span>
             </div>
             <span className="text-[11px] text-brown-600 md:hidden font-mono bg-cream-200 px-2 py-0.5 rounded-full">
               Scroll tabs →
             </span>
           </div>
 
-          {/* [FIXED] Horizontal swipeable rail for mobile screens with clean no-scrollbar styling */}
+          {/* [FIXED] Horizontal swipeable rail for mobile screens with clean no-scrollbar styling - [ADDED] Bilingual */}
           <div className="w-full md:w-auto flex items-center gap-1.5 p-1 rounded-2xl sm:rounded-full bg-cream-200/80 border border-turmeric-400/50 overflow-x-auto no-scrollbar flex-nowrap sm:flex-wrap justify-start sm:justify-center">
             {(
               [
@@ -59,7 +60,7 @@ export function SignatureMenu() {
                 aria-pressed={activeCategory === cat.id}
               >
                 <span>{cat.label}</span>
-                <span className="hidden sm:inline font-devanagari ml-1 opacity-70">({cat.mr})</span>
+                <span className="font-devanagari ml-1 opacity-80 text-[11px]">({cat.mr})</span>
               </button>
             ))}
           </div>
@@ -73,11 +74,11 @@ export function SignatureMenu() {
         <div className="relative py-20 px-4 sm:px-8 md:px-12 bg-cream-100 border-b border-turmeric-400/30">
           <div className="mx-auto max-w-7xl">
             
-            {/* Chapter Header */}
+            {/* Chapter Header - [ADDED] Bilingual */}
             <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-14 pb-4 sm:pb-6 border-b border-turmeric-400/40">
               <div>
                 <span className="text-xs font-mono font-bold tracking-widest text-saffron-600 uppercase">
-                  CHAPTER 01 • SAKALCHI NYAHARI
+                  CHAPTER 01 • SAKALCHI NYAHARI • सकाळचा नाश्ता
                 </span>
                 {/* [FIXED] Fluid typography for breakfast headline */}
                 <h3 className="font-display text-3xl xs:text-4xl sm:text-6xl font-black text-brown-900 mt-1">
@@ -222,28 +223,32 @@ export function SignatureMenu() {
             {/* Giant Centerpiece Thali Layout */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
               
-              {/* Left Components Breakdown (Col 1-4) */}
+              {/* Left Components Breakdown (Col 1-4) - [ADDED] Bilingual breakdown */}
               <div className="lg:col-span-4 space-y-4">
                 <div className="p-4 xs:p-6 rounded-3xl bg-white/5 backdrop-blur-md border border-turmeric-400/30">
                   <h4 className="font-display text-xl xs:text-2xl font-bold text-turmeric-300 mb-4 flex items-center gap-2">
-                    <Utensils className="w-5 h-5 text-saffron-400" />
-                    What&apos;s on the Plate?
+                    <Utensils className="w-5 h-5 text-saffron-400 flex-shrink-0" />
+                    <span>What&apos;s on the Plate?</span>
+                    <span className="font-devanagari text-xs text-turmeric-200 font-normal">/ ताटात काय आहे?</span>
                   </h4>
-                  <ul className="space-y-3 text-sm text-cream-100 font-sans">
+                  <ul className="space-y-3.5 text-sm text-cream-100 font-sans">
                     {[
-                      { item: "3 Hot Chapatis", note: "Soft, freshly rolled whole wheat" },
-                      { item: "2 Daily Sabjis", note: "1 Sukhi (dry) + 1 Rassa (gravy)" },
-                      { item: "Steamed Rice", note: "Fluffy & comforting" },
-                      { item: "Aromatic Dal", note: "Traditional tempered lentil curry" },
-                      { item: "Crispy Papad", note: "Roasted authentic papad" },
-                      { item: "Spicy Pickle & Salad", note: "Fresh onion, lemon, and mango pickle" },
+                      { item: "3 Hot Chapatis", itemMr: "३ गरम चपात्या", note: "Soft, freshly rolled whole wheat / मऊ, लुसलुशीत गव्हाच्या चपात्या" },
+                      { item: "2 Daily Sabjis", itemMr: "२ भाज्या (सुकी + रस्सा)", note: "1 Sukhi (dry) + 1 Rassa (gravy) / १ सुकी भाजी + १ रस्सा" },
+                      { item: "Steamed Rice", itemMr: "गरम भात", note: "Fluffy & comforting / मऊ मोकळा भात" },
+                      { item: "Aromatic Dal", itemMr: "फोडणीचे वरण", note: "Traditional tempered lentil curry / घरगुती रुचकर वरण" },
+                      { item: "Crispy Papad", itemMr: "कुरकुरीत पापड", note: "Roasted authentic papad / भाजलेला उडीद पापड" },
+                      { item: "Spicy Pickle & Salad", itemMr: "लोणचे आणि कोशिंबीर", note: "Fresh onion, lemon, and mango pickle / लोणचे व कांदा" },
                     ].map((comp, idx) => (
                       <li key={idx} className="flex items-start gap-3">
                         <div className="mt-1 w-4 h-4 rounded-full bg-saffron-500/30 border border-saffron-400 flex items-center justify-center flex-shrink-0">
                           <Check className="w-2.5 h-2.5 text-turmeric-300" />
                         </div>
                         <div>
-                          <span className="font-bold text-cream-50">{comp.item}</span>
+                          <div className="flex items-baseline gap-1.5 flex-wrap">
+                            <span className="font-bold text-cream-50">{comp.item}</span>
+                            <span className="font-devanagari text-xs font-semibold text-turmeric-300">({comp.itemMr})</span>
+                          </div>
                           <p className="text-xs text-cream-300/80">{comp.note}</p>
                         </div>
                       </li>
@@ -268,28 +273,39 @@ export function SignatureMenu() {
                   </div>
 
                   <div className="absolute -top-3 right-4 sm:right-6 bg-gradient-to-r from-saffron-600 to-turmeric-gold text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-full font-bold text-xs sm:text-sm shadow-xl flex items-center gap-1.5">
-                    <PureVegBadge className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                    <span>Pure Veg Feast</span>
+                    <PureVegBadge className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
+                    <span>Pure Veg Feast • शुद्ध भोजन</span>
                   </div>
                 </div>
               </div>
 
-              {/* Right Pricing & Sweet Upgrade (Col 9-12) */}
+              {/* Right Pricing & Sweet Upgrade (Col 9-12) - [ADDED] Bilingual */}
               <div className="lg:col-span-3 space-y-6">
                 
                 {/* Standard Thali Card */}
                 <div className="p-6 rounded-3xl bg-cream-100 text-brown-900 border-2 border-turmeric-400 shadow-xl group hover:-translate-y-1 transition-transform">
-                  <span className="text-xs font-bold uppercase tracking-wider text-brandGreen-700">
-                    EVERYDAY LUNCH
-                  </span>
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold uppercase tracking-wider text-brandGreen-700">
+                      EVERYDAY LUNCH
+                    </span>
+                    <span className="font-devanagari text-xs font-bold text-brandGreen-800">
+                      रोजचे जेवण
+                    </span>
+                  </div>
                   <h5 className="font-display text-2xl font-bold text-brown-900 mt-1">
                     Lunch Thali
                   </h5>
+                  <span className="font-devanagari text-base font-bold text-brandGreen-800 block">
+                    दुपारची थाळी
+                  </span>
                   <p className="text-xs text-brown-600 mt-1">
                     3 Chapati, 2 Sabji, Rice, Dal, Papad, Pickle & Salad.
                   </p>
+                  <p className="font-devanagari text-[11px] text-brown-600 mt-0.5">
+                    ३ चपात्या, २ भाज्या, भात, डाळ, पापड, लोणचे आणि कोशिंबीर.
+                  </p>
                   <div className="mt-4 pt-4 border-t border-cream-300 flex items-baseline justify-between">
-                    <span className="text-xs text-brown-500 font-mono">Total</span>
+                    <span className="text-xs text-brown-500 font-mono">Total / एकूण</span>
                     <span className="font-display text-4xl font-black text-brandGreen-800">
                       ₹110
                     </span>
@@ -317,11 +333,17 @@ export function SignatureMenu() {
                   <h5 className="font-display text-2xl font-bold text-cream-50 mt-1">
                     Thali With Sweet
                   </h5>
+                  <span className="font-devanagari text-base font-bold text-turmeric-200 block">
+                    गोड पदार्थासह थाळी
+                  </span>
                   <p className="text-xs text-cream-200 mt-1">
                     Complete thali + traditional sweet of the day (Shrikhand / Basundi / Sheera).
                   </p>
+                  <p className="font-devanagari text-[11px] text-cream-200 mt-0.5">
+                    परिपूर्ण थाळी + दिवसाचा गोड पदार्थ (श्रीखंड / बासुंदी / शिरा).
+                  </p>
                   <div className="mt-4 pt-4 border-t border-white/20 flex items-baseline justify-between">
-                    <span className="text-xs text-cream-200 font-mono">Special Price</span>
+                    <span className="text-xs text-cream-200 font-mono">Special Price / खास दर</span>
                     <span className="font-display text-4xl font-black text-turmeric-300">
                       ₹130
                     </span>
@@ -528,9 +550,9 @@ export function SignatureMenu() {
                   <div className="mt-4 pt-3 border-t border-cream-200 flex items-center justify-between text-xs font-semibold text-brandGreen-800">
                     <span className="flex items-center gap-1">
                       <PureVegBadge className="w-3.5 h-3.5" />
-                      100% Pure Veg
+                      <span>100% Pure Veg • १००% शुद्ध शाकाहारी</span>
                     </span>
-                    <span className="text-brown-500">Fresh Daily</span>
+                    <span className="text-brown-500">Fresh Daily • दररोज ताजे</span>
                   </div>
                 </div>
               ))}
@@ -541,17 +563,20 @@ export function SignatureMenu() {
       )}
 
       {/* ========================================================================= */}
-      {/* ORIGINAL SHOP MENU CARDS & FLYERS VIEWER                                   */}
+      {/* ORIGINAL SHOP MENU CARDS & FLYERS VIEWER - [ADDED] Bilingual              */}
       {/* ========================================================================= */}
       <div className="py-16 px-4 sm:px-8 md:px-12 bg-cream-200/60 border-t border-turmeric-400/40">
         <div className="mx-auto max-w-7xl">
           <div className="text-center max-w-2xl mx-auto mb-10">
             <span className="text-xs font-mono font-bold tracking-widest text-saffron-600 uppercase">
-              AUTHENTIC ORIGINAL ARTWORKS
+              AUTHENTIC ORIGINAL ARTWORKS • अस्सल मेनू कार्ड्स
             </span>
             <h4 className="font-display text-2xl sm:text-3xl font-black text-brown-900 mt-1">
               Real In-Store Menu Cards & Banners
             </h4>
+            <span className="font-devanagari text-base font-bold text-brandGreen-800 block mt-0.5">
+              दुकानातील मूळ मेनू आणि पोस्टर्स
+            </span>
             <p className="text-xs sm:text-sm text-brown-600 font-sans mt-1">
               Click any authentic menu design below to view full-size high resolution.
             </p>
@@ -573,12 +598,17 @@ export function SignatureMenu() {
                 />
                 <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white font-bold text-xs gap-1.5">
                   <Eye className="w-4 h-4" />
-                  <span>Click to Expand</span>
+                  <span>Click to Expand / मोठे पहा</span>
                 </div>
               </div>
-              <span className="font-display font-bold text-sm text-brown-900 block mt-2.5 text-center">
-                Original Full Menu Card
-              </span>
+              <div className="mt-2.5 text-center">
+                <span className="font-display font-bold text-sm text-brown-900 block leading-tight">
+                  Original Full Menu Card
+                </span>
+                <span className="font-devanagari text-xs text-brandGreen-700 font-semibold block">
+                  मूळ संपूर्ण मेनू कार्ड
+                </span>
+              </div>
             </div>
 
             {/* Card 2: Vertical Menu Flyer */}
@@ -595,12 +625,17 @@ export function SignatureMenu() {
                 />
                 <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white font-bold text-xs gap-1.5">
                   <Eye className="w-4 h-4" />
-                  <span>Click to Expand</span>
+                  <span>Click to Expand / मोठे पहा</span>
                 </div>
               </div>
-              <span className="font-display font-bold text-sm text-brown-900 block mt-2.5 text-center">
-                In-Store Vertical Flyer
-              </span>
+              <div className="mt-2.5 text-center">
+                <span className="font-display font-bold text-sm text-brown-900 block leading-tight">
+                  In-Store Vertical Flyer
+                </span>
+                <span className="font-devanagari text-xs text-brandGreen-700 font-semibold block">
+                  दुकानातील वर्टिकल फ्लायर
+                </span>
+              </div>
             </div>
 
             {/* Card 3: Wide Kitchen Banner */}

@@ -34,7 +34,7 @@ export function FloatingCTA() {
           className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-saffron-600 to-turmeric-gold text-white font-bold text-xs shadow-md hover:scale-105 active:scale-95 transition-all"
         >
           <MapPin className="w-3.5 h-3.5" />
-          <span>Visit Swadam</span>
+          <span>Visit Swadam / भेट द्या</span>
           <ArrowUpRight className="w-3 h-3 opacity-80" />
         </a>
 
@@ -43,31 +43,31 @@ export function FloatingCTA() {
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-white/10 hover:bg-white/20 text-cream-100 font-semibold text-xs transition-colors"
-          title="WhatsApp Enquiry"
+          title="WhatsApp Enquiry (विचारपूस)"
         >
           <MessageCircle className="w-3.5 h-3.5 text-brandGreen-400" />
-          <span>Enquire</span>
+          <span>Enquire / विचारपूस</span>
         </a>
 
         <a
           href={`tel:${restaurant.phoneRaw}`}
           className="p-2.5 rounded-full bg-white/10 hover:bg-white/20 text-cream-100 transition-colors"
-          title="Call Restaurant"
+          title="Call Restaurant (कॉल करा)"
           aria-label="Call Restaurant"
         >
           <Phone className="w-3.5 h-3.5 text-turmeric-400" />
         </a>
       </div>
 
-      {/* [FIXED] Mobile Sticky Bottom Action Bar with iOS safe-area-inset-bottom support */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 px-3 pt-2.5 pb-[max(0.625rem,env(safe-area-inset-bottom))] bg-brown-900/95 backdrop-blur-lg border-t border-turmeric-400/40 shadow-2xl flex items-center justify-around gap-2 animate-in slide-in-from-bottom duration-300">
+      {/* [FIXED] Mobile Sticky Bottom Action Bar with iOS safe-area-inset-bottom support and bilingual labels */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 px-3 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] bg-brown-900/95 backdrop-blur-lg border-t border-turmeric-400/40 shadow-2xl flex items-center justify-around gap-2 animate-in slide-in-from-bottom duration-300">
         {/* Call Button */}
         <a
           href={`tel:${restaurant.phoneRaw}`}
-          className="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-2 rounded-xl bg-white/10 text-cream-100 text-xs font-bold active:scale-95 transition-transform"
+          className="flex-1 flex flex-col items-center justify-center py-2 px-1 rounded-xl bg-white/10 text-cream-100 active:scale-95 transition-transform"
         >
-          <Phone className="w-4 h-4 text-turmeric-400" />
-          <span>Call</span>
+          <Phone className="w-4 h-4 text-turmeric-400 mb-0.5" />
+          <span className="text-[11px] font-bold leading-tight">Call / कॉल</span>
         </a>
 
         {/* WhatsApp Button */}
@@ -75,10 +75,10 @@ export function FloatingCTA() {
           href={`https://wa.me/${restaurant.whatsappNumber}?text=Namaskar%20Swadam%20Swadishta!%20I%20would%20like%20to%20enquire%20about%20your%20menu.`}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-2 rounded-xl bg-brandGreen-700 text-white text-xs font-bold active:scale-95 transition-transform"
+          className="flex-1 flex flex-col items-center justify-center py-2 px-1 rounded-xl bg-brandGreen-700 text-white active:scale-95 transition-transform"
         >
-          <MessageCircle className="w-4 h-4" />
-          <span>WhatsApp</span>
+          <MessageCircle className="w-4 h-4 mb-0.5" />
+          <span className="text-[11px] font-bold leading-tight">WhatsApp / व्हॉट्सॲप</span>
         </a>
 
         {/* Directions Button */}
@@ -86,10 +86,10 @@ export function FloatingCTA() {
           href={restaurant.googleMapsUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-2 rounded-xl bg-gradient-to-r from-saffron-600 to-turmeric-gold text-white text-xs font-bold shadow-md active:scale-95 transition-transform"
+          className="flex-1 flex flex-col items-center justify-center py-2 px-1 rounded-xl bg-gradient-to-r from-saffron-600 to-turmeric-gold text-white shadow-md active:scale-95 transition-transform"
         >
-          <MapPin className="w-4 h-4" />
-          <span>Directions</span>
+          <MapPin className="w-4 h-4 mb-0.5" />
+          <span className="text-[11px] font-bold leading-tight">Directions / मार्ग</span>
         </a>
       </div>
     </>

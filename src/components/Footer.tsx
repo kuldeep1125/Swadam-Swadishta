@@ -3,10 +3,9 @@
 // [ADDED] Final CTA & Footer Component: Powerful closing statement with animated Devanagari typography reveal and substantial brand footer
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { restaurant } from "@/config/restaurant";
 import { BrushUnderline, DecorativeLeaf, PureVegBadge, SpiceSparkle } from "@/components/BrandMotifs";
-import { MapPin, Phone, Instagram, MessageCircle, ArrowUpRight, Heart } from "lucide-react";
+import { MapPin, Phone, Instagram, MessageCircle, ArrowUpRight } from "lucide-react"; // [FIXED] Removed unused Link and Heart imports
 
 export function Footer() {
   return (
@@ -29,24 +28,27 @@ export function Footer() {
           
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-turmeric-400/40 text-xs font-bold text-turmeric-300">
             <SpiceSparkle className="w-3.5 h-3.5" />
-            <span>AUTHENTIC TASTE OF MAHARASHTRA IN BANER</span>
+            <span>AUTHENTIC TASTE OF MAHARASHTRA IN BANER • चव महाराष्ट्राची</span>
           </div>
 
           <div className="space-y-2">
             <span className="font-brush text-2xl xs:text-3xl sm:text-5xl text-saffron-400 font-bold block">
-              Hungry yet?
+              Hungry yet? • भूक लागली आहे का?
             </span>
             {/* [FIXED] Fluid typography for closing statement */}
             <h2 className="font-display text-3xl xs:text-4xl sm:text-7xl md:text-8xl font-black text-cream-50 tracking-tight leading-none">
               Come taste Maharashtra.
             </h2>
+            <span className="font-devanagari text-2xl sm:text-4xl md:text-5xl font-bold text-turmeric-gold block pt-2">
+              चला, अस्सल चवीचा आस्वाद घ्या.
+            </span>
             <div className="w-48 sm:w-64 mx-auto pt-2">
               <BrushUnderline className="w-full h-3.5 sm:h-4 text-turmeric-gold" />
             </div>
           </div>
 
           <p className="max-w-xl mx-auto text-sm sm:text-lg text-cream-200 font-sans leading-relaxed">
-            Fresh hot Poha at sunrise, a fulfilling ₹110 Thali for lunch, and crispy Wada Pav & Bhaji in the evening. We are ready to serve you!
+            Fresh hot Poha at sunrise, a fulfilling ₹110 Thali for lunch, and crispy Wada Pav & Bhaji in the evening. We are ready to serve you! (सकाळचा गरमा-गरम पोहे, दुपारची ₹११० तृप्त करणारी थाळी आणि संध्याकाळी कुरकुरीत वडा पाव. आम्ही आपल्या स्वागतासाठी सज्ज आहोत!)
           </p>
 
           {/* [FIXED] CTAs stack full-width on mobile */}
@@ -58,7 +60,7 @@ export function Footer() {
               className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 rounded-full bg-gradient-to-r from-saffron-600 to-turmeric-gold hover:from-saffron-500 hover:to-turmeric-400 text-white font-bold text-sm sm:text-base shadow-xl hover:shadow-saffron-500/25 active:scale-95 transition-all w-full xs:w-auto"
             >
               <MapPin className="w-4 h-4" />
-              <span>Get Directions</span>
+              <span>Get Directions / मार्ग पहा</span>
               <ArrowUpRight className="w-4 h-4 opacity-80" />
             </a>
 
@@ -67,7 +69,7 @@ export function Footer() {
               className="inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-3.5 sm:py-4 rounded-full bg-white/10 hover:bg-white/20 text-cream-100 font-bold text-sm sm:text-base border border-white/20 active:scale-95 transition-all w-full xs:w-auto"
             >
               <Phone className="w-4 h-4 text-turmeric-400" />
-              <span>Call {restaurant.phone}</span>
+              <span>Call {restaurant.phone} / कॉल करा</span>
             </a>
 
             <a
@@ -77,7 +79,7 @@ export function Footer() {
               className="inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-3.5 sm:py-4 rounded-full bg-brandGreen-700 hover:bg-brandGreen-800 text-white font-bold text-sm sm:text-base shadow-lg active:scale-95 transition-all w-full xs:w-auto"
             >
               <MessageCircle className="w-4 h-4" />
-              <span>WhatsApp Us</span>
+              <span>WhatsApp Us / व्हॉट्सॲप</span>
             </a>
           </div>
 
@@ -112,7 +114,7 @@ export function Footer() {
             </div>
 
             <p className="text-sm text-cream-300 leading-relaxed font-sans max-w-sm">
-              Authentic Maharashtrian vegetarian breakfast, lunch and evening snacks freshly served in Baner, Pune. 100% Pure Veg kitchen.
+              Authentic Maharashtrian vegetarian breakfast, lunch and evening snacks freshly served in Baner, Pune. 100% Pure Veg kitchen. (अस्सल महाराष्ट्रीयन शाकाहारी न्याहारी, जेवण आणि संध्याकाळचे स्नॅक्स.)
             </p>
 
             <div className="flex items-center gap-3 pt-2">
@@ -147,7 +149,7 @@ export function Footer() {
           {/* Quick Links (Col 6-8) */}
           <div className="lg:col-span-3 space-y-3 font-sans">
             <h4 className="font-display font-bold text-base text-turmeric-gold uppercase tracking-wider">
-              Explore
+              Explore / मेनू व विभाग
             </h4>
             <ul className="space-y-2 text-sm text-cream-200">
               <li>
@@ -167,17 +169,22 @@ export function Footer() {
               </li>
               <li>
                 <a href="#storefront" className="hover:text-saffron-400 transition-colors">
-                  Storefront & Dine-in
+                  Storefront & Dine-in (शाखा व बैठक)
                 </a>
               </li>
               <li>
                 <a href="#bulk-orders" className="hover:text-saffron-400 transition-colors">
-                  Bulk Orders & Gatherings
+                  Bulk Orders & Gatherings (बल्क ऑर्डर्स)
                 </a>
               </li>
               <li>
                 <a href="#reviews" className="hover:text-saffron-400 transition-colors">
-                  Google Reviews
+                  Google Reviews (ग्राहकांचे अभिप्राय)
+                </a>
+              </li>
+              <li>
+                <a href="#enquiry" className="hover:text-saffron-400 transition-colors">
+                  Send Enquiry (विचारपूस करा)
                 </a>
               </li>
             </ul>
@@ -186,7 +193,7 @@ export function Footer() {
           {/* Location & Timings (Col 9-12) */}
           <div className="lg:col-span-4 space-y-3 font-sans">
             <h4 className="font-display font-bold text-base text-turmeric-gold uppercase tracking-wider">
-              Visit the Restaurant
+              Visit Us / आमचा पत्ता
             </h4>
             <div className="text-sm text-cream-200 leading-relaxed space-y-1">
               <p className="font-bold text-white">
@@ -203,8 +210,8 @@ export function Footer() {
             </div>
 
             <div className="pt-2 text-xs text-cream-300">
-              <span className="font-semibold text-turmeric-gold block">Hours:</span>
-              <span>Daily 7:30 AM – 9:30 PM</span>
+              <span className="font-semibold text-turmeric-gold block">Hours (वेळ):</span>
+              <span>Daily 7:30 AM – 9:30 PM (दररोज सकाळी ७:३० ते रात्री ९:३०)</span>
             </div>
           </div>
 
@@ -229,11 +236,11 @@ export function Footer() {
         <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-cream-300/80 font-sans">
           <div className="flex items-center gap-2">
             <PureVegBadge className="w-3.5 h-3.5" />
-            <span>100% Pure Vegetarian Kitchen • {restaurant.fssaiNumber}</span>
+            <span>100% Pure Vegetarian Kitchen • १००% शुद्ध शाकाहारी • {restaurant.fssaiNumber}</span>
           </div>
 
           <p>
-            © {new Date().getFullYear()} {restaurant.name}. All rights reserved.
+            © {new Date().getFullYear()} {restaurant.name}. All rights reserved. (सर्व हक्क राखीव)
           </p>
         </div>
 
