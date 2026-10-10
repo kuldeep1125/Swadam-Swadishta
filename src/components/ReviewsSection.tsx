@@ -1,159 +1,76 @@
-"use client";
-
-// [ADDED] Verified Reviews & Trust Section: Strictly adheres to anti-hallucination rules (zero fabricated reviews), uses real Google reviews and editable schema
-import React, { useState } from "react";
+// [FIXED] Link directly to the configured review destination instead of presenting unproven quotations or ratings.
 import { restaurant } from "@/config/restaurant";
-import { BrushUnderline, SpiceSparkle } from "@/components/BrandMotifs";
-import { Star, ArrowUpRight, ChevronLeft, ChevronRight, MessageSquareQuote } from "lucide-react";
+import styles from "./ReviewsSection.module.css";
 
+// [ADDED] Review actions and a locally hosted QR share the configured Google listing; reviews are completed on Google.
 export function ReviewsSection() {
-  const [currentIdx, setCurrentIdx] = useState(0);
-  const reviews = restaurant.reviews;
-
-  const current = reviews[currentIdx];
-
   return (
-    <section id="reviews" className="relative py-24 sm:py-32 px-4 sm:px-8 md:px-12 bg-cream-100 overflow-hidden scroll-mt-20" aria-label="Customer Reviews">
-      
-      <div className="mx-auto max-w-5xl">
-        
-        {/* Section Header - [ADDED] Bilingual */}
-        <div className="text-center max-w-2xl mx-auto space-y-3 mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cream-200 border border-turmeric-400/50 text-xs font-bold text-brown-800">
-            <MessageSquareQuote className="w-4 h-4 text-saffron-600" />
-            <span>VERIFIED FEEDBACK</span>
-            <span className="font-devanagari text-xs text-brandGreen-700 font-bold">• ग्राहकांचे अनुभव</span>
-          </div>
-
-          {/* [FIXED] Fluid typography for reviews heading */}
-          <h2 className="font-display text-3xl xs:text-4xl sm:text-6xl font-black text-brown-900 tracking-tight leading-tight">
-            What people are saying
+    <section id="reviews" className="review-section section-space">
+      <div className={`editorial-container reveal ${styles.layout}`}>
+        <p className={`eyebrow ${styles.label}`}>09 / Around the table</p>
+        <div className={styles.copy}>
+          <h2 className="section-title">
+            A taste worth
+            <br />
+            <em>talking about.</em>
           </h2>
-          <span className="font-devanagari text-xl sm:text-2xl font-bold text-saffron-600 block mt-1">
-            ग्राहकांची पसंती आणि विश्वास.
-          </span>
-
-          <div className="w-32 mx-auto">
-            <BrushUnderline className="w-full h-3 text-turmeric-gold" />
+          <p className="body-copy">
+            Read what visitors are saying on Google Maps, or share your experience
+            after a meal with us.
+          </p>
+          <p lang="mr" className="marathi-note">
+            तुमचा अनुभव आमच्यासोबत शेअर करा.
+          </p>
+          <div className={styles.actions}>
+            <a
+              className="button-primary"
+              href={restaurant.googleReviewsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Add a Google review <span aria-hidden="true">↗</span>
+            </a>
+            <a
+              className={styles.readLink}
+              href={restaurant.googleReviewsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Read reviews <span aria-hidden="true">↗</span>
+            </a>
           </div>
-
-          <p className="text-sm sm:text-base text-brown-600 font-sans">
-            Direct feedback from guests who visited Swadam Swadishta on Pan Card Club Road, Baner.
+          <p className={styles.handoff}>
+            Choose “Write a review” on Google Maps to share your experience. You
+            may need to sign in to your Google account.
           </p>
         </div>
-
-        {/* Editorial Quote Box with Huge Quotation Marks */}
-        {reviews.length > 0 && current ? (
-          /* [FIXED] Padding adjusted to p-5 xs:p-8 sm:p-14 */
-          <div className="relative rounded-3xl p-5 xs:p-8 sm:p-14 bg-white border-2 border-turmeric-400/60 shadow-xl text-center">
-            
-            {/* Huge Decorative Quotation Mark */}
-            <div className="absolute top-2 left-4 sm:top-4 sm:left-8 text-6xl sm:text-9xl font-display font-black text-turmeric-400/15 select-none pointer-events-none -scale-x-100">
-              “
-            </div>
-            <div className="absolute bottom-2 right-4 sm:bottom-4 sm:right-8 text-6xl sm:text-9xl font-display font-black text-turmeric-400/15 select-none pointer-events-none">
-              ”
-            </div>
-
-            {/* Star Rating Display */}
-            <div className="flex items-center justify-center gap-1 mb-4 sm:mb-6">
-              {Array.from({ length: current.rating || 5 }).map((_, i) => (
-                <Star key={i} className="w-4 h-4 sm:w-5 sm:h-5 fill-turmeric-gold text-turmeric-gold" />
-              ))}
-            </div>
-
-            {/* Review Statement */}
-            <p className="relative z-10 font-display text-base xs:text-lg sm:text-3xl md:text-4xl font-bold text-brown-900 leading-snug tracking-normal max-w-3xl mx-auto">
-              &ldquo;{current.text}&rdquo;
-            </p>
-
-            {/* Author & Source */}
-            <div className="mt-8 pt-6 border-t border-cream-200 flex flex-col sm:flex-row items-center justify-between gap-4 max-w-md mx-auto">
-              <div className="text-center sm:text-left">
-                <span className="font-display font-bold text-base text-brown-900 block">
-                  {current.author}
-                </span>
-                <span className="text-xs text-brown-500 font-medium">
-                  {current.relativeTime} • {current.source}
-                </span>
-              </div>
-
-              {/* Slider Controls with Dots */}
-              {reviews.length > 1 && (
-                <div className="flex items-center gap-3">
-                  <div className="flex items-center gap-1.5 mr-1" aria-label="Review pagination">
-                    {reviews.map((_, dotIdx) => (
-                      <button
-                        key={dotIdx}
-                        onClick={() => setCurrentIdx(dotIdx)}
-                        aria-label={`Jump to review ${dotIdx + 1}`}
-                        className={`h-2 rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saffron-500 ${
-                          currentIdx === dotIdx
-                            ? "w-6 bg-saffron-600"
-                            : "w-2 bg-turmeric-400/50 hover:bg-turmeric-400"
-                        }`}
-                      />
-                    ))}
-                  </div>
-
-                  <div className="flex items-center gap-1.5">
-                    <button
-                      onClick={() => setCurrentIdx((prev) => (prev > 0 ? prev - 1 : reviews.length - 1))}
-                      className="p-2 rounded-full border border-turmeric-400/60 hover:bg-cream-100 text-brown-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saffron-500"
-                      aria-label="Previous review"
-                    >
-                      <ChevronLeft className="w-4 h-4" />
-                    </button>
-                    <span className="text-xs font-mono text-brown-500">
-                      {currentIdx + 1} / {reviews.length}
-                    </span>
-                    <button
-                      onClick={() => setCurrentIdx((prev) => (prev < reviews.length - 1 ? prev + 1 : 0))}
-                      className="p-2 rounded-full border border-turmeric-400/60 hover:bg-cream-100 text-brown-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saffron-500"
-                      aria-label="Next review"
-                    >
-                      <ChevronRight className="w-4 h-4" />
-                    </button>
-                  </div>
-                </div>
-              )}
-            </div>
-
-          </div>
-        ) : (
-          <div className="p-12 text-center bg-white rounded-3xl border border-turmeric-400 text-brown-600">
-            Reviews will be displayed here as verified reviews are added.
-          </div>
-        )}
-
-        {/* Google Reviews Trust Bar */}
-        <div className="mt-10 p-6 rounded-2xl bg-cream-200/80 border border-turmeric-400/50 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center font-bold text-saffron-600 shadow-sm border border-turmeric-400/40">
-              G
-            </div>
-            <div>
-              <span className="font-display font-bold text-base text-brown-900 block leading-tight">
-                Google Business Listing
-              </span>
-              <span className="text-xs text-brown-600">
-                {restaurant.verifiedReviewCount} Verified Google Reviews
-              </span>
-            </div>
-          </div>
-
+        {/* [ADDED] A real QR asset, with its quiet zone intact, supports scanning from a second device. */}
+        <figure className={styles.scanCard}>
+          <p className={styles.scanTitle}>Scan to review</p>
+          <p lang="mr" className={styles.scanMarathi}>
+            अभिप्राय देण्यासाठी स्कॅन करा
+          </p>
           <a
+            className={styles.qrLink}
             href={restaurant.googleReviewsUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-brown-900 hover:bg-brown-800 text-cream-100 font-semibold text-xs sm:text-sm active:scale-95 transition-all"
+            aria-label="Open Swadam Swadishta reviews on Google Maps"
           >
-            <span>Read on Google Maps</span>
-            <span className="font-devanagari text-xs opacity-90 font-normal">/ गुगलवर वाचा</span>
-            <ArrowUpRight className="w-4 h-4 text-turmeric-400" />
+            <img
+              src="/images/google-review-qr.png"
+              alt="QR code linking to Swadam Swadishta reviews on Google Maps"
+              width={256}
+              height={256}
+              loading="lazy"
+              decoding="async"
+            />
           </a>
-        </div>
-
+          <figcaption>
+            Point your phone camera at the code, then choose “Write a review” on
+            Google.
+          </figcaption>
+        </figure>
       </div>
     </section>
   );

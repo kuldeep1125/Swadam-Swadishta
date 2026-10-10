@@ -19,12 +19,12 @@ const config: Config = {
           300: "#FAECB2",
           400: "#F6E391",
           500: "#F0D76B",
-          bg: "#FFF9EE",
+          bg: "#F8F5ED",
           warm: "#FAF3E0",
           card: "#FFFBF2",
         },
         brown: {
-          900: "#1A0E08",
+          900: "#20271F",
           800: "#2D1810",
           700: "#3E2317",
           600: "#543020",
@@ -34,7 +34,7 @@ const config: Config = {
           earth: "#331E14",
         },
         brandGreen: {
-          900: "#0D2B16",
+          900: "#173E2C",
           800: "#143D22",
           700: "#1B522D",
           600: "#1E5631",
@@ -46,7 +46,7 @@ const config: Config = {
         },
         saffron: {
           600: "#C64600",
-          500: "#E85D04",
+          500: "#B64C25",
           400: "#F48C06",
           300: "#FAA307",
           deep: "#D9480F",
@@ -69,7 +69,12 @@ const config: Config = {
       fontFamily: {
         sans: ["var(--font-sans)", "Outfit", "system-ui", "sans-serif"],
         display: ["var(--font-display)", "Rozha One", "serif"],
-        devanagari: ["var(--font-devanagari)", "Rozha One", "Noto Sans Devanagari", "serif"],
+        devanagari: [
+          "var(--font-devanagari)",
+          "Rozha One",
+          "Noto Sans Devanagari",
+          "serif",
+        ],
         brush: ["var(--font-brush)", "Kalam", "cursive"],
       },
       animation: {

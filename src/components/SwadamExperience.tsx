@@ -1,130 +1,82 @@
 "use client";
-
-// [ADDED] The Swadam Experience: Giant typographic rhythm (FRESH, WARM, QUICK, VEG, LOCAL, MAHARASHTRIAN)
-import React, { useState } from "react";
-// [FIXED] Removed unused DecorativeLeaf and SpiceSparkle imports
-
+// [REFACTORED] Native accordion buttons make the six original values readable on every screen.
+import { useState } from "react";
+const pillars = [
+  [
+    "Fresh",
+    "ताजे",
+    "Prepared hot and served right for the day’s cravings.",
+    "कढईतून थेट ताटात गरमा-गरम जेवण",
+  ],
+  [
+    "Warm",
+    "आपुलकी",
+    "Heartfelt hospitality where every guest is welcomed like family.",
+    "घरासारखी आपुलकी आणि प्रेम",
+  ],
+  [
+    "Quick",
+    "त्वरित",
+    "Prompt service for your busy mornings and lunch hours.",
+    "कामाच्या घाईतही झटपट व दर्जेदार सेवा",
+  ],
+  [
+    "Veg",
+    "शुद्ध शाकाहारी",
+    "A 100% pure vegetarian kitchen, with fresh ingredients.",
+    "१००% शुद्ध शाकाहारी",
+  ],
+  [
+    "Local",
+    "स्थानिक",
+    "Rooted in Baner, Pune, feeding neighbours and food lovers.",
+    "बाणेर, पुणे",
+  ],
+  [
+    "Maharashtrian",
+    "महाराष्ट्रीयन",
+    "Authentic regional taste and time-honoured culinary identity.",
+    "पिढ्यानपिढ्या चालत आलेली अस्सल मराठमोळी चव",
+  ],
+];
 export function SwadamExperience() {
-  const [activeWordIndex, setActiveWordIndex] = useState(0);
-
-  const pillars = [
-    {
-      word: "FRESH",
-      marathi: "ताजे",
-      microcopy: "Prepared hot and served right for the day's cravings. (कढईतून थेट ताटात गरमा-गरम जेवण)",
-      color: "text-brandGreen-700",
-      bg: "bg-brandGreen-50",
-    },
-    {
-      word: "WARM",
-      marathi: "आपुलकी",
-      microcopy: "Heartfelt hospitality where every guest is welcomed like family. (घरासारखी आपुलकी आणि प्रेम)",
-      color: "text-saffron-600",
-      bg: "bg-saffron-50",
-    },
-    {
-      word: "QUICK",
-      marathi: "त्वरित",
-      microcopy: "Prompt service so your busy morning and lunch hours move effortlessly. (कामाच्या घाईतही झटपट व दर्जेदार सेवा)",
-      color: "text-turmeric-gold",
-      bg: "bg-cream-200",
-    },
-    {
-      word: "VEG",
-      marathi: "शुद्ध शाकाहारी",
-      microcopy: "100% pure vegetarian culinary purity and hygiene you can trust. (१००% शुद्ध शाकाहारी आणि स्वच्छतेची हमी)",
-      color: "text-brandGreen-800",
-      bg: "bg-brandGreen-100",
-    },
-    {
-      word: "LOCAL",
-      marathi: "स्थानिक",
-      microcopy: "Deeply rooted in Baner, Pune, feeding neighbours and food lovers daily. (बाणेर, पुण्यात दररोज शेकडो खवय्यांची पसंती)",
-      color: "text-terracotta-500",
-      bg: "bg-terracotta-50",
-    },
-    {
-      word: "MAHARASHTRIAN",
-      marathi: "महाराष्ट्रीयन",
-      microcopy: "Authentic regional taste and time-honoured culinary identity. (पिढ्यानपिढ्या चालत आलेली अस्सल मराठमोळी चव)",
-      color: "text-brown-900",
-      bg: "bg-cream-300",
-    },
-  ];
-
+  const [active, setActive] = useState<number | null>(0);
   return (
-    <section className="py-24 sm:py-32 px-4 sm:px-8 md:px-12 bg-cream-100 border-b border-turmeric-400/40 relative overflow-hidden" aria-label="The Swadam Experience">
-      
-      <div className="mx-auto max-w-7xl">
-        
-        {/* Header */}
-        <div className="mb-14 pb-4 border-b border-turmeric-400/40 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-          <div>
-            <span className="text-xs font-mono font-bold tracking-widest text-saffron-600 uppercase">
-              THE SWADAM ESSENCE • आमची मूल्ये
-            </span>
-            <h2 className="font-display text-4xl sm:text-5xl font-black text-brown-900 mt-1">
-              What defines us.
-            </h2>
-          </div>
-          <span className="font-devanagari text-xl font-bold text-brandGreen-700">
+    <section id="essence" className="essence-section section-space">
+      <div className="editorial-container essence-grid">
+        <header className="reveal">
+          <p className="eyebrow">06 / The Swadam essence</p>
+          <h2 className="section-title">
+            Simple food.
+            <br />
+            <em>Big swad.</em>
+          </h2>
+          <p lang="mr" className="marathi-note">
             चव, स्वच्छता आणि आपुलकी
-          </span>
-        </div>
-
-        {/* Interactive Oversized Typography Rhythm */}
-        <div className="divide-y divide-turmeric-400/40">
-          {pillars.map((item, idx) => {
-            const isActive = activeWordIndex === idx;
-            return (
-              // [FIXED] Added full WCAG 2.2 keyboard accessibility (role, tabIndex, onKeyDown, focus-visible)
-              <div
-                key={idx}
-                role="button"
-                tabIndex={0}
-                aria-pressed={isActive}
-                onMouseEnter={() => setActiveWordIndex(idx)}
-                onClick={() => setActiveWordIndex(idx)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    setActiveWordIndex(idx);
-                  }
-                }}
-                className={`py-5 sm:py-10 transition-all duration-300 cursor-pointer flex flex-col md:flex-row md:items-center justify-between gap-2.5 sm:gap-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saffron-500 rounded-2xl ${
-                  isActive ? "p-3 sm:p-4 sm:pl-8 bg-white/70 shadow-sm" : "opacity-80 hover:opacity-100"
-                }`}
+          </p>
+        </header>
+        <div className="essence-list">
+          {pillars.map(([name, mr, desc, mrDesc], i) => (
+            <article key={name} className="essence-item">
+              <button
+                aria-expanded={active === i}
+                aria-controls={`value-${i}`}
+                onClick={() => setActive(active === i ? null : i)}
               >
-                <div className="flex items-baseline gap-3 sm:gap-8 min-w-0">
-                  {/* [FIXED] High-contrast text-brown-700 for WCAG AA compliance on cream background */}
-                  <span className="font-mono text-xs sm:text-sm text-brown-700 font-bold flex-shrink-0">
-                    0{idx + 1}
-                  </span>
-                  {/* [FIXED] flex-wrap and fluid sizing prevents long word (MAHARASHTRIAN) from clipping on 320px viewports */}
-                  <div className="flex flex-wrap items-baseline gap-2 sm:gap-6 min-w-0">
-                    <span
-                      className={`font-display text-2xl xs:text-3xl sm:text-6xl md:text-7xl font-black tracking-tight transition-colors break-words ${
-                        isActive ? item.color : "text-brown-800"
-                      }`}
-                    >
-                      {item.word}
-                    </span>
-                    <span className="font-devanagari text-base xs:text-xl sm:text-3xl font-bold text-brown-500">
-                      ({item.marathi})
-                    </span>
-                  </div>
-                </div>
-
-                <div className="md:max-w-md md:text-right pl-6 sm:pl-10 md:pl-0">
-                  <p className="text-xs sm:text-base text-brown-700 font-sans font-medium leading-relaxed">
-                    {item.microcopy}
-                  </p>
-                </div>
+                <span className="item-number">0{i + 1}</span>
+                <span>
+                  {name}
+                  <small lang="mr">{mr}</small>
+                </span>
+                <span aria-hidden="true">{active === i ? "−" : "+"}</span>
+              </button>
+              <div id={`value-${i}`} hidden={active !== i}>
+                <p>{desc}</p>
+                <p lang="mr">{mrDesc}</p>
               </div>
-            );
-          })}
+            </article>
+          ))}
         </div>
-
       </div>
     </section>
   );

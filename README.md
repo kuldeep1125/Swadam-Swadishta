@@ -1,95 +1,63 @@
-# Swadam Swadishta — Pure Vegetarian Sweets, Snacks & Delicacies 🪔
+﻿# Swadam Swadishta
 
-<!-- [ADDED] Comprehensive project documentation and overview -->
-A modern, responsive, and immersive digital brand experience for **Swadam Swadishta**, celebrating traditional culinary craftsmanship with contemporary web aesthetics.
+<!-- [FIXED] Document the actual restaurant, current stack, and premium redesign workflow. -->
+A bilingual English/Marathi website for the Maharashtrian vegetarian restaurant in Baner, Pune. The editorial design preserves every restaurant section and makes the menu and visit information the primary journeys.
 
-Built with **Next.js 14 (App Router)**, **Tailwind CSS**, and **Framer Motion**, featuring fluid animations, high-contrast accessible typography, rich curated photography, and interactive menu showcases.
+Built with Next.js 14, React 18, TypeScript, Tailwind CSS, and Lucide icons. Animation uses CSS and IntersectionObserver; there is no animation-library dependency. The site exports to static HTML and requires no application server or database.
 
----
+## Run locally
 
-## ✨ Features
-
-- **Hero & Storytelling Experience**: Atmospheric visuals with dual-tone branding, authentic motifs, and fluid animations.
-- **Interactive Signature Menu**: Category-filtered catalog (Traditional Mithai, Premium Dry Fruit Sweets, Savory Namkeen, Street-Style Chaat, Festive Gift Boxes).
-- **Bulk & Corporate Gifting**: Seamless inquiry interface with instant WhatsApp redirection and order customization.
-- **Storefront & Ambience Showcase**: Dual-perspective photography highlighting both the warm retail experience and fresh kitchen prep.
-- **Location & Visit Planning**: Interactive timings, Google Maps navigation direct links, and verified customer testimonials.
-- **Fully Responsive & Accessible**: Optimized for mobile, tablet, and desktop viewports with strict high-contrast compliance.
-
----
-
-## 🛠️ Tech Stack
-
-- **Framework**: [Next.js 14](https://nextjs.org/) (Static Export / SSG)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-- **Animations**: [Framer Motion](https://www.framer.com/motion/) & [GSAP](https://gsap.com/)
-- **Icons**: [Lucide React](https://lucide.dev/)
-- **Language**: TypeScript
-
----
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-Ensure you have [Node.js](https://nodejs.org/) (v18.17+ or v20+) installed.
-
-### Installation
-
-```bash
-# Clone the repository
-git clone https://github.com/kuldeep1125/Swadam-Swadishta.git
-
-# Navigate to the project directory
-cd Swadam-Swadishta
-
-# Install dependencies
+```sh
 npm install
-```
-
-### Development Server
-
-Run the development server locally:
-
-```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
+Open http://localhost:3000. Node.js 18.17 or later is required by this Next.js version.
 
-### Production Build
+## Validate and build
 
-To build the static optimized application:
-
-```bash
+```sh
+npm test
+npx tsc --noEmit
 npm run build
 ```
 
----
+The production website is generated in `out/`. Run `npm run preview` to view it at http://127.0.0.1:3001 with gzip text delivery and caching for hashed Next assets. This is a local static-file preview, not an application backend. `next start` does not serve this static-export configuration.
 
-## 📁 Project Structure
+When hosting `out/`, enable gzip or Brotli for HTML, CSS and JavaScript. The built-in Python file server sends uncompressed text, so its throttled Lighthouse scores do not represent compressed hosting. The validation report distinguishes these measurements.
 
+## Restaurant content
+
+Edit `src/config/restaurant.ts` for menu items, prices, Marathi names, service hours, address, phone, email, social links, and bulk-order information. The hero serving message uses these configured service windows in Asia/Kolkata, including breaks between services, and refreshes every minute.
+
+The enquiry form prepares WhatsApp or email messages. Visitors must send the message in the destination application; this website does not submit or store enquiries. The review section links to Google Maps and does not claim unverified testimonials are verified.
+
+<!-- [ADDED] The review action and locally generated QR use the supplied Google listing. -->
+The review section offers **Add a Google review**, **Read reviews**, and a phone-scannable QR code. All open `googleReviewsUrl` from the restaurant configuration; visitors choose **Write a review** and complete their review on Google Maps. The lossless QR image is served locally, without a QR-image service or application dependency. After changing that URL, regenerate the saved image with `python scripts/generate_review_qr.py` (generation requires Python packages `qrcode`, `Pillow`, and `opencv-python`; normal website builds do not require them).
+
+## Photography
+
+Original images and printable menu artwork remain in `public/images/`. Responsive local WebP variants live in `public/images/optimized/`; `src/lib/image-manifest.json` maps original paths to their variants. Use `ResponsiveImage` with an original image path and accurate `sizes` for responsive delivery on static hosting. Above-fold imagery is eager; other photography is lazy-loaded. The artwork viewer retains full original images for zooming.
+
+<!-- [ADDED] Describe the replacement imagery honestly and keep its provenance reviewable. -->
+The photography refinement preserves the strong Poha and Misal images and uses local `premium_*.png` AI-generated illustrations for the remaining dishes, plus a dedicated hero thali composition. These depict the intended dishes rather than documentary photographs of restaurant servings; presentation may vary. The logo, storefront and original menu artwork are preserved. See [photography provenance](artifacts/redesign/photography-assets.md). Small responsive variants serve all 21 menu thumbnails without gallery-sized downloads.
+
+To regenerate variants after updating images, use Python with Pillow installed:
+
+```sh
+python -m pip install Pillow
+python scripts/optimize_images.py
 ```
-├── public/                 # Static assets, icons, and HD photography
-│   └── images/
-├── src/
-│   ├── app/                # Next.js App Router (layout, page, metadata)
-│   ├── components/         # Modular UI sections & animated components
-│   │   ├── Hero.tsx
-│   │   ├── Navigation.tsx
-│   │   ├── SignatureMenu.tsx
-│   │   ├── StickyStory.tsx
-│   │   ├── StorefrontSection.tsx
-│   │   ├── BulkOrders.tsx
-│   │   ├── EnquirySection.tsx
-│   │   └── ...
-│   └── config/             # Site configuration, menu data & contact info
-├── tailwind.config.ts      # Custom theme colors, fonts & utility extensions
-└── package.json
-```
 
----
+Generated assets and their manifest are project files, so Python is unnecessary for normal development or deployment.
 
-## 📄 License
+## Interaction and accessibility
 
-This project is licensed under the MIT License.
+Native modal dialogs provide keyboard focus containment, inert backgrounds, Escape dismissal, and focus restoration for mobile navigation and menu artwork. Menu category links activate the matching category before scrolling. The mobile action bar provides Menu and Directions with safe-area spacing.
+
+Motion respects reduced-motion preferences. Content remains available without reveal animation. The continuous food marquee has a pause control; scrolling stays native.
+
+<!-- [ADDED] Cinematic motion uses a still image; no video dependency or external media URL. -->
+The hero uses a slow, pausable camera movement over a still photograph. It pauses outside the viewport and while the document is hidden, and becomes static with reduced motion. Selected desktop photographs gain event-driven scroll depth, and story chapter changes have short transitions. Every original section remains separate.
+
+The historical `audit_report.md` describes an earlier implementation. The [initial redesign validation](artifacts/redesign/validation.md) records the first pass; see [photography and motion validation](artifacts/redesign/photography-validation.md) for that pass's screenshots and Lighthouse measurements, and [review-action validation](artifacts/redesign/review-validation.md) for the latest Google review button and QR checks.

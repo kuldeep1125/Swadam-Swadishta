@@ -1,0 +1,786 @@
+/* [ADDED] Scoped editorial layouts for navigation, menu and contact interactions. */
+.header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 70;
+  background: #f8f5ed;
+  border-bottom: 1px solid #173e2c25;
+  color: #173e2c;
+}
+.headerInner {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.brand img {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+}
+.brand > span {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.brand strong {
+  font-family: var(--font-display), serif;
+  font-size: 25px;
+  font-weight: 400;
+}
+.brand > span > span {
+  font-size: 14px;
+  font-weight: 600;
+}
+.desktopNav {
+  display: flex;
+  gap: 30px;
+  font-size: 13px;
+  font-weight: 500;
+}
+.desktopNav a {
+  padding: 12px 0;
+  border-bottom: 1px solid transparent;
+}
+.desktopNav a:hover,
+.desktopNav a[aria-current] {
+  color: #b64c25;
+  border-color: #b64c25;
+}
+.headerDirections {
+  font-size: 12px !important;
+  min-height: 42px !important;
+  padding: 12px 18px !important;
+}
+.menuToggle {
+  display: none;
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+}
+.navigationDialog {
+  position: fixed;
+  inset: 0 0 0 auto;
+  margin: 0;
+  width: min(100%, 550px);
+  max-width: 100%;
+  height: 100dvh;
+  max-height: 100dvh;
+  padding: 24px 28px 40px;
+  border: 0;
+  background: #f8f5ed;
+  color: #173e2c;
+  overflow: auto;
+}
+.navigationDialog::backdrop,
+.artworkDialog::backdrop {
+  background: #11291fe6;
+}
+.dialogTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+.closeButton {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 48px;
+  min-width: 48px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.mobileNav a {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  border-bottom: 1px solid #173e2c30;
+  padding: 22px 0;
+}
+.mobileNav a > span:nth-child(2) {
+  flex: 1;
+  font-family: var(--font-display), serif;
+  font-size: 33px;
+  line-height: 1.2;
+}
+.mobileNav small {
+  display: block;
+  font-size: 13px;
+  line-height: 1.5;
+  margin-top: 7px;
+}
+.navNumber {
+  font-size: 11px;
+  color: #b64c25;
+}
+.mobileAddress {
+  font-size: 14px;
+  margin: 40px 0 24px;
+  line-height: 1.8;
+}
+.mobilePhone {
+  display: block;
+  margin-top: 20px;
+  text-decoration: underline;
+  font-size: 14px;
+}
+.actionBar {
+  display: none;
+}
+.menuSection {
+  scroll-margin-top: 100px;
+}
+.menuIntroduction {
+  display: flex;
+  align-items: flex-end;
+  gap: 12%;
+  padding-bottom: 48px !important;
+}
+.menuIntroduction > div {
+  flex: 1;
+}
+.menuIntroText {
+  max-width: 350px;
+  font-size: 16px;
+  line-height: 1.9;
+  color: #515c50;
+}
+.marathiSubtitle {
+  font-size: clamp(17px, 2vw, 24px);
+  margin-top: 20px;
+  color: #173e2c;
+  line-height: 1.6;
+}
+.filterRail {
+  display: flex;
+  gap: 8px;
+  overflow: auto;
+  padding-bottom: 28px !important;
+  padding-top: 12px !important;
+}
+.filterRail button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-shrink: 0;
+  min-height: 64px;
+  min-width: 125px;
+  border: 1px solid #173e2c35;
+  background: transparent;
+  padding: 12px 18px;
+  font-size: 13px;
+  color: #173e2c;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+.filterRail button span {
+  font-size: 11px;
+  line-height: 1.6;
+  margin-top: 4px;
+}
+.filterRail button[aria-pressed="true"] {
+  background: #173e2c;
+  color: #f8f5ed;
+  border-color: #173e2c;
+}
+.filterRail button:hover {
+  border-color: #b64c25;
+}
+.menuChapter {
+  padding: 70px 0 90px;
+  border-top: 1px solid #173e2c25;
+  scroll-margin-top: 100px;
+}
+.chapterHeading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+.chapterHeading h3 {
+  font-family: var(--font-display), serif;
+  font-size: clamp(30px, 3.5vw, 47px);
+  line-height: 1.2;
+  margin: 14px 0 10px;
+  color: #173e2c;
+  max-width: 650px;
+  font-weight: 400;
+}
+.chapterHeading > div > p:last-child {
+  font-size: 17px;
+  color: #b64c25;
+}
+.servingTime {
+  font-size: 12px;
+  white-space: nowrap;
+  letter-spacing: 0.04em;
+}
+.chapterSpread {
+  display: grid;
+  grid-template-columns: 1fr 1.12fr;
+  gap: 8%;
+  align-items: start;
+}
+.reverseSpread {
+  grid-template-columns: 1.12fr 1fr;
+}
+.reverseSpread .menuPhoto {
+  order: 2;
+}
+.menuPhoto {
+  margin: 0;
+  position: sticky;
+  top: 110px;
+}
+.menuPhoto img {
+  display: block;
+  width: 100%;
+  /* [FIXED] Landscape framing keeps complete plates readable instead of cropping them into portraits. */
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  transition: transform 0.7s;
+}
+.menuPhoto:hover img {
+  transform: scale(1.025);
+}
+.menuPhoto figcaption {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 14px 0;
+  font-size: 12px;
+  border-bottom: 1px solid #173e2c25;
+  line-height: 1.8;
+}
+.menuPhoto figcaption span span {
+  display: block;
+  font-size: 12px;
+}
+.dish {
+  padding: 23px 0;
+  border-bottom: 1px solid #173e2c25;
+}
+.dish:first-child {
+  padding-top: 0;
+}
+.dishTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+/* [ADDED] Small photographs make all 21 dishes identifiable while retaining an editorial menu. */
+.dishIdentity {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+.dishThumbnail {
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  background: #e6e4db;
+}
+.dishThumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.photographyNote {
+  color: #515c50;
+  font-size: 12px;
+  line-height: 1.8;
+  padding-bottom: 25px;
+}
+.dish h4 {
+  font-family: var(--font-display), serif;
+  font-size: 27px;
+  font-weight: 400;
+  line-height: 1.25;
+  color: #173e2c;
+}
+.dish h4 span {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 7px;
+  line-height: 1.6;
+  color: #b64c25;
+}
+.price {
+  font-size: 22px;
+  white-space: nowrap;
+  font-family: var(--font-display), serif;
+  color: #173e2c;
+}
+.dish > p {
+  font-size: 14px;
+  line-height: 1.85;
+  color: #515c50;
+  max-width: 510px;
+  margin: 12px 0 0;
+}
+.includes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  font-size: 12px;
+  line-height: 1.75;
+  margin: 16px 0 0;
+  padding: 0 0 0 15px;
+  list-style: disc;
+  color: #515c50;
+}
+.darkChapter {
+  background: #173e2c;
+  color: #f8f5ed;
+}
+.darkChapter .chapterHeading h3,
+.darkChapter .dish h4,
+.darkChapter .price {
+  color: #f8f5ed;
+}
+/* [FIXED] Global eyebrow class must remain global inside this CSS module. */
+.darkChapter .chapterHeading :global(.eyebrow),
+.darkChapter .dish h4 span,
+.darkChapter .chapterHeading > div > p:last-child {
+  color: #e3af80;
+}
+.darkChapter .dish > p {
+  color: #d4dfd3;
+}
+.darkChapter .dish,
+.darkChapter .menuPhoto figcaption {
+  border-color: #f8f5ed30;
+}
+.artworkHeading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 30px;
+  margin-bottom: 35px;
+}
+.artworkHeading h3 {
+  font-family: var(--font-display), serif;
+  font-size: 35px;
+  line-height: 1.2;
+  margin: 14px 0 10px;
+  color: #173e2c;
+}
+.artworkHeading > p {
+  font-size: 13px;
+  color: #515c50;
+  max-width: 210px;
+  line-height: 1.8;
+}
+.artworkHeading > div > p:last-child {
+  font-size: 14px;
+  color: #b64c25;
+}
+.artworkGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+.artworkButton {
+  text-align: left;
+}
+.artworkThumb {
+  overflow: hidden;
+  height: 210px;
+  background: #eae4d7;
+}
+.artworkThumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s;
+}
+.artworkButton:hover img {
+  transform: scale(1.03);
+}
+.artworkButton > span {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 17px 0 6px;
+  font-size: 14px;
+  color: #173e2c;
+}
+.artworkButton > small {
+  font-size: 12px;
+  color: #515c50;
+}
+.artworkDialog {
+  width: min(1100px, 95vw);
+  max-width: 95vw;
+  max-height: 94dvh;
+  border: 0;
+  padding: 24px;
+  background: #f8f5ed;
+  color: #173e2c;
+}
+.artworkDialog .dialogTop {
+  margin-bottom: 15px;
+}
+.artworkDialog h3 {
+  font-size: 16px;
+}
+.fullArtwork {
+  height: 70dvh;
+  overflow: auto;
+  margin-bottom: 18px;
+}
+.originalImage {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.artworkDialog .text-link {
+  font-size: 12px;
+}
+.enquiryLayout {
+  display: grid;
+  grid-template-columns: 1fr 1.25fr;
+  gap: 10%;
+}
+.enquiryIntro > p:not(:global(.eyebrow)):not(.marathiSubtitle) {
+  max-width: 340px;
+  font-size: 15px;
+  line-height: 1.9;
+  color: #515c50;
+  margin-top: 25px;
+}
+.contactPhone {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-display), serif;
+  font-size: 25px;
+  margin-top: 35px;
+  color: #173e2c;
+}
+.contactEmail {
+  display: block;
+  font-size: 14px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  margin-top: 10px;
+  overflow-wrap: anywhere;
+}
+.enquiryNote {
+  border-top: 1px solid #173e2c25;
+  padding-top: 25px;
+  font-size: 12px !important;
+}
+.enquiryForm {
+  border-top: 2px solid #173e2c;
+  padding-top: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+.formInstruction {
+  font-size: 13px;
+  line-height: 1.8;
+  color: #515c50;
+  margin-bottom: 5px;
+}
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+}
+.enquiryForm label {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #173e2c;
+  min-width: 0;
+}
+.enquiryForm input,
+.enquiryForm textarea,
+.enquiryForm select {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  min-height: 49px;
+  border: 1px solid #173e2c40;
+  background: #fffdf8;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: 400;
+  color: #20271f;
+  border-radius: 0;
+}
+.enquiryForm textarea {
+  resize: vertical;
+}
+.formActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.formActions button {
+  font-size: 12px !important;
+  padding: 14px 17px !important;
+}
+.formDisclaimer {
+  font-size: 11px;
+  line-height: 1.85;
+  color: #515c50;
+}
+.formFeedback {
+  padding: 15px;
+  border-left: 3px solid #173e2c;
+  background: #e8eddf;
+  font-size: 13px;
+  line-height: 1.8;
+}
+.formError {
+  color: #a3351b;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.filterHint {
+  display: none;
+}
+@media (max-width: 1100px) {
+  .desktopNav {
+    gap: 18px;
+  }
+  .headerInner {
+    gap: 15px;
+  }
+  .brand > span > span {
+    display: none;
+  }
+}
+@media (max-width: 1023px) {
+  .desktopNav {
+    display: none;
+  }
+  .menuToggle {
+    display: flex;
+  }
+  .headerDirections {
+    margin-left: auto;
+  }
+  .brand > span > span {
+    display: inline;
+  }
+  .actionBar {
+    display: flex;
+    position: fixed;
+    inset: auto 0 0;
+    z-index: 60;
+    background: #f8f5ed;
+    padding: 8px 16px max(8px, env(safe-area-inset-bottom));
+    border-top: 1px solid #173e2c35;
+    gap: 8px;
+  }
+  .actionBar a {
+    flex: 1;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #173e2c;
+  }
+  .actionBar a:last-child {
+    background: #173e2c;
+    color: #f8f5ed;
+  }
+  .actionBar a span {
+    font-size: 11px;
+  }
+}
+@media (max-width: 767px) {
+  .filterHint {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px 12px;
+    font-size: 11px;
+    line-height: 1.7;
+    color: #515c50;
+    padding-bottom: 22px;
+    margin-top: -8px;
+  }
+  .headerInner {
+    height: 70px;
+  }
+  .headerDirections {
+    display: none !important;
+  }
+  .brand img {
+    width: 38px;
+    height: 38px;
+  }
+  .brand strong {
+    font-size: 23px;
+  }
+  .brand > span > span {
+    font-size: 12px;
+  }
+  .menuIntroduction {
+    display: block;
+    padding-bottom: 30px !important;
+  }
+  .menuIntroText {
+    font-size: 14px;
+    max-width: 100%;
+    margin-top: 25px;
+  }
+  .filterRail {
+    gap: 6px;
+    padding-bottom: 22px !important;
+  }
+  .filterRail button {
+    min-width: 110px;
+    padding: 10px 13px;
+    font-size: 12px;
+    min-height: 60px;
+  }
+  .menuChapter {
+    padding: 45px 0 55px;
+    scroll-margin-top: 85px;
+  }
+  .chapterHeading {
+    display: block;
+    margin-bottom: 24px;
+  }
+  .chapterHeading h3 {
+    font-size: 34px;
+  }
+  .servingTime {
+    display: block;
+    margin-top: 18px;
+  }
+  .chapterSpread,
+  .reverseSpread {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+  .reverseSpread .menuPhoto {
+    order: 0;
+  }
+  .menuPhoto {
+    position: static;
+    width: 100%;
+  }
+  .menuPhoto img {
+    height: auto;
+  }
+  .dishList {
+    width: 100%;
+  }
+  .dish {
+    padding: 20px 0;
+  }
+  .dish h4 {
+    font-size: 23px;
+  }
+  .dishIdentity {
+    grid-template-columns: 72px minmax(0, 1fr);
+    gap: 12px;
+  }
+  .dishTop {
+    gap: 8px;
+  }
+  .dish > p {
+    font-size: 13px;
+  }
+  .dish h4 span {
+    font-size: 13px;
+  }
+  .price {
+    font-size: 21px;
+  }
+  .artworkHeading {
+    display: block;
+  }
+  .artworkHeading h3 {
+    font-size: 32px;
+  }
+  .artworkHeading > p {
+    margin-top: 18px;
+    max-width: 100%;
+  }
+  .artworkGrid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+  .artworkThumb {
+    height: 200px;
+  }
+  .artworkDialog {
+    padding: 15px;
+  }
+  .artworkDialog h3 {
+    font-size: 14px;
+  }
+  .enquiryLayout {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+  .enquiryIntro > p:not(:global(.eyebrow)):not(.marathiSubtitle) {
+    max-width: 100%;
+  }
+  .formGrid {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+  .formActions {
+    flex-direction: column;
+  }
+  .formActions button {
+    width: 100%;
+  }
+  .navigationDialog {
+    padding: 20px 22px 30px;
+  }
+  .mobileNav a > span:nth-child(2) {
+    font-size: 29px;
+  }
+  .mobileNav a {
+    padding: 18px 0;
+  }
+  .mobileAddress {
+    margin-top: 30px;
+  }
+  .fullArtwork {
+    height: 65dvh;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .menuPhoto img,
+  .artworkThumb img,
+  .filterRail button {
+    transition: none;
+  }
+  .menuPhoto:hover img,
+  .artworkButton:hover img {
+    transform: none;
+  }
+}

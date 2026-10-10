@@ -35,3 +35,4 @@ tsconfig.tsbuildinfo
 # Temporary audit screenshot artifacts
 public/screenshot_*.png
 public/device_*.png
+artifacts/

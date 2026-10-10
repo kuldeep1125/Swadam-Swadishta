@@ -1,784 +1,364 @@
 "use client";
-
-// [ADDED] Signature Menu Experience: 4 visual chapters (Breakfast, Lunch Thali, Evening Snacks, Specialties & Drinks)
-// Now with 4K-quality food photography and original uploaded menu artworks viewer
-import React, { useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
+import { flushSync } from "react-dom";
 import Image from "next/image";
-import { restaurant, MenuItem } from "@/config/restaurant";
-import {
-  BrushStroke,
-  BrushUnderline,
-  DecorativeLeaf,
-  SpiceSparkle,
-  PureVegBadge,
-} from "@/components/BrandMotifs";
-import { Sparkles, Utensils, Check, ArrowRight, Flame, Coffee, Eye, X } from "lucide-react";
+import { ArrowUpRight, X } from "lucide-react";
+import { restaurant } from "@/config/restaurant";
+import { ResponsiveImage } from "@/components/ResponsiveImage";
+import { useModalDialog } from "@/hooks/useModalDialog";
+import styles from "./Interactive.module.css";
 
+type Category = "all" | "breakfast" | "lunch" | "evening" | "specialties";
+const categories = [
+  {
+    id: "breakfast",
+    anchor: "breakfast",
+    label: "Breakfast",
+    marathi: "सकाळचा नाश्ता",
+    title: "A good morning, made here.",
+    time: restaurant.timings.breakfast,
+    photo: 0,
+  },
+  {
+    id: "lunch",
+    anchor: "thali",
+    label: "Lunch Thali",
+    marathi: "लंच थाळी",
+    title: "A little of everything. All heart.",
+    time: restaurant.timings.lunch,
+    photo: 1,
+  },
+  {
+    id: "evening",
+    anchor: "snacks",
+    label: "Evening Snacks",
+    marathi: "संध्याकाळचे स्नॅक्स",
+    title: "For the in-between moments.",
+    time: restaurant.timings.evening,
+    photo: 0,
+  },
+  {
+    id: "specialties",
+    anchor: "specialties",
+    label: "Specialties & Drinks",
+    marathi: "खास पदार्थ आणि पेये",
+    title: "The flavours we come home to.",
+    time: "Maharashtrian favourites",
+    photo: 3,
+  },
+] as const;
+const artworks = [
+  {
+    src: "/images/menu_original.jpg",
+    label: "Original Full Menu Card",
+    marathi: "मूळ संपूर्ण मेनू कार्ड",
+  },
+  {
+    src: "/images/menu_flyer_vertical.png",
+    label: "In-Store Vertical Flyer",
+    marathi: "दुकानातील मेनू फ्लायर",
+  },
+  {
+    src: "/images/banner_original.png",
+    label: "Swadam Kitchen Banner",
+    marathi: "स्वादम किचन बॅनर",
+  },
+];
+
+// [FIXED] Editorial category spreads preserve every dish and the original artwork.
 export function SignatureMenu() {
-  const [activeCategory, setActiveCategory] = useState<
-    "all" | "breakfast" | "lunch" | "evening" | "specialties"
-  >("all");
-  const [hoveredSnack, setHoveredSnack] = useState<MenuItem | null>(restaurant.menu.evening[0]);
-  const [selectedArtwork, setSelectedArtwork] = useState<string | null>(null);
+  const [active, setActive] = useState<Category>("all");
+  const [artwork, setArtwork] = useState<(typeof artworks)[number] | null>(
+    null,
+  );
+  const dialog = useRef<HTMLDialogElement>(null);
+  useModalDialog(dialog, !!artwork);
 
-  // [FIXED] H-2: Keyboard Escape listener and body scroll lock for artwork lightbox modal
   useEffect(() => {
-    if (!selectedArtwork) return;
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setSelectedArtwork(null);
+    let frame = 0;
+    const activate = (hash: string, immediate = false) => {
+      const category = categories.find((cat) => `#${cat.anchor}` === hash);
+      if (!category) return false;
+      if (immediate) flushSync(() => setActive(category.id));
+      else setActive(category.id);
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() =>
+        document.getElementById(category.anchor)?.scrollIntoView({
+          behavior: window.matchMedia("(prefers-reduced-motion: reduce)")
+            .matches
+            ? "auto"
+            : "smooth",
+          block: "start",
+        }),
+      );
+      return true;
     };
-    document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", handleKeyDown);
+    const click = (event: MouseEvent) => {
+      if (
+        event.defaultPrevented ||
+        event.button !== 0 ||
+        event.ctrlKey ||
+        event.metaKey ||
+        event.shiftKey ||
+        event.altKey
+      )
+        return;
+      const link =
+        event.target instanceof Element
+          ? (event.target.closest("a[href]") as HTMLAnchorElement | null)
+          : null;
+      if (
+        !link ||
+        link.target === "_blank" ||
+        link.origin !== location.origin ||
+        link.pathname !== location.pathname
+      )
+        return;
+      if (activate(link.hash, true)) {
+        event.preventDefault();
+        if (location.hash !== link.hash) history.pushState(null, "", link.hash);
+      }
+    };
+    const hashChange = () => activate(location.hash);
+    hashChange();
+    document.addEventListener("click", click);
+    window.addEventListener("hashchange", hashChange);
+    window.addEventListener("popstate", hashChange);
     return () => {
-      document.body.style.overflow = "";
-      window.removeEventListener("keydown", handleKeyDown);
+      cancelAnimationFrame(frame);
+      document.removeEventListener("click", click);
+      window.removeEventListener("hashchange", hashChange);
+      window.removeEventListener("popstate", hashChange);
     };
-  }, [selectedArtwork]);
+  }, []);
 
   return (
-    <section id="menu" className="relative w-full transition-colors duration-700 scroll-mt-20" aria-label="Our Authentic Menu">
-      
-      {/* Category Filter Navigation Bar */}
-      {/* [FIXED] Corrected sticky offset to top-[60px] sm:top-[68px] to prevent overlapping under the floating header */}
-      <div className="sticky top-[60px] sm:top-[68px] z-30 py-2.5 sm:py-4 px-3 sm:px-4 bg-cream-100/95 backdrop-blur-md border-y border-turmeric-400/40 shadow-sm">
-        {/* [ADDED] Screen-reader announcement for category change */}
-        <div aria-live="polite" className="sr-only">
-          Showing {activeCategory === "all" ? "all" : activeCategory} dishes
+    <section
+      id="menu"
+      className={styles.menuSection}
+      aria-labelledby="menu-title"
+    >
+      <div
+        className={`editorial-container section-space ${styles.menuIntroduction}`}
+      >
+        <div>
+          <p className="eyebrow">02 / The kitchen menu</p>
+          <h2 id="menu-title" className="section-title">
+            Simple food.
+            <br />
+            Extraordinary swad.
+          </h2>
+          <p className={`font-devanagari ${styles.marathiSubtitle}`}>
+            अस्सल चव, मनापासून बनवलेली.
+          </p>
         </div>
-        <div className="mx-auto max-w-7xl flex flex-col md:flex-row items-center justify-between gap-3 sm:gap-4">
-          <div className="flex items-center justify-between w-full md:w-auto">
-            <div>
-              <span className="font-devanagari text-lg sm:text-xl font-bold text-brown-900 mr-2">मेनू</span>
-              <span className="font-display text-base sm:text-lg font-bold text-saffron-600">What&apos;s Cooking?</span>
-              <span className="font-devanagari text-xs text-brandGreen-700 font-bold ml-1.5 hidden sm:inline">/ मेनू काय आहे?</span>
-            </div>
-            <span className="text-[11px] text-brown-600 md:hidden font-mono bg-cream-200 px-2 py-0.5 rounded-full">
-              Scroll tabs →
-            </span>
-          </div>
-
-          {/* [FIXED] Horizontal swipeable rail for mobile screens with clean no-scrollbar styling - [ADDED] Bilingual */}
-          <div
-            tabIndex={0}
-            role="region"
-            aria-label="Menu categories"
-            className="w-full md:w-auto flex items-center gap-1.5 p-1 rounded-2xl sm:rounded-full bg-cream-200/80 border border-turmeric-400/50 overflow-x-auto no-scrollbar flex-nowrap sm:flex-wrap justify-start sm:justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saffron-500"
-          >
-            {(
-              [
-                { id: "all", label: "ALL DISHES", mr: "सर्व" },
-                { id: "breakfast", label: "01 BREAKFAST", mr: "न्याहारी" },
-                { id: "lunch", label: "02 LUNCH THALI", mr: "थाळी" },
-                { id: "evening", label: "03 EVENING SNACKS", mr: "स्नॅक्स" },
-                { id: "specialties", label: "04 SPECIALTIES & DRINKS", mr: "विशेष" },
-              ] as const
-            ).map((cat) => (
-              // [FIXED] 40px+ touch target for mobile thumb ergonomics
-              <button
-                key={cat.id}
-                onClick={() => setActiveCategory(cat.id)}
-                className={`whitespace-nowrap px-3.5 sm:px-4 py-2 sm:py-2.5 min-h-[40px] inline-flex items-center justify-center rounded-full text-xs font-bold transition-all duration-300 flex-shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saffron-500 ${
-                  activeCategory === cat.id
-                    ? "bg-brown-900 text-cream-100 shadow-md scale-105"
-                    : "text-brown-800 hover:text-saffron-600 hover:bg-cream-100"
-                }`}
-                aria-pressed={activeCategory === cat.id}
-              >
-                <span>{cat.label}</span>
-                <span className="font-devanagari ml-1 opacity-80 text-[11px]">({cat.mr})</span>
-              </button>
-            ))}
-          </div>
-        </div>
+        <p className={styles.menuIntroText}>
+          From the first poha of the morning to a comforting thali and chai-time
+          favourites. Find your little taste of Maharashtra.
+        </p>
       </div>
-
-      {/* ========================================================================= */}
-      {/* CHAPTER 1: BREAKFAST (Warm Cream / Saffron Environment)                   */}
-      {/* ========================================================================= */}
-      {(activeCategory === "all" || activeCategory === "breakfast") && (
-        <div className="relative py-20 px-4 sm:px-8 md:px-12 bg-cream-100 border-b border-turmeric-400/30">
-          <div className="mx-auto max-w-7xl">
-            
-            {/* Chapter Header - [ADDED] Bilingual */}
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-14 pb-4 sm:pb-6 border-b border-turmeric-400/40">
-              <div>
-                <span className="text-xs font-mono font-bold tracking-widest text-saffron-600 uppercase">
-                  CHAPTER 01 • SAKALCHI NYAHARI • सकाळचा नाश्ता
-                </span>
-                {/* [FIXED] Fluid typography for breakfast headline */}
-                <h3 className="font-display text-3xl xs:text-4xl sm:text-6xl font-black text-brown-900 mt-1">
-                  Morning Breakfast.
-                </h3>
-                <span className="font-devanagari text-xl sm:text-2xl font-bold text-brandGreen-700 block mt-1">
-                  गरमा-गरम नाश्ता (7:30 AM onwards)
-                </span>
-              </div>
-              <p className="max-w-md text-sm sm:text-base text-brown-700 mt-4 md:mt-0 leading-relaxed font-sans">
-                Prepared steaming hot every morning. Served with crunchy peanuts, fresh grated coconut, and fragrant lemon.
-              </p>
-            </div>
-
-            {/* Breakfast Showcase Grid: Asymmetric Editorial Layout */}
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 items-stretch">
-              
-              {/* Feature Dish: 4K Misal Pav (Col 1-7) */}
-              {(() => {
-                const misal = restaurant.menu.breakfast.find((i) => i.id === "misal-pav");
-                if (!misal) return null;
-                return (
-                  <div className="md:col-span-7 rounded-3xl bg-white p-4 xs:p-6 sm:p-8 border-2 border-saffron-500/40 shadow-xl flex flex-col justify-between group hover:border-saffron-500 transition-all duration-300">
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-saffron-50 text-saffron-700 border border-saffron-200">
-                          <Flame className="w-3 h-3 text-saffron-600" />
-                          {misal.badge}
-                        </span>
-                        <h4 className="font-display text-2xl xs:text-3xl sm:text-4xl font-black text-brown-900 mt-3 group-hover:text-saffron-600 transition-colors">
-                          {misal.name}
-                        </h4>
-                        <span className="font-devanagari text-lg sm:text-xl font-bold text-saffron-600">
-                          {misal.nameMarathi}
-                        </span>
-                      </div>
-                      <div className="text-right">
-                        <span className="text-xs font-mono text-brown-500 block">Price</span>
-                        <span className="font-display text-3xl sm:text-4xl font-black text-brown-900 group-hover:text-saffron-600 transition-colors">
-                          {misal.price}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Misal Pav 4K Hero Image */}
-                    <div className="relative w-full h-56 xs:h-72 sm:h-96 rounded-2xl overflow-hidden my-4 sm:my-6 bg-cream-100 group-hover:scale-[1.02] transition-transform duration-500 shadow-md">
-                      {/* // [FIXED] Added responsive sizes attribute */}
-                      <Image
-                        src={misal.image}
-                        alt="Authentic Pune Misal Pav"
-                        fill
-                        sizes="(max-width: 768px) 100vw, 60vw"
-                        className="object-cover"
-                      />
-                      <div className="absolute bottom-3 left-3 bg-brown-900/90 text-cream-100 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-xl text-[11px] sm:text-xs font-semibold backdrop-blur-sm border border-white/20">
-                        झणझणीत कट + कुरकुरीत फरसाण + बटर लादी पाव
-                      </div>
-                    </div>
-
-                    <p className="text-sm sm:text-base text-brown-700 leading-relaxed font-sans">
-                      {misal.description}
-                    </p>
-                  </div>
-                );
-              })()}
-
-              {/* Side Stack: Poha, Upma, Sheera, Sabudana Khichadi (Col 8-12) */}
-              <div className="md:col-span-5 flex flex-col gap-3 sm:gap-4 justify-between">
-                {restaurant.menu.breakfast
-                  .filter((item) => item.id !== "misal-pav")
-                  .map((item) => (
-                    <div
-                      key={item.id}
-                      className="p-3 xs:p-4 sm:p-5 rounded-2xl bg-white border border-turmeric-400/50 shadow-sm hover:shadow-md hover:border-turmeric-gold transition-all duration-300 flex items-center justify-between gap-2.5 xs:gap-4 group"
-                    >
-                      <div className="relative w-16 h-16 xs:w-20 xs:h-20 sm:w-24 sm:h-24 rounded-xl overflow-hidden bg-cream-100 flex-shrink-0 group-hover:scale-105 transition-transform duration-300 border border-cream-200">
-                        {/* // [FIXED] Added responsive sizes attribute */}
-                        <Image
-                          src={item.image}
-                          alt={item.name}
-                          fill
-                          sizes="(max-width: 640px) 80px, 96px"
-                          className="object-cover"
-                        />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-[9px] xs:text-[10px] font-bold uppercase tracking-wider text-brandGreen-700">
-                            {item.badge}
-                          </span>
-                        </div>
-                        <h5 className="font-display text-base xs:text-lg sm:text-xl font-bold text-brown-900 truncate group-hover:text-saffron-600 transition-colors">
-                          {item.name}
-                        </h5>
-                        <span className="font-devanagari text-xs xs:text-sm font-semibold text-brown-600 block">
-                          {item.nameMarathi}
-                        </span>
-                        <p className="text-xs text-brown-500 line-clamp-1 mt-0.5 font-sans">
-                          {item.description}
-                        </p>
-                      </div>
-                      <div className="text-right flex-shrink-0">
-                        <span className="font-display text-xl xs:text-2xl font-black text-brown-900">
-                          {item.price}
-                        </span>
-                      </div>
-                    </div>
-                  ))}
-              </div>
-
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* ========================================================================= */}
-      {/* CHAPTER 2: LUNCH THALI (The Hero Moment — Lush Green & Terracotta)         */}
-      {/* ========================================================================= */}
-      {(activeCategory === "all" || activeCategory === "lunch") && (
-        <div id="thali" className="relative py-24 sm:py-32 px-4 sm:px-8 md:px-12 bg-gradient-to-b from-[#143D22] via-[#0D2B16] to-[#1A0E08] text-cream-100 overflow-hidden scroll-mt-20">
-          
-          <div className="relative mx-auto max-w-7xl">
-            
-            {/* Thali Header */}
-            <div className="text-center max-w-3xl mx-auto space-y-3 mb-16">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brandGreen-800/80 border border-turmeric-400/40 text-xs font-bold text-turmeric-300">
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>CHAPTER 02 • THE MIDDAY FEAST</span>
-                <span className="font-devanagari">• दुपारचे जेवण</span>
-              </div>
-
-              {/* [FIXED] Fluid typography for Thali title */}
-              <h3 className="font-display text-4xl xs:text-5xl sm:text-7xl md:text-8xl font-black text-cream-50 tracking-tight">
-                THE THALI.
-              </h3>
-
-              <div className="w-32 mx-auto">
-                <BrushUnderline className="w-full h-3 text-saffron-500" />
-              </div>
-
-              <p className="text-base sm:text-xl text-cream-200 leading-relaxed font-sans pt-2">
-                A proper Maharashtrian-style lunch, served with variety, aroma, and everyday comfort. Freshly made chapatis paired with comforting home-style sabjis.
-              </p>
-            </div>
-
-            {/* Giant Centerpiece Thali Layout */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
-              
-              {/* Left Components Breakdown (Col 1-4) - [ADDED] Bilingual breakdown */}
-              <div className="lg:col-span-4 space-y-4">
-                <div className="p-4 xs:p-6 rounded-3xl bg-white/5 backdrop-blur-md border border-turmeric-400/30">
-                  <h4 className="font-display text-xl xs:text-2xl font-bold text-turmeric-300 mb-4 flex items-center gap-2">
-                    <Utensils className="w-5 h-5 text-saffron-400 flex-shrink-0" />
-                    <span>What&apos;s on the Plate?</span>
-                    <span className="font-devanagari text-xs text-turmeric-200 font-normal">/ ताटात काय आहे?</span>
-                  </h4>
-                  <ul className="space-y-3.5 text-sm text-cream-100 font-sans">
-                    {[
-                      { item: "3 Hot Chapatis", itemMr: "३ गरम चपात्या", note: "Soft, freshly rolled whole wheat / मऊ, लुसलुशीत गव्हाच्या चपात्या" },
-                      { item: "2 Daily Sabjis", itemMr: "२ भाज्या (सुकी + रस्सा)", note: "1 Sukhi (dry) + 1 Rassa (gravy) / १ सुकी भाजी + १ रस्सा" },
-                      { item: "Steamed Rice", itemMr: "गरम भात", note: "Fluffy & comforting / मऊ मोकळा भात" },
-                      { item: "Aromatic Dal", itemMr: "फोडणीचे वरण", note: "Traditional tempered lentil curry / घरगुती रुचकर वरण" },
-                      { item: "Crispy Papad", itemMr: "कुरकुरीत पापड", note: "Roasted authentic papad / भाजलेला उडीद पापड" },
-                      { item: "Spicy Pickle & Salad", itemMr: "लोणचे आणि कोशिंबीर", note: "Fresh onion, lemon, and mango pickle / लोणचे व कांदा" },
-                    ].map((comp, idx) => (
-                      <li key={idx} className="flex items-start gap-3">
-                        <div className="mt-1 w-4 h-4 rounded-full bg-saffron-500/30 border border-saffron-400 flex items-center justify-center flex-shrink-0">
-                          <Check className="w-2.5 h-2.5 text-turmeric-300" />
-                        </div>
-                        <div>
-                          <div className="flex items-baseline gap-1.5 flex-wrap">
-                            <span className="font-bold text-cream-50">{comp.item}</span>
-                            <span className="font-devanagari text-xs font-semibold text-turmeric-300">({comp.itemMr})</span>
-                          </div>
-                          <p className="text-xs text-cream-300/80">{comp.note}</p>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-
-              {/* Center Plate Photography (Col 5-8) - 4K High Definition */}
-              <div className="lg:col-span-5 relative flex items-center justify-center">
-                {/* [FIXED] Max-w scales gracefully down to 280px on 320px viewports */}
-                <div className="relative w-full max-w-[280px] xs:max-w-[360px] sm:max-w-[480px] aspect-square rounded-full p-2 xs:p-4 border-4 border-dashed border-turmeric-400/30 group">
-                  <div className="absolute inset-0 rounded-full bg-turmeric-500/15 blur-2xl pointer-events-none" />
-
-                  <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-turmeric-400/60 shadow-2xl shadow-black/60 group-hover:scale-105 transition-transform duration-700">
-                    {/* // [FIXED] Added responsive sizes attribute */}
-                    <Image
-                      src="/images/hd_lunch_thali.jpg"
-                      alt="Full Maharashtrian Lunch Thali with 3 Chapatis, 2 Sabjis, Rice, Dal, Papad and Pickle"
-                      fill
-                      sizes="(max-width: 640px) 280px, (max-width: 1024px) 480px, 420px"
-                      className="object-cover"
-                    />
-                  </div>
-
-                  <div className="absolute -top-3 right-4 sm:right-6 bg-gradient-to-r from-saffron-600 to-turmeric-gold text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-full font-bold text-xs sm:text-sm shadow-xl flex items-center gap-1.5">
-                    <PureVegBadge className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
-                    <span>Pure Veg Feast • शुद्ध भोजन</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Right Pricing & Sweet Upgrade (Col 9-12) - [ADDED] Bilingual */}
-              <div className="lg:col-span-3 space-y-6">
-                
-                {/* Standard Thali Card */}
-                <div className="p-6 rounded-3xl bg-cream-100 text-brown-900 border-2 border-turmeric-400 shadow-xl group hover:-translate-y-1 transition-transform">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold uppercase tracking-wider text-brandGreen-700">
-                      EVERYDAY LUNCH
-                    </span>
-                    <span className="font-devanagari text-xs font-bold text-brandGreen-800">
-                      रोजचे जेवण
-                    </span>
-                  </div>
-                  <h5 className="font-display text-2xl font-bold text-brown-900 mt-1">
-                    Lunch Thali
-                  </h5>
-                  <span className="font-devanagari text-base font-bold text-brandGreen-800 block">
-                    दुपारची थाळी
-                  </span>
-                  <p className="text-xs text-brown-600 mt-1">
-                    3 Chapati, 2 Sabji, Rice, Dal, Papad, Pickle & Salad.
-                  </p>
-                  <p className="font-devanagari text-[11px] text-brown-600 mt-0.5">
-                    ३ चपात्या, २ भाज्या, भात, डाळ, पापड, लोणचे आणि कोशिंबीर.
-                  </p>
-                  <div className="mt-4 pt-4 border-t border-cream-300 flex items-baseline justify-between">
-                    <span className="text-xs text-brown-500 font-mono">Total / एकूण</span>
-                    <span className="font-display text-4xl font-black text-brandGreen-800">
-                      ₹110
-                    </span>
-                  </div>
-                </div>
-
-                {/* Thali With Sweet Upgrade Card */}
-                <div className="p-6 rounded-3xl bg-gradient-to-br from-saffron-600 to-saffron-deep text-white border-2 border-turmeric-400 shadow-xl group hover:-translate-y-1 transition-transform relative overflow-hidden">
-                  <div className="absolute -right-6 -bottom-6 w-24 h-24 rounded-full bg-turmeric-400/20 blur-xl pointer-events-none" />
-                  
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold uppercase tracking-wider text-turmeric-200">
-                      WITH DESSERT
-                    </span>
-                    <div className="relative w-10 h-10 rounded-full overflow-hidden border border-white/40">
-                      {/* // [FIXED] Explicit sizes attribute */}
-                      <Image
-                        src="/images/hd_lunch_thali_sweet.jpg"
-                        alt="Sweet of the day"
-                        fill
-                        sizes="40px"
-                        className="object-cover"
-                      />
-                    </div>
-                  </div>
-
-                  <h5 className="font-display text-2xl font-bold text-cream-50 mt-1">
-                    Thali With Sweet
-                  </h5>
-                  <span className="font-devanagari text-base font-bold text-turmeric-200 block">
-                    गोड पदार्थासह थाळी
-                  </span>
-                  <p className="text-xs text-cream-200 mt-1">
-                    Complete thali + traditional sweet of the day (Shrikhand / Basundi / Sheera).
-                  </p>
-                  <p className="font-devanagari text-[11px] text-cream-200 mt-0.5">
-                    परिपूर्ण थाळी + दिवसाचा गोड पदार्थ (श्रीखंड / बासुंदी / शिरा).
-                  </p>
-                  <div className="mt-4 pt-4 border-t border-white/20 flex items-baseline justify-between">
-                    <span className="text-xs text-cream-200 font-mono">Special Price / खास दर</span>
-                    <span className="font-display text-4xl font-black text-turmeric-300">
-                      ₹130
-                    </span>
-                  </div>
-                </div>
-
-              </div>
-
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* ========================================================================= */}
-      {/* CHAPTER 3: EVENING SNACKS (Warm Chocolate Brown & Street Energy)          */}
-      {/* ========================================================================= */}
-      {(activeCategory === "all" || activeCategory === "evening") && (
-        <div id="snacks" className="relative py-20 sm:py-28 px-4 sm:px-8 md:px-12 bg-brown-800 text-cream-100 overflow-hidden border-t-2 border-turmeric-400 scroll-mt-20">
-          
-          <div className="mx-auto max-w-7xl">
-            
-            {/* Evening Header */}
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-16 pb-4 sm:pb-6 border-b border-white/10">
-              <div>
-                <span className="text-xs font-mono font-bold tracking-widest text-turmeric-400 uppercase">
-                  CHAPTER 03 • SANDHYAKALCHI CHAV
-                </span>
-                {/* [FIXED] Fluid typography for snacks header */}
-                <h3 className="font-display text-3xl xs:text-4xl sm:text-6xl md:text-7xl font-black text-cream-50 mt-1">
-                  Let&apos;s Get Snackin&apos;.
-                </h3>
-                <span className="font-devanagari text-xl sm:text-2xl font-bold text-saffron-400 block mt-1">
-                  गरमा-गरम भजी, वडा पाव आणि चहा
-                </span>
-              </div>
-              <p className="max-w-md text-sm sm:text-base text-cream-200 mt-4 md:mt-0 leading-relaxed font-sans">
-                Pune evenings demand sizzling hot wada pav, crisp kanda bhaji, and tea. Freshly fried straight out of the kadhai from 4:00 PM onwards.
-              </p>
-            </div>
-
-            {/* Dynamic Interactive List with Live Image Highlight */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-              
-              {/* Left: Oversized Snack Titles List (Col 1-7) */}
-              <div className="lg:col-span-7 divide-y divide-white/10">
-                {restaurant.menu.evening.map((snack, idx) => {
-                  const isHovered = hoveredSnack?.id === snack.id;
-                  return (
-                    // [FIXED] H-7: Added role="button", tabIndex, onKeyDown and focus-visible ring for keyboard & touch access
-                    <div
-                      key={snack.id}
-                      role="button"
-                      tabIndex={0}
-                      aria-pressed={isHovered}
-                      onMouseEnter={() => setHoveredSnack(snack)}
-                      onClick={() => setHoveredSnack(snack)}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter" || e.key === " ") {
-                          e.preventDefault();
-                          setHoveredSnack(snack);
-                        }
-                      }}
-                      className={`py-3.5 sm:py-6 flex items-center justify-between cursor-pointer transition-all duration-300 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-turmeric-gold rounded-2xl ${
-                        isHovered ? "pl-3 sm:pl-6 bg-white/5" : ""
-                      }`}
-                    >
-                      <div className="flex items-center gap-2.5 sm:gap-6 min-w-0">
-                        {/* [FIXED] High-contrast text-turmeric-300 without opacity for WCAG compliance */}
-                        <span className="text-xs font-mono text-turmeric-300 font-bold flex-shrink-0">
-                          0{idx + 1}
-                        </span>
-                        {/* Mobile Thumbnail */}
-                        <div className="sm:hidden relative w-11 h-11 xs:w-12 xs:h-12 rounded-xl overflow-hidden flex-shrink-0 bg-brown-900 border border-turmeric-400/40">
-                          {/* // [FIXED] Explicit sizes attribute */}
-                          <Image
-                            src={snack.image}
-                            alt={snack.name}
-                            fill
-                            sizes="48px"
-                            className="object-cover"
-                          />
-                        </div>
-                        <div className="min-w-0">
-                          <div className="flex flex-wrap items-baseline gap-1.5 sm:gap-3">
-                            <span className="font-display text-lg xs:text-xl sm:text-4xl md:text-5xl font-black tracking-tight text-cream-100 group-hover:text-turmeric-gold transition-colors">
-                              {snack.name}
-                            </span>
-                            <span className="font-devanagari text-xs xs:text-sm sm:text-xl text-saffron-400 font-bold">
-                              {snack.nameMarathi}
-                            </span>
-                          </div>
-                          <span className="text-xs text-cream-300 mt-0.5 sm:mt-1 block font-sans line-clamp-1 sm:line-clamp-none">
-                            {snack.description}
-                          </span>
-                        </div>
-                      </div>
-
-                      <div className="text-right flex items-center gap-2 sm:gap-4 flex-shrink-0 ml-2">
-                        {/* [FIXED] High-contrast turmeric-gold price */}
-                        <span className="font-display text-2xl xs:text-3xl sm:text-4xl font-black text-turmeric-gold group-hover:scale-110 transition-transform">
-                          {snack.price}
-                        </span>
-                        <ArrowRight
-                          className={`w-4 h-4 sm:w-5 sm:h-5 text-saffron-400 transition-transform duration-300 ${
-                            isHovered ? "translate-x-1 opacity-100" : "opacity-0"
-                          }`}
-                        />
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-
-              {/* Right: Dynamic Highlight Card (Col 8-12) */}
-              <div className="lg:col-span-5 relative flex items-center justify-center">
-                {hoveredSnack && (
-                  <div className="relative w-full max-w-[420px] rounded-3xl p-6 bg-brown-900 border-2 border-turmeric-400/50 shadow-2xl animate-in fade-in duration-300">
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="text-xs font-bold text-turmeric-300 uppercase tracking-widest">
-                        {hoveredSnack.badge || "Evening Special"}
-                      </span>
-                      <span className="font-display text-3xl font-black text-turmeric-gold">
-                        {hoveredSnack.price}
-                      </span>
-                    </div>
-
-                    <div className="relative w-full h-64 sm:h-72 rounded-2xl overflow-hidden bg-brown-800 shadow-md">
-                      {/* // [FIXED] Responsive sizes attribute */}
-                      <Image
-                        src={hoveredSnack.image}
-                        alt={hoveredSnack.name}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 420px"
-                        className="object-cover"
-                      />
-                    </div>
-
-                    <div className="mt-4">
-                      <h4 className="font-display text-2xl font-bold text-cream-50">
-                        {hoveredSnack.name}
-                      </h4>
-                      <p className="text-xs sm:text-sm text-cream-200 mt-1 font-sans leading-relaxed">
-                        {hoveredSnack.description}
-                      </p>
-                    </div>
-                  </div>
-                )}
-              </div>
-
-            </div>
-
-          </div>
-        </div>
-      )}
-
-      {/* ========================================================================= */}
-      {/* CHAPTER 4: SPECIALTIES & REFRESHING DRINKS (From Attached Banner Reference)*/}
-      {/* ========================================================================= */}
-      {(activeCategory === "all" || activeCategory === "specialties") && (
-        <div id="specialties" className="relative py-20 sm:py-28 px-4 sm:px-8 md:px-12 bg-cream-50 text-brown-900 overflow-hidden border-t-2 border-turmeric-400 scroll-mt-20">
-          <div className="mx-auto max-w-7xl">
-            
-            {/* Header */}
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-16 pb-4 sm:pb-6 border-b border-turmeric-400/40">
-              <div>
-                <span className="text-xs font-mono font-bold tracking-widest text-saffron-600 uppercase">
-                  CHAPTER 04 • MAHARASHTRIAN SPECIALTIES & DRINKS
-                </span>
-                {/* [FIXED] Fluid typography for specialties header */}
-                <h3 className="font-display text-3xl xs:text-4xl sm:text-6xl font-black text-brown-900 mt-1">
-                  Taste of Tradition.
-                </h3>
-                <span className="font-devanagari text-lg xs:text-xl sm:text-2xl font-bold text-brandGreen-800 block mt-1">
-                  कोथिंबीर वडी, थालीपीठ, उकडीचे मोदक, सोलकढी आणि चहा
-                </span>
-              </div>
-              <p className="max-w-md text-sm sm:text-base text-brown-700 mt-4 md:mt-0 leading-relaxed font-sans">
-                Signature Maharashtrian delicacies made from time-honoured culinary practices. Perfectly paired with refreshing beverages.
-              </p>
-            </div>
-
-            {/* Specialties Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {restaurant.menu.specialties.map((item) => (
-                <div
-                  key={item.id}
-                  className="rounded-3xl p-5 bg-white border border-turmeric-400/50 shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group"
-                >
-                  <div>
-                    <div className="relative w-full h-48 rounded-2xl overflow-hidden bg-cream-100 mb-4 border border-cream-200">
-                      <Image
-                        src={item.image}
-                        alt={item.name}
-                        fill
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                      <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-[11px] font-bold text-brown-900 shadow-sm border border-turmeric-400/40">
-                        {item.badge}
-                      </div>
-                    </div>
-
-                    <div className="flex items-baseline justify-between mb-1">
-                      <h4 className="font-display text-xl font-bold text-brown-900 group-hover:text-saffron-600 transition-colors">
-                        {item.name}
-                      </h4>
-                      <span className="font-display text-2xl font-black text-saffron-600">
-                        {item.price}
-                      </span>
-                    </div>
-
-                    <span className="font-devanagari text-sm font-bold text-brandGreen-700 block mb-2">
-                      {item.nameMarathi}
-                    </span>
-
-                    <p className="text-xs sm:text-sm text-brown-600 leading-relaxed font-sans">
-                      {item.description}
-                    </p>
-                  </div>
-
-                  <div className="mt-4 pt-3 border-t border-cream-200 flex items-center justify-between text-xs font-semibold text-brandGreen-800">
-                    <span className="flex items-center gap-1">
-                      <PureVegBadge className="w-3.5 h-3.5" />
-                      <span>100% Pure Veg • १००% शुद्ध शाकाहारी</span>
-                    </span>
-                    <span className="text-brown-500">Fresh Daily • दररोज ताजे</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-          </div>
-        </div>
-      )}
-
-      {/* ========================================================================= */}
-      {/* ORIGINAL SHOP MENU CARDS & FLYERS VIEWER - [ADDED] Bilingual              */}
-      {/* ========================================================================= */}
-      <div className="py-16 px-4 sm:px-8 md:px-12 bg-cream-200/60 border-t border-turmeric-400/40">
-        <div className="mx-auto max-w-7xl">
-          <div className="text-center max-w-2xl mx-auto mb-10">
-            <span className="text-xs font-mono font-bold tracking-widest text-saffron-600 uppercase">
-              AUTHENTIC ORIGINAL ARTWORKS • अस्सल मेनू कार्ड्स
-            </span>
-            <h4 className="font-display text-2xl sm:text-3xl font-black text-brown-900 mt-1">
-              Real In-Store Menu Cards & Banners
-            </h4>
-            <span className="font-devanagari text-base font-bold text-brandGreen-800 block mt-0.5">
-              दुकानातील मूळ मेनू आणि पोस्टर्स
-            </span>
-            <p className="text-xs sm:text-sm text-brown-600 font-sans mt-1">
-              Click any authentic menu design below to view full-size high resolution.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            
-            {/* Card 1: Horizontal Full Menu */}
-            <div
-              role="button"
-              tabIndex={0}
-              aria-label="View Original Full Menu Card / मूळ संपूर्ण मेनू कार्ड"
-              onClick={() => setSelectedArtwork("/images/menu_original.jpg")}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  setSelectedArtwork("/images/menu_original.jpg");
-                }
-              }}
-              className="rounded-2xl p-3 bg-white border border-turmeric-400/60 shadow-md hover:shadow-xl cursor-pointer group transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saffron-500"
-            >
-              <div className="relative w-full h-44 rounded-xl overflow-hidden bg-cream-100">
-                {/* // [FIXED] Responsive sizes attribute */}
-                <Image
-                  src="/images/menu_original.jpg"
-                  alt="Original Swadam Swadishta Menu Card"
-                  fill
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                  className="object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white font-bold text-xs gap-1.5">
-                  <Eye className="w-4 h-4" />
-                  <span>Click to Expand / मोठे पहा</span>
-                </div>
-              </div>
-              <div className="mt-2.5 text-center">
-                <span className="font-display font-bold text-sm text-brown-900 block leading-tight">
-                  Original Full Menu Card
-                </span>
-                <span className="font-devanagari text-xs text-brandGreen-700 font-semibold block">
-                  मूळ संपूर्ण मेनू कार्ड
-                </span>
-              </div>
-            </div>
-
-            {/* Card 2: Vertical Menu Flyer */}
-            <div
-              role="button"
-              tabIndex={0}
-              aria-label="View In-Store Vertical Flyer / दुकानातील वर्टिकल फ्लायर"
-              onClick={() => setSelectedArtwork("/images/menu_flyer_vertical.png")}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  setSelectedArtwork("/images/menu_flyer_vertical.png");
-                }
-              }}
-              className="rounded-2xl p-3 bg-white border border-turmeric-400/60 shadow-md hover:shadow-xl cursor-pointer group transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saffron-500"
-            >
-              <div className="relative w-full h-44 rounded-xl overflow-hidden bg-cream-100">
-                {/* // [FIXED] Responsive sizes attribute */}
-                <Image
-                  src="/images/menu_flyer_vertical.png"
-                  alt="Original Vertical Menu Flyer with Vada Pav Sketch"
-                  fill
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                  className="object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white font-bold text-xs gap-1.5">
-                  <Eye className="w-4 h-4" />
-                  <span>Click to Expand / मोठे पहा</span>
-                </div>
-              </div>
-              <div className="mt-2.5 text-center">
-                <span className="font-display font-bold text-sm text-brown-900 block leading-tight">
-                  In-Store Vertical Flyer
-                </span>
-                <span className="font-devanagari text-xs text-brandGreen-700 font-semibold block">
-                  दुकानातील वर्टिकल फ्लायर
-                </span>
-              </div>
-            </div>
-
-            {/* Card 3: Wide Kitchen Banner */}
-            <div
-              role="button"
-              tabIndex={0}
-              aria-label="View Swadam Kitchen Banner"
-              onClick={() => setSelectedArtwork("/images/banner_original.png")}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  setSelectedArtwork("/images/banner_original.png");
-                }
-              }}
-              className="rounded-2xl p-3 bg-white border border-turmeric-400/60 shadow-md hover:shadow-xl cursor-pointer group transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saffron-500"
-            >
-              <div className="relative w-full h-44 rounded-xl overflow-hidden bg-cream-100">
-                {/* // [FIXED] Responsive sizes attribute */}
-                <Image
-                  src="/images/banner_original.png"
-                  alt="Swadam Snacks & Kitchen Banner"
-                  fill
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                  className="object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white font-bold text-xs gap-1.5">
-                  <Eye className="w-4 h-4" />
-                  <span>Click to Expand</span>
-                </div>
-              </div>
-              <span className="font-display font-bold text-sm text-brown-900 block mt-2.5 text-center">
-                Swadam Kitchen Banner
-              </span>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-      {/* [FIXED] Lightbox Modal with z-[80], role="dialog", aria-modal="true" and responsive touch controls */}
-      {selectedArtwork && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-label="Artwork image viewer"
-          className="fixed inset-0 z-[80] bg-black/90 backdrop-blur-md flex items-center justify-center p-3 sm:p-8 animate-in fade-in duration-200"
-          onClick={() => setSelectedArtwork(null)}
+      <div
+        className={`editorial-container ${styles.filterRail}`}
+        role="group"
+        aria-label="Filter menu categories"
+      >
+        <button
+          type="button"
+          aria-pressed={active === "all"}
+          onClick={() => setActive("all")}
         >
+          All dishes <span className="font-devanagari">सर्व</span>
+        </button>
+        {categories.map((cat) => (
           <button
-            onClick={() => setSelectedArtwork(null)}
-            className="absolute top-4 right-4 sm:top-6 sm:right-6 z-[90] p-2.5 sm:p-3 rounded-full bg-white/20 hover:bg-white/40 text-white transition-colors active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-turmeric-gold"
-            aria-label="Close modal (Esc)"
+            type="button"
+            key={cat.id}
+            aria-pressed={active === cat.id}
+            onClick={() => setActive(cat.id)}
           >
-            <X className="w-6 h-6" />
+            {cat.label}
+            <span className="font-devanagari">{cat.marathi}</span>
           </button>
-          <div
-            className="relative max-w-4xl w-full max-h-[85vh] h-[75vh] sm:h-[80vh] rounded-2xl overflow-hidden"
-            onClick={(e) => e.stopPropagation()}
+        ))}
+      </div>
+      {/* [ADDED] Discoverability hint for categories outside the mobile viewport. */}
+      <p className={`editorial-container ${styles.filterHint}`}>
+        Swipe to explore categories →{" "}
+        <span className="font-devanagari">आणखी पदार्थ पाहा</span>
+      </p>
+      <p className="sr-only" aria-live="polite">
+        Showing{" "}
+        {active === "all"
+          ? "all dishes"
+          : categories.find((cat) => cat.id === active)?.label}
+      </p>
+      {/* [ADDED] Set an honest expectation for illustrative food photography. */}
+      <p className={`editorial-container ${styles.photographyNote}`}>
+        Dish images are illustrative; presentation may vary.
+      </p>
+      {categories
+        .filter((cat) => active === "all" || cat.id === active)
+        .map((cat, index) => {
+          const items = restaurant.menu[cat.id];
+          const featured = items[cat.photo] || items[0];
+          return (
+            <section
+              key={cat.id}
+              id={cat.anchor}
+              aria-labelledby={`${cat.anchor}-title`}
+              className={`${styles.menuChapter} ${cat.id === "evening" ? styles.darkChapter : ""}`}
+            >
+              <div className="editorial-container">
+                <div className={styles.chapterHeading}>
+                  <div>
+                    <p className="eyebrow">
+                      0{categories.indexOf(cat) + 1} / {cat.label}
+                    </p>
+                    <h3 id={`${cat.anchor}-title`}>{cat.title}</h3>
+                    <p className="font-devanagari">{cat.marathi}</p>
+                  </div>
+                  <span className={styles.servingTime}>{cat.time}</span>
+                </div>
+                <div
+                  className={`${styles.chapterSpread} ${index % 2 ? styles.reverseSpread : ""}`}
+                >
+                  <figure className={styles.menuPhoto}>
+                    <div className="image-frame">
+                      <ResponsiveImage
+                        src={featured.image}
+                        alt={featured.name}
+                        width={800}
+                        height={900}
+                        sizes="(max-width: 767px) 90vw, 42vw"
+                      />
+                    </div>
+                    <figcaption>
+                      <span>
+                        {featured.name}{" "}
+                        <span className="font-devanagari">
+                          / {featured.nameMarathi}
+                        </span>
+                      </span>
+                      <span>{featured.price}</span>
+                    </figcaption>
+                  </figure>
+                  <div className={styles.dishList}>
+                    {items.map((item) => (
+                      <article key={item.id} className={styles.dish}>
+                        {/* [ADDED] Every dish has a local, lazy-loaded visual alongside its name and price. */}
+                        <div className={styles.dishIdentity}>
+                          <div className={styles.dishThumbnail}>
+                            <ResponsiveImage
+                              src={item.image}
+                              alt=""
+                              sizes="(max-width: 767px) 72px, 96px"
+                              width={128}
+                              height={96}
+                            />
+                          </div>
+                          <div className={styles.dishTop}>
+                            <h4>
+                              {item.name}
+                              <span className="font-devanagari">
+                                {item.nameMarathi}
+                              </span>
+                            </h4>
+                            <span className={styles.price}>{item.price}</span>
+                          </div>
+                        </div>
+                        <p>{item.description}</p>
+                        {item.includes && (
+                          <ul className={styles.includes}>
+                            {item.includes.map((include) => (
+                              <li key={include}>{include}</li>
+                            ))}
+                          </ul>
+                        )}
+                      </article>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </section>
+          );
+        })}
+      <div className={`editorial-container section-space ${styles.artworks}`}>
+        <div className={styles.artworkHeading}>
+          <div>
+            <p className="eyebrow">From our shop</p>
+            <h3>Our original menu, up close.</h3>
+            <p className="font-devanagari">दुकानातील मूळ मेनू आणि पोस्टर्स</p>
+          </div>
+          <p>Select an artwork to view it in full size.</p>
+        </div>
+        <div className={styles.artworkGrid}>
+          {artworks.map((item) => (
+            <button
+              key={item.src}
+              type="button"
+              className={styles.artworkButton}
+              onClick={() => setArtwork(item)}
+              aria-haspopup="dialog"
+            >
+              <div className={styles.artworkThumb}>
+                <ResponsiveImage
+                  src={item.src}
+                  alt=""
+                  width={600}
+                  height={360}
+                  sizes="(max-width: 767px) 90vw, 30vw"
+                />
+              </div>
+              <span>
+                {item.label}
+                <ArrowUpRight size={18} />
+              </span>
+              <small className="font-devanagari">{item.marathi}</small>
+            </button>
+          ))}
+        </div>
+      </div>
+      <dialog
+        ref={dialog}
+        className={styles.artworkDialog}
+        aria-labelledby="artwork-title"
+        onClose={() => setArtwork(null)}
+      >
+        <div className={styles.dialogTop}>
+          <h3 id="artwork-title">{artwork?.label || "Original artwork"}</h3>
+          <button
+            type="button"
+            autoFocus
+            className={styles.closeButton}
+            aria-label="Close artwork viewer"
+            onClick={() => setArtwork(null)}
           >
-            {/* // [FIXED] Responsive sizes attribute */}
+            <X />
+          </button>
+        </div>
+        {artwork && (
+          <div className={styles.fullArtwork}>
             <Image
-              src={selectedArtwork}
-              alt="Full view original artwork"
-              fill
-              sizes="(max-width: 1024px) 95vw, 1000px"
-              className="object-contain"
+              src={artwork.src}
+              alt={`${artwork.label} — full original artwork`}
+              width={1800}
+              height={1800}
+              sizes="95vw"
+              className={styles.originalImage}
             />
           </div>
-        </div>
-      )}
-
+        )}
+        {artwork && (
+          <a
+            href={artwork.src}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-link"
+          >
+            Open original image for zoom <ArrowUpRight size={16} />
+          </a>
+        )}
+      </dialog>
     </section>
   );
 }

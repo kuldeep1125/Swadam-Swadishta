@@ -1,5 +1,6 @@
-// [ADDED] Main Home Page: Continuous interactive visual journey for Swadam Swadishta
+// [REFACTORED] Bilingual editorial home page with every original restaurant section.
 import React from "react";
+import { MotionCoordinator } from "@/components/MotionCoordinator";
 import { Navigation } from "@/components/Navigation";
 import { Hero } from "@/components/Hero";
 import { FoodMarquee } from "@/components/FoodMarquee";
@@ -20,67 +21,63 @@ import { Footer } from "@/components/Footer";
 import { FloatingCTA } from "@/components/FloatingCTA";
 
 export default function Home() {
-  // [FIXED] Updated bottom padding to pb-24 sm:pb-28 lg:pb-0 for complete clearance above mobile bottom sticky bar
   // [ADDED] Accessible landmark id="main-content" and role="main" for WCAG compliance
   return (
-    <main
-      id="main-content"
-      role="main"
-      className="min-h-screen flex flex-col bg-cream-bg selection:bg-saffron-500 selection:text-white pb-24 sm:pb-28 lg:pb-0"
-    >
-      {/* Morphing Sticky Glass Navigation */}
+    <>
       <Navigation />
+      <MotionCoordinator />
+      <main id="main-content" role="main" className="min-h-screen">
+        {/* Photo-led welcome and menu / directions actions */}
+        <Hero />
 
-      {/* Hero: The Living Maharashtrian Food Poster */}
-      <Hero />
+        {/* Pausable food marquee */}
+        <FoodMarquee />
 
-      {/* Dynamic Direction-Sensitive Food Marquee */}
-      <FoodMarquee />
+        {/* Editorial Introduction: "Some food reminds you of home." */}
+        <EditorialIntro />
 
-      {/* Editorial Introduction: "Some food reminds you of home." */}
-      <EditorialIntro />
+        {/* Signature Menu Experience: Breakfast -> Lunch Thali -> Evening Snacks */}
+        <SignatureMenu />
 
-      {/* Signature Menu Experience: Breakfast -> Lunch Thali -> Evening Snacks */}
-      <SignatureMenu />
+        {/* Today's Craving / Featured Dish */}
+        <FeaturedDish />
 
-      {/* Today's Craving / Featured Dish */}
-      <FeaturedDish />
+        {/* Cinematic Food Showcase: "Made to make you hungry." */}
+        <FoodShowcase />
 
-      {/* Cinematic Food Showcase: "Made to make you hungry." */}
-      <FoodShowcase />
+        {/* Configured daily service windows */}
+        <WeAreOpen />
 
-      {/* "WE ARE OPEN" Moment: Direct translation of authentic storefront promotional artwork */}
-      <WeAreOpen />
+        {/* Authentic Storefront: Shop No. 5, 34 Western Pavilion, Baner, Pune */}
+        <StorefrontSection />
 
-      {/* Authentic Storefront: Shop No. 5, 34 Western Pavilion, Baner, Pune */}
-      <StorefrontSection />
+        {/* Interactive restaurant values */}
+        <SwadamExperience />
 
-      {/* The Swadam Experience: Giant Typographic Rhythm */}
-      <SwadamExperience />
+        {/* Five-chapter interactive story with native scrolling */}
+        <StickyStory />
 
-      {/* Sticky Story: Full-screen Pinned Visual Sequence */}
-      <StickyStory />
+        {/* Bulk Orders CTA Section */}
+        <BulkOrders />
 
-      {/* Bulk Orders CTA Section */}
-      <BulkOrders />
+        {/* Google Maps reviews destination */}
+        <ReviewsSection />
 
-      {/* Verified Google Reviews & Trust */}
-      <ReviewsSection />
+        {/* Social / Instagram Showcase: @swadamswadishta */}
+        <SocialSection />
 
-      {/* Social / Instagram Showcase: @swadamswadishta */}
-      <SocialSection />
+        {/* Visit details and lazy-loaded Google map */}
+        <LocationSection />
 
-      {/* Location & Custom Stylized SVG Map */}
-      <LocationSection />
+        {/* Contact & Enquiry Form */}
+        <EnquirySection />
 
-      {/* Contact & Enquiry Form */}
-      <EnquirySection />
+        {/* Final High-Impact CTA & Substantial Footer */}
+        <Footer />
 
-      {/* Final High-Impact CTA & Substantial Footer */}
-      <Footer />
-
-      {/* Floating Magnetic CTA (Desktop) & Sticky Bottom Bar (Mobile) */}
-      <FloatingCTA />
-    </main>
+        {/* Compact mobile menu and directions actions */}
+        <FloatingCTA />
+      </main>
+    </>
   );
 }

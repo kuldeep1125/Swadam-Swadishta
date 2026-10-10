@@ -1,0 +1,1708 @@
+{
+  "/images/badge_quick.png": {
+    "width": 120,
+    "height": 140,
+    "variants": [
+      {
+        "src": "/images/optimized/badge_quick-png-120.webp",
+        "width": 120
+      }
+    ]
+  },
+  "/images/badge_tasty.png": {
+    "width": 120,
+    "height": 140,
+    "variants": [
+      {
+        "src": "/images/optimized/badge_tasty-png-120.webp",
+        "width": 120
+      }
+    ]
+  },
+  "/images/badge_warm.png": {
+    "width": 135,
+    "height": 140,
+    "variants": [
+      {
+        "src": "/images/optimized/badge_warm-png-135.webp",
+        "width": 135
+      }
+    ]
+  },
+  "/images/banner_logo.png": {
+    "width": 285,
+    "height": 235,
+    "variants": [
+      {
+        "src": "/images/optimized/banner_logo-png-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/banner_logo-png-285.webp",
+        "width": 285
+      }
+    ]
+  },
+  "/images/banner_misal.png": {
+    "width": 257,
+    "height": 126,
+    "variants": [
+      {
+        "src": "/images/optimized/banner_misal-png-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/banner_misal-png-257.webp",
+        "width": 257
+      }
+    ]
+  },
+  "/images/banner_misal_clean.png": {
+    "width": 257,
+    "height": 126,
+    "variants": [
+      {
+        "src": "/images/optimized/banner_misal_clean-png-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/banner_misal_clean-png-257.webp",
+        "width": 257
+      }
+    ]
+  },
+  "/images/banner_original.png": {
+    "width": 1024,
+    "height": 350,
+    "variants": [
+      {
+        "src": "/images/optimized/banner_original-png-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/banner_original-png-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/banner_original-png-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/optimized/banner_original-png-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/optimized/banner_original-png-1024.webp",
+        "width": 1024
+      }
+    ]
+  },
+  "/images/banner_poha.png": {
+    "width": 172,
+    "height": 100,
+    "variants": [
+      {
+        "src": "/images/optimized/banner_poha-png-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/banner_poha-png-172.webp",
+        "width": 172
+      }
+    ]
+  },
+  "/images/banner_sabudana.png": {
+    "width": 169,
+    "height": 100,
+    "variants": [
+      {
+        "src": "/images/optimized/banner_sabudana-png-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/banner_sabudana-png-169.webp",
+        "width": 169
+      }
+    ]
+  },
+  "/images/banner_sheera.png": {
+    "width": 168,
+    "height": 100,
+    "variants": [
+      {
+        "src": "/images/optimized/banner_sheera-png-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/banner_sheera-png-168.webp",
+        "width": 168
+      }
+    ]
+  },
+  "/images/banner_tea.png": {
+    "width": 147,
+    "height": 128,
+    "variants": [
+      {
+        "src": "/images/optimized/banner_tea-png-147.webp",
+        "width": 147
+      }
+    ]
+  },
+  "/images/banner_thali.png": {
+    "width": 167,
+    "height": 128,
+    "variants": [
+      {
+        "src": "/images/optimized/banner_thali-png-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/banner_thali-png-167.webp",
+        "width": 167
+      }
+    ]
+  },
+  "/images/banner_upma.png": {
+    "width": 168,
+    "height": 100,
+    "variants": [
+      {
+        "src": "/images/optimized/banner_upma-png-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/banner_upma-png-168.webp",
+        "width": 168
+      }
+    ]
+  },
+  "/images/batata_bhaji.jpg": {
+    "width": 100,
+    "height": 95,
+    "variants": [
+      {
+        "src": "/images/optimized/batata_bhaji-jpg-100.webp",
+        "width": 100
+      }
+    ]
+  },
+  "/images/bread_pattice.jpg": {
+    "width": 154,
+    "height": 89,
+    "variants": [
+      {
+        "src": "/images/optimized/bread_pattice-jpg-154.webp",
+        "width": 154
+      }
+    ]
+  },
+  "/images/hd_alu_wadi.jpg": {
+    "width": 1200,
+    "height": 900,
+    "variants": [
+      {
+        "src": "/images/optimized/hd_alu_wadi-jpg-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/hd_alu_wadi-jpg-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/hd_alu_wadi-jpg-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/optimized/hd_alu_wadi-jpg-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/optimized/hd_alu_wadi-jpg-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/hd_batata_bhaji.jpg": {
+    "width": 1200,
+    "height": 900,
+    "variants": [
+      {
+        "src": "/images/optimized/hd_batata_bhaji-jpg-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/hd_batata_bhaji-jpg-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/hd_batata_bhaji-jpg-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/optimized/hd_batata_bhaji-jpg-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/optimized/hd_batata_bhaji-jpg-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/hd_bread_pattice.jpg": {
+    "width": 1200,
+    "height": 900,
+    "variants": [
+      {
+        "src": "/images/optimized/hd_bread_pattice-jpg-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/hd_bread_pattice-jpg-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/hd_bread_pattice-jpg-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/optimized/hd_bread_pattice-jpg-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/optimized/hd_bread_pattice-jpg-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/hd_kanda_bhaji.jpg": {
+    "width": 1200,
+    "height": 900,
+    "variants": [
+      {
+        "src": "/images/optimized/hd_kanda_bhaji-jpg-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/hd_kanda_bhaji-jpg-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/hd_kanda_bhaji-jpg-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/optimized/hd_kanda_bhaji-jpg-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/optimized/hd_kanda_bhaji-jpg-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/hd_kat_vada.jpg": {
+    "width": 1200,
+    "height": 900,
+    "variants": [
+      {
+        "src": "/images/optimized/hd_kat_vada-jpg-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/hd_kat_vada-jpg-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/hd_kat_vada-jpg-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/optimized/hd_kat_vada-jpg-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/optimized/hd_kat_vada-jpg-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/hd_kothimbir_wadi.jpg": {
+    "width": 1200,
+    "height": 900,
+    "variants": [
+      {
+        "src": "/images/optimized/hd_kothimbir_wadi-jpg-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/hd_kothimbir_wadi-jpg-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/hd_kothimbir_wadi-jpg-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/optimized/hd_kothimbir_wadi-jpg-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/optimized/hd_kothimbir_wadi-jpg-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/hd_lunch_thali.jpg": {
+    "width": 1200,
+    "height": 896,
+    "variants": [
+      {
+        "src": "/images/optimized/hd_lunch_thali-jpg-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/hd_lunch_thali-jpg-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/hd_lunch_thali-jpg-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/optimized/hd_lunch_thali-jpg-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/optimized/hd_lunch_thali-jpg-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/hd_lunch_thali_sweet.jpg": {
+    "width": 1200,
+    "height": 900,
+    "variants": [
+      {
+        "src": "/images/optimized/hd_lunch_thali_sweet-jpg-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/hd_lunch_thali_sweet-jpg-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/hd_lunch_thali_sweet-jpg-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/optimized/hd_lunch_thali_sweet-jpg-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/optimized/hd_lunch_thali_sweet-jpg-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/hd_masala_taak.jpg": {
+    "width": 1200,
+    "height": 900,
+    "variants": [
+      {
+        "src": "/images/optimized/hd_masala_taak-jpg-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/hd_masala_taak-jpg-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/hd_masala_taak-jpg-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/optimized/hd_masala_taak-jpg-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/optimized/hd_masala_taak-jpg-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/hd_misal_pav.jpg": {
+    "width": 1200,
+    "height": 896,
+    "variants": [
+      {
+        "src": "/images/optimized/hd_misal_pav-jpg-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/hd_misal_pav-jpg-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/hd_misal_pav-jpg-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/optimized/hd_misal_pav-jpg-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/optimized/hd_misal_pav-jpg-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/hd_modak.jpg": {
+    "width": 1200,
+    "height": 900,
+    "variants": [
+      {
+        "src": "/images/optimized/hd_modak-jpg-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/hd_modak-jpg-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/hd_modak-jpg-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/optimized/hd_modak-jpg-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/optimized/hd_modak-jpg-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/hd_moong_bhaji.jpg": {
+    "width": 1200,
+    "height": 900,
+    "variants": [
+      {
+        "src": "/images/optimized/hd_moong_bhaji-jpg-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/hd_moong_bhaji-jpg-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/hd_moong_bhaji-jpg-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/optimized/hd_moong_bhaji-jpg-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/optimized/hd_moong_bhaji-jpg-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/hd_poha_plate.jpg": {
+    "width": 1200,
+    "height": 896,
+    "variants": [
+      {
+        "src": "/images/optimized/hd_poha_plate-jpg-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/hd_poha_plate-jpg-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/hd_poha_plate-jpg-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/optimized/hd_poha_plate-jpg-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/optimized/hd_poha_plate-jpg-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/hd_sabudana_khichadi.jpg": {
+    "width": 1200,
+    "height": 900,
+    "variants": [
+      {
+        "src": "/images/optimized/hd_sabudana_khichadi-jpg-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/hd_sabudana_khichadi-jpg-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/hd_sabudana_khichadi-jpg-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/optimized/hd_sabudana_khichadi-jpg-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/optimized/hd_sabudana_khichadi-jpg-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/hd_sabudana_vada.jpg": {
+    "width": 1200,
+    "height": 900,
+    "variants": [
+      {
+        "src": "/images/optimized/hd_sabudana_vada-jpg-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/hd_sabudana_vada-jpg-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/hd_sabudana_vada-jpg-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/optimized/hd_sabudana_vada-jpg-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/optimized/hd_sabudana_vada-jpg-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/hd_sheera.jpg": {
+    "width": 1200,
+    "height": 900,
+    "variants": [
+      {
+        "src": "/images/optimized/hd_sheera-jpg-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/hd_sheera-jpg-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/hd_sheera-jpg-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/optimized/hd_sheera-jpg-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/optimized/hd_sheera-jpg-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/hd_solkadi.jpg": {
+    "width": 1200,
+    "height": 900,
+    "variants": [
+      {
+        "src": "/images/optimized/hd_solkadi-jpg-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/hd_solkadi-jpg-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/hd_solkadi-jpg-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/optimized/hd_solkadi-jpg-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/optimized/hd_solkadi-jpg-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/hd_storefront_counter.jpg": {
+    "width": 1200,
+    "height": 896,
+    "variants": [
+      {
+        "src": "/images/optimized/hd_storefront_counter-jpg-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/hd_storefront_counter-jpg-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/hd_storefront_counter-jpg-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/optimized/hd_storefront_counter-jpg-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/optimized/hd_storefront_counter-jpg-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/hd_storefront_street.jpg": {
+    "width": 1200,
+    "height": 896,
+    "variants": [
+      {
+        "src": "/images/optimized/hd_storefront_street-jpg-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/hd_storefront_street-jpg-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/hd_storefront_street-jpg-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/optimized/hd_storefront_street-jpg-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/optimized/hd_storefront_street-jpg-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/hd_sweet_bowl.jpg": {
+    "width": 222,
+    "height": 162,
+    "variants": [
+      {
+        "src": "/images/optimized/hd_sweet_bowl-jpg-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/hd_sweet_bowl-jpg-222.webp",
+        "width": 222
+      }
+    ]
+  },
+  "/images/hd_tea.jpg": {
+    "width": 1200,
+    "height": 900,
+    "variants": [
+      {
+        "src": "/images/optimized/hd_tea-jpg-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/hd_tea-jpg-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/hd_tea-jpg-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/optimized/hd_tea-jpg-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/optimized/hd_tea-jpg-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/hd_tea.png": {
+    "width": 294,
+    "height": 256,
+    "variants": [
+      {
+        "src": "/images/optimized/hd_tea-png-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/hd_tea-png-294.webp",
+        "width": 294
+      }
+    ]
+  },
+  "/images/hd_thalipeeth.jpg": {
+    "width": 1200,
+    "height": 900,
+    "variants": [
+      {
+        "src": "/images/optimized/hd_thalipeeth-jpg-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/hd_thalipeeth-jpg-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/hd_thalipeeth-jpg-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/optimized/hd_thalipeeth-jpg-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/optimized/hd_thalipeeth-jpg-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/hd_upma.jpg": {
+    "width": 1200,
+    "height": 900,
+    "variants": [
+      {
+        "src": "/images/optimized/hd_upma-jpg-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/hd_upma-jpg-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/hd_upma-jpg-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/optimized/hd_upma-jpg-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/optimized/hd_upma-jpg-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/hd_wada_pav.jpg": {
+    "width": 1200,
+    "height": 900,
+    "variants": [
+      {
+        "src": "/images/optimized/hd_wada_pav-jpg-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/hd_wada_pav-jpg-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/hd_wada_pav-jpg-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/optimized/hd_wada_pav-jpg-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/optimized/hd_wada_pav-jpg-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/kanda_bhaji.jpg": {
+    "width": 100,
+    "height": 95,
+    "variants": [
+      {
+        "src": "/images/optimized/kanda_bhaji-jpg-100.webp",
+        "width": 100
+      }
+    ]
+  },
+  "/images/logo.png": {
+    "width": 290,
+    "height": 240,
+    "variants": [
+      {
+        "src": "/images/optimized/logo-png-96.webp",
+        "width": 96
+      },
+      {
+        "src": "/images/optimized/logo-png-290.webp",
+        "width": 290
+      }
+    ]
+  },
+  "/images/lunch_sweet.jpg": {
+    "width": 74,
+    "height": 54,
+    "variants": [
+      {
+        "src": "/images/optimized/lunch_sweet-jpg-74.webp",
+        "width": 74
+      }
+    ]
+  },
+  "/images/lunch_thali.jpg": {
+    "width": 287,
+    "height": 162,
+    "variants": [
+      {
+        "src": "/images/optimized/lunch_thali-jpg-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/lunch_thali-jpg-287.webp",
+        "width": 287
+      }
+    ]
+  },
+  "/images/menu_flyer_vertical.png": {
+    "width": 682,
+    "height": 1024,
+    "variants": [
+      {
+        "src": "/images/optimized/menu_flyer_vertical-png-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/menu_flyer_vertical-png-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/menu_flyer_vertical-png-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/optimized/menu_flyer_vertical-png-682.webp",
+        "width": 682
+      }
+    ]
+  },
+  "/images/menu_original.jpg": {
+    "width": 1024,
+    "height": 682,
+    "variants": [
+      {
+        "src": "/images/optimized/menu_original-jpg-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/menu_original-jpg-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/menu_original-jpg-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/optimized/menu_original-jpg-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/optimized/menu_original-jpg-1024.webp",
+        "width": 1024
+      }
+    ]
+  },
+  "/images/misal_clay_bowl.png": {
+    "width": 165,
+    "height": 135,
+    "variants": [
+      {
+        "src": "/images/optimized/misal_clay_bowl-png-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/misal_clay_bowl-png-165.webp",
+        "width": 165
+      }
+    ]
+  },
+  "/images/misal_pav.jpg": {
+    "width": 163,
+    "height": 98,
+    "variants": [
+      {
+        "src": "/images/optimized/misal_pav-jpg-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/misal_pav-jpg-163.webp",
+        "width": 163
+      }
+    ]
+  },
+  "/images/moong_bhaji.jpg": {
+    "width": 148,
+    "height": 89,
+    "variants": [
+      {
+        "src": "/images/optimized/moong_bhaji-jpg-148.webp",
+        "width": 148
+      }
+    ]
+  },
+  "/images/poha.jpg": {
+    "width": 104,
+    "height": 98,
+    "variants": [
+      {
+        "src": "/images/optimized/poha-jpg-104.webp",
+        "width": 104
+      }
+    ]
+  },
+  "/images/poha_plate.png": {
+    "width": 185,
+    "height": 130,
+    "variants": [
+      {
+        "src": "/images/optimized/poha_plate-png-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/poha_plate-png-185.webp",
+        "width": 185
+      }
+    ]
+  },
+  "/images/poster_original.jpg": {
+    "width": 1020,
+    "height": 1020,
+    "variants": [
+      {
+        "src": "/images/optimized/poster_original-jpg-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/poster_original-jpg-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/poster_original-jpg-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/optimized/poster_original-jpg-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/optimized/poster_original-jpg-1020.webp",
+        "width": 1020
+      }
+    ]
+  },
+  "/images/premium_alu_wadi.png": {
+    "width": 1536,
+    "height": 1024,
+    "variants": [
+      {
+        "src": "/images/optimized/premium_alu_wadi-png-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/premium_alu_wadi-png-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/premium_alu_wadi-png-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/optimized/premium_alu_wadi-png-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/optimized/premium_alu_wadi-png-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/premium_batata_bhaji.png": {
+    "width": 1536,
+    "height": 1024,
+    "variants": [
+      {
+        "src": "/images/optimized/premium_batata_bhaji-png-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/premium_batata_bhaji-png-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/premium_batata_bhaji-png-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/optimized/premium_batata_bhaji-png-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/optimized/premium_batata_bhaji-png-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/premium_bread_pattice.png": {
+    "width": 1536,
+    "height": 1024,
+    "variants": [
+      {
+        "src": "/images/optimized/premium_bread_pattice-png-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/premium_bread_pattice-png-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/premium_bread_pattice-png-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/optimized/premium_bread_pattice-png-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/optimized/premium_bread_pattice-png-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/premium_hero_thali.png": {
+    "width": 1254,
+    "height": 1254,
+    "variants": [
+      {
+        "src": "/images/optimized/premium_hero_thali-png-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/premium_hero_thali-png-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/premium_hero_thali-png-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/optimized/premium_hero_thali-png-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/optimized/premium_hero_thali-png-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/premium_kanda_bhaji.png": {
+    "width": 1536,
+    "height": 1024,
+    "variants": [
+      {
+        "src": "/images/optimized/premium_kanda_bhaji-png-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/premium_kanda_bhaji-png-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/premium_kanda_bhaji-png-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/optimized/premium_kanda_bhaji-png-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/optimized/premium_kanda_bhaji-png-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/premium_kat_vada.png": {
+    "width": 1536,
+    "height": 1024,
+    "variants": [
+      {
+        "src": "/images/optimized/premium_kat_vada-png-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/premium_kat_vada-png-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/premium_kat_vada-png-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/optimized/premium_kat_vada-png-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/optimized/premium_kat_vada-png-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/premium_kothimbir_wadi.png": {
+    "width": 1536,
+    "height": 1024,
+    "variants": [
+      {
+        "src": "/images/optimized/premium_kothimbir_wadi-png-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/premium_kothimbir_wadi-png-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/premium_kothimbir_wadi-png-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/optimized/premium_kothimbir_wadi-png-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/optimized/premium_kothimbir_wadi-png-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/premium_lunch_thali.png": {
+    "width": 1536,
+    "height": 1024,
+    "variants": [
+      {
+        "src": "/images/optimized/premium_lunch_thali-png-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/premium_lunch_thali-png-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/premium_lunch_thali-png-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/optimized/premium_lunch_thali-png-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/optimized/premium_lunch_thali-png-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/premium_lunch_thali_sweet.png": {
+    "width": 1536,
+    "height": 1024,
+    "variants": [
+      {
+        "src": "/images/optimized/premium_lunch_thali_sweet-png-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/premium_lunch_thali_sweet-png-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/premium_lunch_thali_sweet-png-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/optimized/premium_lunch_thali_sweet-png-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/optimized/premium_lunch_thali_sweet-png-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/premium_masala_taak.png": {
+    "width": 1536,
+    "height": 1024,
+    "variants": [
+      {
+        "src": "/images/optimized/premium_masala_taak-png-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/premium_masala_taak-png-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/premium_masala_taak-png-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/optimized/premium_masala_taak-png-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/optimized/premium_masala_taak-png-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/premium_modak.png": {
+    "width": 1536,
+    "height": 1024,
+    "variants": [
+      {
+        "src": "/images/optimized/premium_modak-png-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/premium_modak-png-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/premium_modak-png-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/optimized/premium_modak-png-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/optimized/premium_modak-png-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/premium_moong_bhaji.png": {
+    "width": 1536,
+    "height": 1024,
+    "variants": [
+      {
+        "src": "/images/optimized/premium_moong_bhaji-png-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/premium_moong_bhaji-png-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/premium_moong_bhaji-png-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/optimized/premium_moong_bhaji-png-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/optimized/premium_moong_bhaji-png-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/premium_sabudana_khichadi.png": {
+    "width": 1536,
+    "height": 1024,
+    "variants": [
+      {
+        "src": "/images/optimized/premium_sabudana_khichadi-png-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/premium_sabudana_khichadi-png-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/premium_sabudana_khichadi-png-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/optimized/premium_sabudana_khichadi-png-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/optimized/premium_sabudana_khichadi-png-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/premium_sabudana_vada.png": {
+    "width": 1536,
+    "height": 1024,
+    "variants": [
+      {
+        "src": "/images/optimized/premium_sabudana_vada-png-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/premium_sabudana_vada-png-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/premium_sabudana_vada-png-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/optimized/premium_sabudana_vada-png-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/optimized/premium_sabudana_vada-png-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/premium_sheera.png": {
+    "width": 1536,
+    "height": 1024,
+    "variants": [
+      {
+        "src": "/images/optimized/premium_sheera-png-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/premium_sheera-png-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/premium_sheera-png-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/optimized/premium_sheera-png-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/optimized/premium_sheera-png-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/premium_solkadi.png": {
+    "width": 1536,
+    "height": 1024,
+    "variants": [
+      {
+        "src": "/images/optimized/premium_solkadi-png-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/premium_solkadi-png-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/premium_solkadi-png-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/optimized/premium_solkadi-png-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/optimized/premium_solkadi-png-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/premium_tea.png": {
+    "width": 1536,
+    "height": 1024,
+    "variants": [
+      {
+        "src": "/images/optimized/premium_tea-png-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/premium_tea-png-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/premium_tea-png-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/optimized/premium_tea-png-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/optimized/premium_tea-png-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/premium_thalipeeth.png": {
+    "width": 1536,
+    "height": 1024,
+    "variants": [
+      {
+        "src": "/images/optimized/premium_thalipeeth-png-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/premium_thalipeeth-png-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/premium_thalipeeth-png-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/optimized/premium_thalipeeth-png-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/optimized/premium_thalipeeth-png-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/premium_upma.png": {
+    "width": 1536,
+    "height": 1024,
+    "variants": [
+      {
+        "src": "/images/optimized/premium_upma-png-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/premium_upma-png-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/premium_upma-png-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/optimized/premium_upma-png-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/optimized/premium_upma-png-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/premium_wada_pav.png": {
+    "width": 1536,
+    "height": 1024,
+    "variants": [
+      {
+        "src": "/images/optimized/premium_wada_pav-png-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/premium_wada_pav-png-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/premium_wada_pav-png-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/optimized/premium_wada_pav-png-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/optimized/premium_wada_pav-png-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/real_storefront_street.png": {
+    "width": 1200,
+    "height": 896,
+    "variants": [
+      {
+        "src": "/images/optimized/real_storefront_street-png-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/real_storefront_street-png-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/real_storefront_street-png-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/optimized/real_storefront_street-png-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/optimized/real_storefront_street-png-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/sabudana_khichadi.jpg": {
+    "width": 152,
+    "height": 98,
+    "variants": [
+      {
+        "src": "/images/optimized/sabudana_khichadi-jpg-152.webp",
+        "width": 152
+      }
+    ]
+  },
+  "/images/sheera.jpg": {
+    "width": 104,
+    "height": 98,
+    "variants": [
+      {
+        "src": "/images/optimized/sheera-jpg-104.webp",
+        "width": 104
+      }
+    ]
+  },
+  "/images/storefront.jpg": {
+    "width": 1200,
+    "height": 896,
+    "variants": [
+      {
+        "src": "/images/optimized/storefront-jpg-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/storefront-jpg-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/storefront-jpg-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/optimized/storefront-jpg-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/optimized/storefront-jpg-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/storefront_entrance.jpg": {
+    "width": 1200,
+    "height": 896,
+    "variants": [
+      {
+        "src": "/images/optimized/storefront_entrance-jpg-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/storefront_entrance-jpg-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/storefront_entrance-jpg-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/optimized/storefront_entrance-jpg-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/optimized/storefront_entrance-jpg-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/tagline_marathi.png": {
+    "width": 380,
+    "height": 110,
+    "variants": [
+      {
+        "src": "/images/optimized/tagline_marathi-png-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/tagline_marathi-png-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/tagline_marathi-png-380.webp",
+        "width": 380
+      }
+    ]
+  },
+  "/images/thali_plate.png": {
+    "width": 190,
+    "height": 140,
+    "variants": [
+      {
+        "src": "/images/optimized/thali_plate-png-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/thali_plate-png-190.webp",
+        "width": 190
+      }
+    ]
+  },
+  "/images/upma.jpg": {
+    "width": 104,
+    "height": 98,
+    "variants": [
+      {
+        "src": "/images/optimized/upma-jpg-104.webp",
+        "width": 104
+      }
+    ]
+  },
+  "/images/vada_pav_sketch.png": {
+    "width": 155,
+    "height": 130,
+    "variants": [
+      {
+        "src": "/images/optimized/vada_pav_sketch-png-155.webp",
+        "width": 155
+      }
+    ]
+  },
+  "/images/wada_pav.jpg": {
+    "width": 100,
+    "height": 95,
+    "variants": [
+      {
+        "src": "/images/optimized/wada_pav-jpg-100.webp",
+        "width": 100
+      }
+    ]
+  },
+  "/images/we_are_open_badge.png": {
+    "width": 425,
+    "height": 275,
+    "variants": [
+      {
+        "src": "/images/optimized/we_are_open_badge-png-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/optimized/we_are_open_badge-png-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/images/optimized/we_are_open_badge-png-425.webp",
+        "width": 425
+      }
+    ]
+  }
+}

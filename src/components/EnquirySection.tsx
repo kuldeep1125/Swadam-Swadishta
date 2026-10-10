@@ -1,13 +1,16 @@
 "use client";
-
-// [ADDED] Contact & Enquiry Form: Client-only form generating pre-formatted WhatsApp & mailto links with order confirmation disclaimer
-import React, { useState } from "react";
+import { useRef, useState } from "react";
+import { ArrowUpRight, Mail, MessageCircle } from "lucide-react";
 import { restaurant } from "@/config/restaurant";
-import { BrushUnderline } from "@/components/BrandMotifs";
-import { Send, MessageCircle, AlertCircle, CheckCircle2 } from "lucide-react"; // [ADDED] CheckCircle2 for enquiry feedback
+import { createEnquiryLinks } from "@/lib/enquiry-links";
+import styles from "./Interactive.module.css";
 
+// [FIXED] Prepare a complete plaintext message; visitors send it in their chosen app.
 export function EnquirySection() {
-  const [formData, setFormData] = useState({
+  const form = useRef<HTMLFormElement>(null);
+  const [feedback, setFeedback] = useState("");
+  const [error, setError] = useState("");
+  const [data, setData] = useState({
     name: "",
     phone: "",
     email: "",
@@ -15,206 +18,192 @@ export function EnquirySection() {
     date: "",
     message: "",
   });
-  const [submittedMethod, setSubmittedMethod] = useState<"whatsapp" | "email" | null>(null);
-
-  const handleSubmit = (method: "whatsapp" | "email", e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmittedMethod(method);
-
-    const textPayload = `Namaskar Swadam Swadishta!%0A%0A*Name:* ${encodeURIComponent(formData.name)}%0A*Phone:* ${encodeURIComponent(formData.phone)}%0A*Email:* ${encodeURIComponent(formData.email || "N/A")}%0A*Type:* ${encodeURIComponent(formData.enquiryType)}%0A*Preferred Date:* ${encodeURIComponent(formData.date || "Immediate")}%0A*Message:* ${encodeURIComponent(formData.message || "I would like to enquire about your menu / bulk orders.")}`;
-
-    if (method === "whatsapp") {
-      const url = `https://wa.me/${restaurant.whatsappNumber}?text=${textPayload}`;
-      window.open(url, "_blank");
-    } else {
-      // [FIXED] Using centralized restaurant.email from config
-      const mailtoUrl = `mailto:${restaurant.email}?subject=${encodeURIComponent(`Enquiry: ${formData.enquiryType} from ${formData.name}`)}&body=${textPayload.replaceAll("%0A", "\n")}`;
-      window.location.href = mailtoUrl;
-    }
+  const update = (key: keyof typeof data, value: string) => {
+    setData((previous) => ({ ...previous, [key]: value }));
+    setFeedback("");
+    setError("");
   };
-
+  const handoff = (method: "whatsapp" | "email") => {
+    if (!form.current?.reportValidity()) return;
+    if (!data.name.trim()) {
+      setError("Please enter your name. / कृपया आपले नाव लिहा.");
+      document.getElementById("enquiry-name")?.focus();
+      return;
+    }
+    if (data.phone.replace(/\D/g, "").length < 7) {
+      setError(
+        "Please enter a valid phone number. / कृपया योग्य मोबाईल नंबर लिहा.",
+      );
+      document.getElementById("enquiry-phone")?.focus();
+      return;
+    }
+    // [FIXED] Both destination URLs use the shared, regression-tested encoder.
+    const links = createEnquiryLinks(data, restaurant);
+    if (method === "whatsapp")
+      window.open(links.whatsapp, "_blank", "noopener,noreferrer");
+    else window.location.href = links.email;
+    setFeedback(
+      `Your message is ready. Complete sending in ${method === "whatsapp" ? "WhatsApp" : "your email app"}. If the app did not open, use the contact links here. Your enquiry has not been sent by this website. / संदेश तयार आहे. कृपया आपल्या अॅपमधून पाठवा.`,
+    );
+  };
   return (
-    // [FIXED] M-1: Added scroll-mt-20 for smooth scroll margin
-    <section id="enquiry" className="relative py-20 sm:py-28 px-4 sm:px-8 md:px-12 bg-cream-100 overflow-hidden scroll-mt-20" aria-label="Customer Enquiry Form">
-      
-      <div className="mx-auto max-w-4xl">
-        
-        {/* Header */}
-        <div className="text-center space-y-3 mb-12">
-          {/* [ADDED] Bilingual eyebrow tag */}
-          <span className="text-xs font-mono font-bold tracking-widest text-saffron-600 uppercase">
-            CONNECT WITH US • आमच्याशी संपर्क साधा
-          </span>
-          {/* [FIXED] Fluid typography for Enquiry heading with Marathi subtitle */}
-          <h2 className="font-display text-3xl xs:text-4xl sm:text-5xl font-black text-brown-900 tracking-tight">
-            Send an Enquiry.
+    <section
+      id="enquiry"
+      className="section-space"
+      aria-labelledby="enquiry-title"
+    >
+      <div className={`editorial-container ${styles.enquiryLayout}`}>
+        <div className={styles.enquiryIntro}>
+          <p className="eyebrow">A conversation starts here</p>
+          <h2 id="enquiry-title" className="section-title">
+            Tell us what
+            <br />
+            you have in mind.
           </h2>
-          <span className="font-devanagari text-lg sm:text-2xl font-bold text-brandGreen-700 block">
-            विचारपूस करा किंवा माहिती मिळवा
-          </span>
-          <div className="w-28 mx-auto">
-            <BrushUnderline className="w-full h-3 text-turmeric-gold" />
-          </div>
-          <p className="text-sm sm:text-base text-brown-700 font-sans max-w-xl mx-auto">
-            Have a question about our menu, special dietary requirements, or planning a bulk breakfast/lunch order in Baner? Reach out below. (आमचा मेनू, बल्क ऑर्डर्स किंवा इतर कोणत्याही चौकशीसाठी येथे संपर्क साधा.)
+          <p className={`font-devanagari ${styles.marathiSubtitle}`}>
+            आमच्याशी संपर्क साधा.
+          </p>
+          <p>
+            A question about the menu, dietary needs, or food for a gathering?
+            We&apos;re happy to help.
+          </p>
+          <a
+            href={`tel:${restaurant.phoneRaw}`}
+            className={styles.contactPhone}
+          >
+            {restaurant.phone}
+            <ArrowUpRight size={20} />
+          </a>
+          <a
+            href={`mailto:${restaurant.email}`}
+            className={styles.contactEmail}
+          >
+            {restaurant.email}
+          </a>
+          <p className={styles.enquiryNote}>
+            For bulk orders, please contact us in advance. Kitchen availability
+            and order details are confirmed directly with our team.
           </p>
         </div>
-
-        {/* [FIXED] Form Container padding adjusted to p-4 on small phones */}
-        <div className="rounded-3xl p-4 xs:p-6 sm:p-10 bg-white border-2 border-turmeric-400/60 shadow-xl">
-          <form
-            className="space-y-6"
-            onSubmit={(e) => {
-              if (formData.name && formData.phone) {
-                handleSubmit("whatsapp", e);
-              } else {
-                e.preventDefault();
-              }
-            }}
-          >
-            
-            {/* [ADDED] Submission feedback alert */}
-            {submittedMethod && (
-              <div className="p-4 rounded-xl bg-brandGreen-50 border border-brandGreen-500/40 text-brandGreen-900 flex items-center gap-3 animate-in fade-in duration-300">
-                <CheckCircle2 className="w-5 h-5 text-brandGreen-700 flex-shrink-0" />
-                <div className="text-xs sm:text-sm">
-                  <strong className="block font-bold">Enquiry Prepared! (चौकशी संदेश तयार केला!)</strong>
-                  Your details have been pre-filled for {submittedMethod === "whatsapp" ? "WhatsApp" : "Email"}. Our team will verify and connect with you shortly.
-                </div>
-              </div>
-            )}
-
-            {/* Grid 1: Name and Phone */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              <div>
-                <label htmlFor="enquiry-name" className="block text-xs font-bold uppercase tracking-wider text-brown-800 mb-1.5 font-sans">
-                  Your Full Name / पूर्ण नाव *
-                </label>
-                {/* [FIXED] C-4: text-base on mobile prevents iOS Safari auto-zoom, sm:text-sm on larger screens */}
-                <input
-                  id="enquiry-name"
-                  type="text"
-                  required
-                  placeholder="e.g. Rahul Deshmukh"
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl border border-turmeric-400/60 bg-cream-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-saffron-500 text-base sm:text-sm text-brown-900"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="enquiry-phone" className="block text-xs font-bold uppercase tracking-wider text-brown-800 mb-1.5 font-sans">
-                  Phone Number / मोबाईल नंबर *
-                </label>
-                <input
-                  id="enquiry-phone"
-                  type="tel"
-                  required
-                  placeholder="+91 98765 43210"
-                  value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl border border-turmeric-400/60 bg-cream-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-saffron-500 text-base sm:text-sm text-brown-900"
-                />
-              </div>
-            </div>
-
-            {/* Grid 2: Email and Enquiry Type */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              <div>
-                <label htmlFor="enquiry-email" className="block text-xs font-bold uppercase tracking-wider text-brown-800 mb-1.5 font-sans">
-                  Email Address / ईमेल (Optional / ऐच्छिक)
-                </label>
-                <input
-                  id="enquiry-email"
-                  type="email"
-                  placeholder="your.email@example.com"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl border border-turmeric-400/60 bg-cream-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-saffron-500 text-base sm:text-sm text-brown-900"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="enquiry-type" className="block text-xs font-bold uppercase tracking-wider text-brown-800 mb-1.5 font-sans">
-                  Enquiry Type / चौकशीचा प्रकार *
-                </label>
-                <select
-                  id="enquiry-type"
-                  value={formData.enquiryType}
-                  onChange={(e) => setFormData({ ...formData, enquiryType: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl border border-turmeric-400/60 bg-cream-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-saffron-500 text-base sm:text-sm text-brown-900 font-sans"
-                >
-                  <option value="General Enquiry">General Enquiry (सर्वसाधारण चौकशी)</option>
-                  <option value="Bulk Order">Bulk Order (ऑफिस / कार्यक्रम)</option>
-                  <option value="Catering Enquiry">Catering Enquiry (केटरिंग विचारपूस)</option>
-                  <option value="Other">Other Query (इतर चौकशी)</option>
-                </select>
-              </div>
-            </div>
-
-            {/* Preferred Date */}
-            <div>
-              <label htmlFor="enquiry-date" className="block text-xs font-bold uppercase tracking-wider text-brown-800 mb-1.5 font-sans">
-                Preferred Date / नियोजित तारीख (If for bulk gathering / कार्यक्रमासाठी)
-              </label>
+        <form
+          ref={form}
+          className={styles.enquiryForm}
+          onSubmit={(event) => {
+            event.preventDefault();
+            handoff("whatsapp");
+          }}
+        >
+          <p className={styles.formInstruction}>
+            Prepare your enquiry below. Choose WhatsApp or email, then send the
+            message in that app. Fields marked * are required.
+          </p>
+          <div className={styles.formGrid}>
+            <label htmlFor="enquiry-name">
+              Full name / पूर्ण नाव *
               <input
-                id="enquiry-date"
-                type="date"
-                value={formData.date}
-                onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                className="w-full px-4 py-3 rounded-xl border border-turmeric-400/60 bg-cream-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-saffron-500 text-base sm:text-sm text-brown-900 font-sans"
+                id="enquiry-name"
+                name="name"
+                required
+                autoComplete="name"
+                maxLength={120}
+                value={data.name}
+                onChange={(e) => update("name", e.target.value)}
+                aria-describedby={error ? "enquiry-error" : undefined}
               />
-            </div>
-
-            {/* Message Area */}
-            <div>
-              <label htmlFor="enquiry-message" className="block text-xs font-bold uppercase tracking-wider text-brown-800 mb-1.5 font-sans">
-                Your Message / Requirement / संदेश किंवा आवश्यकता
-              </label>
-              <textarea
-                id="enquiry-message"
-                rows={3}
-                placeholder="Let us know dish preferences, number of guests, or any question... (डिशेस, लोकांची संख्या किंवा इतर माहिती लिहा...)"
-                value={formData.message}
-                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                className="w-full px-4 py-3 rounded-xl border border-turmeric-400/60 bg-cream-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-saffron-500 text-base sm:text-sm text-brown-900"
+            </label>
+            <label htmlFor="enquiry-phone">
+              Phone / मोबाईल नंबर *
+              <input
+                id="enquiry-phone"
+                name="phone"
+                type="tel"
+                required
+                autoComplete="tel"
+                maxLength={30}
+                value={data.phone}
+                onChange={(e) => update("phone", e.target.value)}
+                aria-describedby={error ? "enquiry-error" : undefined}
               />
-            </div>
-
-            {/* Clear Disclaimer as per instructions */}
-            <div className="flex items-start gap-2.5 p-3.5 rounded-xl bg-cream-200/70 border border-turmeric-400/50 text-xs text-brown-700">
-              <AlertCircle className="w-4 h-4 text-saffron-600 flex-shrink-0 mt-0.5" />
-              <span>
-                <strong>Please note (कृपया नोंद घ्या):</strong> Submitting an enquiry does not automatically confirm an order. Our team will verify kitchen capacity and connect back with you promptly. (फॉर्म पाठवल्यानंतर आमची टीम त्वरित खात्री करून आपल्याशी संपर्क साधेल.)
-              </span>
-            </div>
-
-            {/* Two Action Buttons: WhatsApp (Instant) & Email */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-              <button
-                type="button"
-                onClick={(e) => handleSubmit("whatsapp", e)}
-                disabled={!formData.name || !formData.phone}
-                className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-full bg-brandGreen-700 hover:bg-brandGreen-800 text-white font-bold text-sm shadow-md disabled:opacity-50 disabled:pointer-events-none active:scale-95 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brandGreen-500"
+            </label>
+            <label htmlFor="enquiry-email">
+              Email / ईमेल (optional)
+              <input
+                id="enquiry-email"
+                name="email"
+                type="email"
+                autoComplete="email"
+                maxLength={254}
+                value={data.email}
+                onChange={(e) => update("email", e.target.value)}
+              />
+            </label>
+            <label htmlFor="enquiry-type">
+              Enquiry / चौकशीचा प्रकार
+              <select
+                id="enquiry-type"
+                name="type"
+                value={data.enquiryType}
+                onChange={(e) => update("enquiryType", e.target.value)}
               >
-                <MessageCircle className="w-4 h-4" />
-                <span>Send via WhatsApp / व्हॉट्सॲप</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={(e) => handleSubmit("email", e)}
-                disabled={!formData.name || !formData.phone}
-                className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-full bg-brown-900 hover:bg-brown-800 text-cream-100 font-bold text-sm shadow-md disabled:opacity-50 disabled:pointer-events-none active:scale-95 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-turmeric-gold"
-              >
-                <Send className="w-4 h-4 text-turmeric-400" />
-                <span>Send via Email / ईमेल</span>
-              </button>
-            </div>
-
-          </form>
-        </div>
-
+                <option>General Enquiry</option>
+                <option>Bulk Order</option>
+                <option>Catering Enquiry</option>
+                <option>Other</option>
+              </select>
+            </label>
+          </div>
+          <label htmlFor="enquiry-date">
+            Preferred date / नियोजित तारीख (optional)
+            <input
+              id="enquiry-date"
+              name="date"
+              type="date"
+              value={data.date}
+              onChange={(e) => update("date", e.target.value)}
+            />
+          </label>
+          <label htmlFor="enquiry-message">
+            Your message / संदेश
+            <textarea
+              id="enquiry-message"
+              name="message"
+              rows={4}
+              maxLength={3000}
+              placeholder="Dish preferences, number of guests, or your question…"
+              value={data.message}
+              onChange={(e) => update("message", e.target.value)}
+            />
+          </label>
+          {error && (
+            <p id="enquiry-error" role="alert" className={styles.formError}>
+              {error}
+            </p>
+          )}
+          {feedback && (
+            <p role="status" className={styles.formFeedback}>
+              {feedback}
+            </p>
+          )}
+          <div className={styles.formActions}>
+            <button type="submit" className="button-primary">
+              <MessageCircle size={17} />
+              Continue to WhatsApp
+            </button>
+            <button
+              type="button"
+              className="button-secondary"
+              onClick={() => handoff("email")}
+            >
+              <Mail size={17} />
+              Prepare email
+            </button>
+          </div>
+          <p className={styles.formDisclaimer}>
+            An enquiry does not confirm an order. Please wait for our team to
+            confirm availability and arrangements. / ऑर्डरची खात्री आमच्या
+            टीमकडून करून घ्या.
+          </p>
+        </form>
       </div>
     </section>
   );
